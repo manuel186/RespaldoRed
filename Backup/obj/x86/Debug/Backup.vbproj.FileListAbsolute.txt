@@ -1,0 +1,26 @@
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\bin\Debug\Backup.exe
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\bin\Debug\Backup.pdb
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\bin\Debug\Backup.xml
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\obj\x86\Debug\Interop.Scripting.dll
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.vbproj.ResolveComReference.cache
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.Resources.resources
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.exe
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.xml
+c:\users\administrador\documents\visual studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.pdb
+C:\Users\Administrador\documents\visual studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.FRM_Principal.resources
+C:\Users\Administrador\Documents\Visual Studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.vbproj.GenerateResource.Cache
+C:\Users\Administrador\Documents\Visual Studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.FRM_USUARIOS.resources
+C:\Users\Administrador\Documents\Visual Studio 2010\Projects\Backup\Backup\obj\x86\Debug\Backup.vbprojResolveAssemblyReference.cache
+C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\Backup.exe
+C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\Backup.pdb
+C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\Backup.xml
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.vbprojResolveAssemblyReference.cache
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Interop.Scripting.dll
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.vbproj.ResolveComReference.cache
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.FRM_Principal.resources
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.FRM_Tarea.resources
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.Resources.resources
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.vbproj.GenerateResource.Cache
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.exe
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.xml
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.pdb

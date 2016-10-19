@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<backups>
+  <id>1</id>
+  <name>Lorena Ulloa</name>
+  <hostname>CEHOW764PC</hostname>
+  <ip>10.56.21.29</ip>
+  <typeresp>Respaldo Incremental</typeresp>
+  <mac>sdfdfdf</mac>
+  <user>CEHO</user>
+  <type>PC</type>
+  <source>
+    <id>1</id>
+    <route>\\10.56.21.29\c$\Users\CEHO\Desktop</route>
+  </source>
+  <source>
+    <id>2</id>
+    <route>\\10.56.21.29\c$\Users\CEHO\Documents</route>
+  </source>
+  <destination>
+    <route>C:\Respaldos\PC</route>
+  </destination>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mpg</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mp3</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.ogg</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.wma</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.avi</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mpge</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mpe</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.divx</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mkv</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.vob</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.wmv</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mov</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.m4a</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.rm</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.flv</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.wav</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.jpg</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.bmp</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.gif</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.png</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.jpeg</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.tif</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.zip</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.rar</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.iso</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.3g</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.3gp</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mpga</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.tmp</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.cab</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.exe</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.msi</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.dll</valor>
+</filters>
+  <backupinfo>
+    <id>01</id>
+    <type>Incremental</type>
+    <fecha>01-02-2015</fecha>
+    <size>100</size>
+  </backupinfo>
+ 
+</backups>

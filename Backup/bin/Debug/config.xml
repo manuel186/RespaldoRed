@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <path>Backups</path>
+    <domain>MANUBOBA</domain>
+    <userdomain>Administrador</userdomain>
+    <passworddomain>lrJkm5lkGagGO+5DkpbbNw==</passworddomain>
+    <groups>
+       <name>Administración</name>
+    </groups>
+    <groups>
+       <name>Ingresar Grupo</name>
+    </groups>
+    <teamtypes>
+       <name>NT</name>
+    </teamtypes>
+        <teamtypes>
+       <name>PC</name>
+    </teamtypes>
+    <teamtypes>
+       <name>SV</name>
+    </teamtypes>
+    <teamtypes>
+       <name>Ingrese Otro Tipo de Equipo</name>
+    </teamtypes>
+ </config>

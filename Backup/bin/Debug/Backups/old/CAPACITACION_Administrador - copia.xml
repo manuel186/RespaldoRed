@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<backups>
+  <id>2</id>
+  <name>Nombre de usuario del sistema</name>
+  <hostname>CAPACITACION</hostname>
+  <ip>192.168.150.132</ip>
+  <typeresp>Respaldo Incremental</typeresp>
+  <mac>sdfdfdf</mac>
+  <user>Administrador</user>
+  <type>PC</type>
+  <source>
+    <id>1</id>
+    <route>C:\Users\CAPACITACION\Documents</route>
+  </source>
+  <source>
+    <id>2</id>
+    <route>C:\Users\CAPACITACION\Desktop</route>
+  </source>
+  <destination>
+    <route>C:\Respaldos\PC</route>
+  </destination>
+ <filters>
+ <type>Mascara</type>
+ <valor>*.mpg</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mp3</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.ogg</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.wma</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.avi</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mpge</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mpe</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.divx</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mkv</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.vob</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.wmv</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mov</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.m4a</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.rm</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.flv</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.wav</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.jpg</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.bmp</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.gif</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.png</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.jpeg</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.tif</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.zip</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.rar</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.iso</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.3g</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.3gp</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.mpga</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.tmp</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.cab</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.exe</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.msi</valor>
+</filters>
+<filters>
+ <type>Mascara</type>
+ <valor>*.dll</valor>
+</filters>
+  <backupinfo>
+    <id>000001</id>
+    <type>Incremental</type>
+    <fecha>03-07-2015</fecha>
+    <size>100</size>
+  </backupinfo>
+  <backupinfo>
+    <id>000002</id>
+    <type>Incremental</type>
+    <fecha>04-07-2015</fecha>
+    <size>200</size>
+  </backupinfo>
+  <backupinfo>
+    <id>000003</id>
+    <type>Incremental</type>
+    <fecha>07-07-2015</fecha>
+    <size>300</size>
+  </backupinfo>
+  <backupinfo>
+    <id>000004</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 11:21:58</fecha>
+    <size>
+    </size>
+  </backupinfo>
+  <backupinfo>
+    <id>000005</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 11:25:38</fecha>
+    <size>
+    </size>
+  </backupinfo>
+  <backupinfo>
+    <id>000006</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 11:28:11</fecha>
+    <size>
+    </size>
+  </backupinfo>
+  <backupinfo>
+    <id>000007</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 11:33:24</fecha>
+    <size>0</size>
+  </backupinfo>
+  <backupinfo>
+    <id>000008</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 11:41:58</fecha>
+    <size>0</size>
+  </backupinfo>
+  <backupinfo>
+    <id>000009</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 11:45:03</fecha>
+    <size>0</size>
+  </backupinfo>
+  <backupinfo>
+    <id>000010</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 11:48:03</fecha>
+    <size>107</size>
+  </backupinfo>
+  <backupinfo>
+    <id>11</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 14:08:46</fecha>
+    <size>0 bytes </size>
+  </backupinfo>
+  <backupinfo>
+    <id>12</id>
+    <type>Incremental</type>
+    <fecha>03-11-2015 14:12:16</fecha>
+    <size>130,935490608215 MB </size>
+  </backupinfo>
+  <backupinfo>
+    <id>13</id>
+    <type>Incremental</type>
+    <fecha>04-11-2015 17:23:32</fecha>
+    <size>518,731667518616 MB </size>
+  </backupinfo>
+</backups>

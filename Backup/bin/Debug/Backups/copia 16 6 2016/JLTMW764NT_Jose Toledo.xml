@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<backups>
+  <id>1</id>
+  <name>Jose Toledo</name>e
+  <hostname>JLTMW764NT</hostname>
+  <ip>192.168.100.20</ip>
+  <mac>sdfdfdf</mac>
+  <user>Jose Toledo</user>
+  <type>NT</type>
+  <domain>JLTMW764NT</domain>
+  <username>Administrador</username>
+  <password>AZXPB3101</password>
+  <source>
+  	<id>1</id>
+	<route>\\192.168.100.20\c$\Users\Jose Toledo\Documents</route>
+  </source>
+  <source>
+     <id>2</id>
+	 <route>\\192.168.100.20\c$\Users\Jose Toledo\Desktop</route>
+  </source>
+  <destination>
+     <route>C:\Respaldos_EMPRESA\Jose Toledo</route>
+  </destination>
+  
+  <filters>
+     <type>Mascara</type>
+	 <valor>*.webm</valor>
+  </filters>
+  <filters>
+  	<type>Mascara</type>
+	<valor>*.mp4</valor>
+	</filters>
+	<filters><type>Mascara</type><valor>*.mpg</valor></filters>
+	<filters><type>Mascara</type><valor>*.mp3</valor></filters>
+	<filters><type>Mascara</type><valor>*.ogg</valor></filters>
+	<filters><type>Mascara</type><valor>*.wma</valor></filters>
+	<filters><type>Mascara</type><valor>*.avi</valor></filters><filters><type>Mascara</type><valor>*.mpge</valor>
+	</filters><filters><type>Mascara</type><valor>*.mpe</valor></filters>
+	<filters><type>Mascara</type><valor>*.divx</valor></filters><filters><type>Mascara</type><valor>*.mkv</valor></filters><filters><type>Mascara</type><valor>*.vob</valor></filters>
+	<filters><type>Mascara</type><valor>*.wmv</valor></filters><filters><type>Mascara</type><valor>*.mov</valor></filters><filters><type>Mascara</type><valor>*.m4a</valor></filters>
+	<filters><type>Mascara</type><valor>*.rm</valor></filters><filters><type>Mascara</type><valor>*.flv</valor></filters><filters><type>Mascara</type><valor>*.wav</valor>
+	</filters><filters><type>Mascara</type><valor>*.jpg</valor></filters><filters><type>Mascara</type><valor>*.bmp</valor></filters><filters><type>Mascara</type><valor>*.gif</valor></filters><filters><type>Mascara</type><valor>*.png</valor></filters><filters><type>Mascara</type><valor>*.jpeg</valor></filters><filters><type>Mascara</type><valor>*.tif</valor></filters><filters><type>Mascara</type><valor>*.zip</valor></filters><filters><type>Mascara</type><valor>*.rar</valor></filters><filters><type>Mascara</type><valor>*.iso</valor></filters><filters><type>Mascara</type><valor>*.3g</valor></filters><filters><type>Mascara</type><valor>*.3gp</valor></filters><filters><type>Mascara</type><valor>*.mpga</valor></filters><filters><type>Mascara</type><valor>*.tmp</valor></filters><filters><type>Mascara</type><valor>*.cab</valor></filters><filters><type>Mascara</type><valor>*.exe</valor></filters><filters><type>Mascara</type><valor>*.msi</valor></filters><filters><type>Mascara</type><valor>*.dll</valor></filters><filters><type>Mascara</type><valor>*.js</valor></filters><filters><type>Mascara</type><valor>*.html</valor></filters>
+  <filters>
+     <type>Carpeta</type>
+	 <valor>\\192.168.100.20\c$\Users\Jose Toledo\Documents\Nueva carpeta</valor>
+  </filters>	
+<backupinfo><id>1</id><type>Incremental</type><fecha>03-07-2015</fecha><Size>100</Size></backupinfo><backupinfo><id>2</id><type>Incremental</type><fecha>26/03/16 16:14:20</fecha><size>2,91 MB </size></backupinfo><backupinfo><id>3</id><type>Incremental</type><fecha>14/06/16 14:38:39</fecha><size>4,89 MB </size></backupinfo></backups>

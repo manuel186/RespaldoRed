@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<backups>
+  <id>3</id>
+  <status>Activa</status>
+  <name>Felix Mora Loyala</name>
+  <hostname>DESKTOP-5VK0KGF</hostname>
+  <ip>192.168.100.6</ip>
+  <mac>sdfdfdf</mac>
+  <user>Felix Mora</user>
+  <type>NT</type>
+  <group>Administración</group>
+  <usepasdomain>0</usepasdomain>
+  <domain>DESKTOP-5VK0KGF</domain>
+  <username>Administrador</username>
+  <password>Oev+HBMAab3a+fbmsciDdQ==</password>
+    <source>
+    <id>1</id>
+    <route>\\192.168.100.6\c$\Users\Felix Mora\Documents</route>
+  </source>
+  <source>
+    <id>2</id>
+    <route>\\192.168.100.6\c$\Users\Felix Mora\Desktop</route>
+  </source>
+  <destination>
+    <route>C:\Respaldos_EMPRESA\Felix Mora</route>
+  </destination>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.webm</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.mp4</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.mpg</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.mp3</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.ogg</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.wma</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.avi</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.mpge</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.mpe</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.divx</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.mkv</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.vob</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.wmv</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.mov</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.m4a</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.rm</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.flv</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.wav</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.jpg</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.bmp</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.gif</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.png</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.jpeg</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.tif</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.zip</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.rar</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.iso</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.3g</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.3gp</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.mpga</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.tmp</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.cab</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.exe</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.msi</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.dll</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.js</valor>
+  </filtersmasc>
+  <filtersmasc>
+    <type>Mascara</type>
+    <valor>*.html</valor>
+  </filtersmasc>
+  <filtersdir>
+    <type>Carpeta</type>
+    <valor>\\192.168.100.6\c$\Users\Felix Mora\Documents\SOFTWARE FASCAM Final</valor>
+  </filtersdir>
+  <filtersdir>
+    <type>Carpeta</type>
+    <valor>\\192.168.100.6\c$\Users\Felix Mora\Desktop\Don Felix\Respaldo don Felix\Fotos</valor>
+  </filtersdir>
+  <backupinfo>
+    <id>1</id>
+    <type>Incremental</type>
+    <fecha>03-07-2015</fecha>
+    <Size>0</Size>
+  </backupinfo>
+  <backupinfo>
+    <id>2</id>
+    <type>Incremental</type>
+    <fecha>28/05/16 11:09:36</fecha>
+    <size>211,95 MB </size>
+  </backupinfo>
+  <backupinfo>
+    <id>3</id>
+    <type>Incremental</type>
+    <fecha>14/06/16 11:04:13</fecha>
+    <size>129,70 MB </size>
+  </backupinfo>
+  <backupinfo>
+    <id>4</id>
+    <type>Incremental</type>
+    <fecha>22/06/16 17:53:15</fecha>
+    <size>697,57 MB </size>
+  </backupinfo>
+  <backupinfo>
+    <id>5</id>
+    <type>Incremental</type>
+    <fecha>24/06/16 18:06:03</fecha>
+    <size>778,29 MB </size>
+  </backupinfo>
+  <backupinfo>
+    <id>6</id>
+    <type>Incremental</type>
+    <fecha>28/06/16 15:59:05</fecha>
+    <size>370,35 MB </size>
+  </backupinfo>
+  <backupinfo>
+    <id>7</id>
+    <type>Incremental</type>
+    <fecha>01/07/16 13:56:02</fecha>
+    <size>511,82 KB </size>
+  </backupinfo>
+  <backupinfo>
+    <id>8</id>
+    <type>Incremental</type>
+    <fecha>07/07/16 18:00:09</fecha>
+    <size>1,42 MB </size>
+  </backupinfo>
+  <backupinfo>
+    <id>9</id>
+    <type>Incremental</type>
+    <fecha>11/07/16 14:40:37</fecha>
+    <size>1,58 MB </size>
+  </backupinfo>
+</backups>

@@ -1,0 +1,24 @@
+Declare @Strg as VarChar(500)
+Declare @NombreArchivo as VarChar(50)
+Set @NombreArchivo='caja.xls'
+
+Set @Strg='SELECT * INTO orders FROM OPENDATASOURCE(''Microsoft.Jet.OLEDB.4.0'',''Data Source=c:\Uploads\'+@NombreArchivo+';Extended Properties=Excel 8.0'')...[Hoja1$]'
+
+--print @Strg
+
+Execute (@Strg)
+
+Select * From orders
+
+Drop Table orders
+
+
+
+
+ejecutar 
+sp_configure 'show advanced options',1
+reconfigure with override
+go
+sp_configure 'Ad Hoc Distributed Queries',1
+reconfigure with override
+go
