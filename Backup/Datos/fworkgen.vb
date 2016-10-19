@@ -345,6 +345,78 @@ Public Class fworkgen
 
     End Function
 
+    Public Function elimina_workdet(ID) As Boolean
+
+        Try
+
+            conectado()
+            ''    Dim fecha = System.DateTime.Now.ToString()
+            Dim consulta As String
+            consulta = "delete  from workdet where  id_workdet =" & ID
+
+            Dim da As New SQLiteDataAdapter
+            Dim command As New SQLiteCommand(consulta, cnn)
+            command.CommandType = CommandType.Text
+
+            ''  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+            Return True
+            '' Else
+            ''  Return False
+            '' End If
+
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+
+
+
+    End Function
+
+
+    Public Function elimina_workgen(ID) As Boolean
+
+        Try
+
+            conectado()
+            ''    Dim fecha = System.DateTime.Now.ToString()
+            Dim consulta As String
+            consulta = "delete  from Workgen where id_workgen =" & ID
+
+            Dim da As New SQLiteDataAdapter
+            Dim command As New SQLiteCommand(consulta, cnn)
+            command.CommandType = CommandType.Text
+
+            ''  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+            Return True
+            '' Else
+            ''  Return False
+            '' End If
+
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+
+
+
+    End Function
 
     Public Function ver_correl_workdet(ID As Integer) As Integer
         Try

@@ -86,7 +86,7 @@ Partial Class FRM_Principal
         '
         Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.ToolStripMenuItem2, Me.EditarTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
         Me.Menu_Estado.Name = "Menu_Estado"
-        Me.Menu_Estado.Size = New System.Drawing.Size(184, 136)
+        Me.Menu_Estado.Size = New System.Drawing.Size(184, 158)
         '
         'EjecutarTareaAhoraToolStripMenuItem
         '
