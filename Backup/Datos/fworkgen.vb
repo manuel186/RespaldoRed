@@ -7,6 +7,56 @@ Public Class fworkgen
 
     Dim cmd As New SqlCommand
 
+
+    Public Function insertar_workgen(ByVal dts As vworkgen) As Boolean
+        Try
+            conectado()
+            Dim consulta As String
+            Dim ID
+
+            consulta = "insert into Workgen (id_workgen,status_workgen,typework_workgen,name_workgen,user_workgen,type_workgen, "
+            consulta = consulta & " groups_workgen,hostname_workgen,ip_workgen,mac_workgen,useownaccount_workgen,domain_workgen, "
+            consulta = consulta & " username_workgen,password_workgen,splitbackup_workgen,usevsc_workgen)"
+            consulta = consulta & " values(" & dts.gid_workgen & "," & dts.gstatus_workgen & ",'" & dts.gtypework_workgen & "','" & dts.gname_workgen & "',"
+            consulta = consulta & "'" & dts.guser_workgen & "','" & dts.gtype_workgen & "'," & dts.ggroups_workgen & ",'" & dts.ghostname_workgen & "',"
+            consulta = consulta & "'" & dts.gip_workgen & "','" & dts.gmac_workgen & "'," & dts.guseownaccount_workgen & ",'" & dts.gdomain_workgen & "',"
+            consulta = consulta & "'" & dts.gusername_workgen & "','" & dts.gpassword_workgen & "'," & dts.gsplitbackup_workgen & "," & dts.gusevsc_workgen & ") "
+        
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+
+
+            '  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            Return True
+
+
+            If cmd.ExecuteNonQuery Then
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        Finally
+            desconectado()
+        End Try
+    End Function
+
+
+
+
+
+
+
+
     Public Function carga_grupo() As DataTable
         Try
             conectado()
@@ -53,6 +103,50 @@ Public Class fworkgen
             da.Fill(dt)
 
             Return dt
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+    End Function
+
+    Public Function mostrar_workgen_by_id(ID As Integer) As DataTable
+        Try
+            conectado()
+            Dim consulta As String
+            consulta = "select case when status_workgen=1 then 'Activa' else 'Inactiva' end as Estado, "
+            consulta = consulta & "id_workgen as ID,hostname_workgen as Equipo,user_workgen as 'User PC', "
+            consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,ip_workgen as IP, descri_type as Tipo, "
+            consulta = consulta & "'Detectando' as 'Estado en Red',' ' as 'Tamaño',  "
+            consulta = consulta & "ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet "
+            consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),99) as 'Respaldo' "
+            ''  consulta = consulta & "(select size_workdet from workdet order by id_workdet desc  LIMIT 1 )  as 'Ul. Respaldo'"
+            consulta = consulta & " from workgen"
+
+            consulta = consulta & " left join groups on groups_workgen=id_groups "
+            consulta = consulta & " left join type on type_workgen = id_type "
+
+            consulta = consulta & " where id_workgen= " & ID
+
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+
+
+            '  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            Return dt
+
+            '   Else
+            ''    Return Nothing
+            '  End If
 
 
         Catch ex As Exception
@@ -453,7 +547,40 @@ Public Class fworkgen
 
     End Function
 
+    Public Function ver_correl_workgen() As Integer
+        Try
+            Dim correl As Integer
 
+            conectado()
+            Dim consulta As String
+            consulta = "select ifnull(max(id_workgen),0)+1 from workgen "
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+            da.SelectCommand = command
+
+            Dim dt As New DataTable
+            da.Fill(dt)
+
+
+            If (dt.Rows.Count > 0) Then
+                correl = dt.Rows(0).Item(0)
+                Return correl
+
+
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+
+
+
+    End Function
     Public Function carga_sources(id) As DataTable
         Try
             conectado()
@@ -761,64 +888,6 @@ Public Class fworkgen
             '  cmd.Parameters.AddWithValue("@nombreret_movgen", dts.gnombreret_movgen)
             '  cmd.Parameters.AddWithValue("@comentario_movgen", dts.gcomentario_movgen)
 
-            If cmd.ExecuteNonQuery Then
-                Return True
-            Else
-                Return False
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            Return False
-        Finally
-            desconectado()
-        End Try
-    End Function
-
-
-    Public Function insertar(ByVal dts As vworkgen) As Boolean
-        Dim NUME As Integer
-
-        NUME = 0
-        Try
-            conectado()
-            cmd = New SqlCommand("NUMERO_MOVGEN")
-            cmd.CommandType = CommandType.StoredProcedure
-            ''  cmd.Connection = cnn
-
-            '    cmd.Parameters.AddWithValue("@EMPRESA", dts.gempresa_movgen)
-            '    cmd.Parameters.AddWithValue("@ANO", dts.gano_movgen)
-
-            cmd.Parameters.Add("@NUME", SqlDbType.Int)
-            cmd.Parameters("@NUME").Direction = ParameterDirection.Output
-
-            If cmd.ExecuteNonQuery Then
-                NUME = cmd.Parameters("@NUME").Value
-                ''      dts.gid_movgen = NUME
-            End If
-
-            cmd = New SqlCommand("inserta_movgen")
-            cmd.CommandType = CommandType.StoredProcedure
-            '' cmd.Connection = cnn
-
-            '   cmd.Parameters.AddWithValue("@empresa_movgen", dts.gempresa_movgen)
-            '   cmd.Parameters.AddWithValue("@ano_movgen", dts.gano_movgen)
-            ''  cmd.Parameters.AddWithValue("@mes_movgen", dts.gmes_movgen)
-            '''  cmd.Parameters.AddWithValue("@id_movgen", NUME) '
-            ''''  cmd.Parameters.AddWithValue("@tipoope_movgen", dts.gtipoope_movgen)
-            '  cmd.Parameters.AddWithValue("@tipodoc_movgen", dts.gtipodoc_movgen)
-            '  cmd.Parameters.AddWithValue("@conoc_movgen", dts.gconoc_movgen)
-            '' cmd.Parameters.AddWithValue("@numdoc_movgen", dts.gnumdoc_movgen)
-            ' cmd.Parameters.AddWithValue("@bodega_movgen", dts.gbodega_movgen)
-            ' cmd.Parameters.AddWithValue("@vende_movgen", dts.gvende_movgen)
-            'cmd.Parameters.AddWithValue("@cliente_movgen", dts.gcliente_movgen)
-            '  'cmd.Parameters.AddWithValue("@forpag_movgen", dts.gforpag_movgen)
-            '  cmd.Parameters.AddWithValue("@rutret_movgen", dts.grutret_movgen)
-            '  cmd.Parameters.AddWithValue("@nombreret_movgen", dts.gnombreret_movgen)
-            '' cmd.Parameters.AddWithValue("@comentario_movgen", dts.gcomentario_movgen)
-            ' cmd.Parameters.AddWithValue("@estadocom_movgen", dts.gestadocom_movgen)
-            ' cmd.Parameters.AddWithValue("@usuario_movgen", dts.gusuario_movgen)
-            '
             If cmd.ExecuteNonQuery Then
                 Return True
             Else

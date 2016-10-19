@@ -1,6 +1,6 @@
 ﻿Public Class vworkgen
     Dim id_workgen, groups_workgen, type_workgen As Integer
-    Dim status_workgen, useownaccount_workgen, splitbackup_workgen, usevsc_workgen As Boolean
+    Dim status_workgen, useownaccount_workgen, splitbackup_workgen, usevsc_workgen As Integer
 
     Dim typework_workgen, name_workgen, user_workgen, hostname_workgen, ip_workgen As String
     Dim mac_workgen, domain_workgen, username_workgen, password_workgen, fchbackup_workgen As String
@@ -184,11 +184,11 @@
 
     End Sub
 
-    Public Sub New(ByVal id_workgen As Integer, ByVal status_workgen As Boolean, ByVal typework_workgen As String, ByVal name_workgen As String,
+    Public Sub New(ByVal id_workgen As Integer, ByVal status_workgen As Integer, ByVal typework_workgen As String, ByVal name_workgen As String,
                    ByVal user_workgen As String, ByVal type_workgen As Integer, ByVal groups_workgen As Integer,
                    ByVal hostname_workgen As String, ByVal ip_workgen As String, ByVal mac_workgen As String,
-                   ByVal useownaccount_workgen As Boolean, ByVal domain_workgen As String, ByVal username_workgen As String,
-                   ByVal password_workgen As String, ByVal splitbackup_workgen As Boolean, ByVal usevsc_workgen As Boolean,
+                   ByVal useownaccount_workgen As Integer, ByVal domain_workgen As String, ByVal username_workgen As String,
+                   ByVal password_workgen As String, ByVal splitbackup_workgen As Integer, ByVal usevsc_workgen As Integer,
                    ByVal fchbackup_workgen As String)
         gid_workgen = id_workgen
         gstatus_workgen = status_workgen

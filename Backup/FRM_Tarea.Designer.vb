@@ -25,6 +25,7 @@ Partial Class FRM_Tarea
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage_General = New System.Windows.Forms.TabPage()
         Me.PANEL_userpasdomain = New System.Windows.Forms.Panel()
+        Me.Button13 = New System.Windows.Forms.Button()
         Me.txt2_password_workgen = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.txt_password_workgen = New System.Windows.Forms.TextBox()
@@ -34,8 +35,8 @@ Partial Class FRM_Tarea
         Me.txt_username_workgen = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.CB_userpasdomain = New System.Windows.Forms.CheckBox()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CB_usevsc_workgen = New System.Windows.Forms.CheckBox()
+        Me.CB_splitbackup_workgen = New System.Windows.Forms.CheckBox()
         Me.CB_status_workgen = New System.Windows.Forms.CheckBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GB_tipo_respaldo = New System.Windows.Forms.GroupBox()
@@ -81,8 +82,8 @@ Partial Class FRM_Tarea
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button9 = New System.Windows.Forms.Button()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
-        Me.BT_PLAY = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
@@ -107,8 +108,8 @@ Partial Class FRM_Tarea
         '
         Me.TabPage_General.Controls.Add(Me.PANEL_userpasdomain)
         Me.TabPage_General.Controls.Add(Me.CB_userpasdomain)
-        Me.TabPage_General.Controls.Add(Me.CheckBox3)
-        Me.TabPage_General.Controls.Add(Me.CheckBox2)
+        Me.TabPage_General.Controls.Add(Me.CB_usevsc_workgen)
+        Me.TabPage_General.Controls.Add(Me.CB_splitbackup_workgen)
         Me.TabPage_General.Controls.Add(Me.CB_status_workgen)
         Me.TabPage_General.Controls.Add(Me.Label9)
         Me.TabPage_General.Controls.Add(Me.GB_tipo_respaldo)
@@ -138,6 +139,7 @@ Partial Class FRM_Tarea
         '
         'PANEL_userpasdomain
         '
+        Me.PANEL_userpasdomain.Controls.Add(Me.Button13)
         Me.PANEL_userpasdomain.Controls.Add(Me.txt2_password_workgen)
         Me.PANEL_userpasdomain.Controls.Add(Me.Label17)
         Me.PANEL_userpasdomain.Controls.Add(Me.txt_password_workgen)
@@ -148,12 +150,21 @@ Partial Class FRM_Tarea
         Me.PANEL_userpasdomain.Controls.Add(Me.Label14)
         Me.PANEL_userpasdomain.Location = New System.Drawing.Point(11, 223)
         Me.PANEL_userpasdomain.Name = "PANEL_userpasdomain"
-        Me.PANEL_userpasdomain.Size = New System.Drawing.Size(675, 75)
+        Me.PANEL_userpasdomain.Size = New System.Drawing.Size(700, 75)
         Me.PANEL_userpasdomain.TabIndex = 32
+        '
+        'Button13
+        '
+        Me.Button13.Location = New System.Drawing.Point(615, 14)
+        Me.Button13.Name = "Button13"
+        Me.Button13.Size = New System.Drawing.Size(75, 43)
+        Me.Button13.TabIndex = 40
+        Me.Button13.Text = "Probar Conexión"
+        Me.Button13.UseVisualStyleBackColor = True
         '
         'txt2_password_workgen
         '
-        Me.txt2_password_workgen.Location = New System.Drawing.Point(441, 41)
+        Me.txt2_password_workgen.Location = New System.Drawing.Point(412, 41)
         Me.txt2_password_workgen.Name = "txt2_password_workgen"
         Me.txt2_password_workgen.Size = New System.Drawing.Size(197, 20)
         Me.txt2_password_workgen.TabIndex = 39
@@ -161,7 +172,7 @@ Partial Class FRM_Tarea
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(329, 44)
+        Me.Label17.Location = New System.Drawing.Point(300, 44)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(111, 13)
         Me.Label17.TabIndex = 38
@@ -169,7 +180,7 @@ Partial Class FRM_Tarea
         '
         'txt_password_workgen
         '
-        Me.txt_password_workgen.Location = New System.Drawing.Point(122, 40)
+        Me.txt_password_workgen.Location = New System.Drawing.Point(93, 40)
         Me.txt_password_workgen.Name = "txt_password_workgen"
         Me.txt_password_workgen.Size = New System.Drawing.Size(197, 20)
         Me.txt_password_workgen.TabIndex = 37
@@ -177,7 +188,7 @@ Partial Class FRM_Tarea
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(37, 44)
+        Me.Label16.Location = New System.Drawing.Point(8, 44)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(61, 13)
         Me.Label16.TabIndex = 36
@@ -185,7 +196,7 @@ Partial Class FRM_Tarea
         '
         'txt_domain_workgen
         '
-        Me.txt_domain_workgen.Location = New System.Drawing.Point(441, 14)
+        Me.txt_domain_workgen.Location = New System.Drawing.Point(412, 14)
         Me.txt_domain_workgen.Name = "txt_domain_workgen"
         Me.txt_domain_workgen.Size = New System.Drawing.Size(197, 20)
         Me.txt_domain_workgen.TabIndex = 35
@@ -193,7 +204,7 @@ Partial Class FRM_Tarea
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(390, 17)
+        Me.Label15.Location = New System.Drawing.Point(361, 17)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(45, 13)
         Me.Label15.TabIndex = 34
@@ -201,7 +212,7 @@ Partial Class FRM_Tarea
         '
         'txt_username_workgen
         '
-        Me.txt_username_workgen.Location = New System.Drawing.Point(122, 14)
+        Me.txt_username_workgen.Location = New System.Drawing.Point(93, 14)
         Me.txt_username_workgen.Name = "txt_username_workgen"
         Me.txt_username_workgen.Size = New System.Drawing.Size(197, 20)
         Me.txt_username_workgen.TabIndex = 33
@@ -209,7 +220,7 @@ Partial Class FRM_Tarea
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(36, 17)
+        Me.Label14.Location = New System.Drawing.Point(7, 17)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(83, 13)
         Me.Label14.TabIndex = 32
@@ -218,6 +229,8 @@ Partial Class FRM_Tarea
         'CB_userpasdomain
         '
         Me.CB_userpasdomain.AutoSize = True
+        Me.CB_userpasdomain.Checked = True
+        Me.CB_userpasdomain.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CB_userpasdomain.Location = New System.Drawing.Point(12, 200)
         Me.CB_userpasdomain.Name = "CB_userpasdomain"
         Me.CB_userpasdomain.Size = New System.Drawing.Size(175, 17)
@@ -225,27 +238,27 @@ Partial Class FRM_Tarea
         Me.CB_userpasdomain.Text = "Ejecutar tarea bajo otra cuenta:"
         Me.CB_userpasdomain.UseVisualStyleBackColor = True
         '
-        'CheckBox3
+        'CB_usevsc_workgen
         '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Enabled = False
-        Me.CheckBox3.Location = New System.Drawing.Point(11, 162)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(361, 17)
-        Me.CheckBox3.TabIndex = 22
-        Me.CheckBox3.Text = "Sincronizar copia en red con Volumen Shadow Copy (Requiere Cliente)"
-        Me.CheckBox3.UseVisualStyleBackColor = True
+        Me.CB_usevsc_workgen.AutoSize = True
+        Me.CB_usevsc_workgen.Enabled = False
+        Me.CB_usevsc_workgen.Location = New System.Drawing.Point(11, 162)
+        Me.CB_usevsc_workgen.Name = "CB_usevsc_workgen"
+        Me.CB_usevsc_workgen.Size = New System.Drawing.Size(361, 17)
+        Me.CB_usevsc_workgen.TabIndex = 22
+        Me.CB_usevsc_workgen.Text = "Sincronizar copia en red con Volumen Shadow Copy (Requiere Cliente)"
+        Me.CB_usevsc_workgen.UseVisualStyleBackColor = True
         '
-        'CheckBox2
+        'CB_splitbackup_workgen
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Enabled = False
-        Me.CheckBox2.Location = New System.Drawing.Point(11, 139)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(219, 17)
-        Me.CheckBox2.TabIndex = 21
-        Me.CheckBox2.Text = "Crea Respaldo separado usando Fechas"
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.CB_splitbackup_workgen.AutoSize = True
+        Me.CB_splitbackup_workgen.Enabled = False
+        Me.CB_splitbackup_workgen.Location = New System.Drawing.Point(11, 139)
+        Me.CB_splitbackup_workgen.Name = "CB_splitbackup_workgen"
+        Me.CB_splitbackup_workgen.Size = New System.Drawing.Size(219, 17)
+        Me.CB_splitbackup_workgen.TabIndex = 21
+        Me.CB_splitbackup_workgen.Text = "Crea Respaldo separado usando Fechas"
+        Me.CB_splitbackup_workgen.UseVisualStyleBackColor = True
         '
         'CB_status_workgen
         '
@@ -282,7 +295,7 @@ Partial Class FRM_Tarea
         '
         Me.RB_diferencial.AutoSize = True
         Me.RB_diferencial.Enabled = False
-        Me.RB_diferencial.Location = New System.Drawing.Point(120, 24)
+        Me.RB_diferencial.Location = New System.Drawing.Point(134, 24)
         Me.RB_diferencial.Name = "RB_diferencial"
         Me.RB_diferencial.Size = New System.Drawing.Size(75, 17)
         Me.RB_diferencial.TabIndex = 2
@@ -293,7 +306,7 @@ Partial Class FRM_Tarea
         'RB_incremental
         '
         Me.RB_incremental.AutoSize = True
-        Me.RB_incremental.Location = New System.Drawing.Point(233, 24)
+        Me.RB_incremental.Location = New System.Drawing.Point(11, 24)
         Me.RB_incremental.Name = "RB_incremental"
         Me.RB_incremental.Size = New System.Drawing.Size(80, 17)
         Me.RB_incremental.TabIndex = 1
@@ -304,7 +317,8 @@ Partial Class FRM_Tarea
         'RB_completo
         '
         Me.RB_completo.AutoSize = True
-        Me.RB_completo.Location = New System.Drawing.Point(11, 24)
+        Me.RB_completo.Enabled = False
+        Me.RB_completo.Location = New System.Drawing.Point(247, 24)
         Me.RB_completo.Name = "RB_completo"
         Me.RB_completo.Size = New System.Drawing.Size(69, 17)
         Me.RB_completo.TabIndex = 0
@@ -686,33 +700,33 @@ Partial Class FRM_Tarea
         Me.Button9.Text = "Agregar"
         Me.Button9.UseVisualStyleBackColor = True
         '
-        'SimpleButton1
+        'BT_CANCELA
         '
-        Me.SimpleButton1.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
-        Me.SimpleButton1.Image = Global.Backup.My.Resources.Resources.cancelar
-        Me.SimpleButton1.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.SimpleButton1.Location = New System.Drawing.Point(654, 449)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(57, 58)
-        Me.SimpleButton1.TabIndex = 21
+        Me.BT_CANCELA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_CANCELA.Image = Global.Backup.My.Resources.Resources.cancelar
+        Me.BT_CANCELA.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_CANCELA.Location = New System.Drawing.Point(654, 449)
+        Me.BT_CANCELA.Name = "BT_CANCELA"
+        Me.BT_CANCELA.Size = New System.Drawing.Size(57, 58)
+        Me.BT_CANCELA.TabIndex = 21
         '
-        'BT_PLAY
+        'BT_ACEPTA
         '
-        Me.BT_PLAY.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
-        Me.BT_PLAY.Image = Global.Backup.My.Resources.Resources.aceptar
-        Me.BT_PLAY.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BT_PLAY.Location = New System.Drawing.Point(587, 448)
-        Me.BT_PLAY.Name = "BT_PLAY"
-        Me.BT_PLAY.Size = New System.Drawing.Size(61, 58)
-        Me.BT_PLAY.TabIndex = 20
+        Me.BT_ACEPTA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_ACEPTA.Image = Global.Backup.My.Resources.Resources.aceptar
+        Me.BT_ACEPTA.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_ACEPTA.Location = New System.Drawing.Point(587, 448)
+        Me.BT_ACEPTA.Name = "BT_ACEPTA"
+        Me.BT_ACEPTA.Size = New System.Drawing.Size(61, 58)
+        Me.BT_ACEPTA.TabIndex = 20
         '
         'FRM_Tarea
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(749, 509)
-        Me.Controls.Add(Me.SimpleButton1)
-        Me.Controls.Add(Me.BT_PLAY)
+        Me.Controls.Add(Me.BT_CANCELA)
+        Me.Controls.Add(Me.BT_ACEPTA)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "FRM_Tarea"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -734,8 +748,8 @@ Partial Class FRM_Tarea
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents TabPage_General As System.Windows.Forms.TabPage
     Friend WithEvents TabPage_Archivos As System.Windows.Forms.TabPage
-    Friend WithEvents BT_PLAY As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BT_ACEPTA As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BT_CANCELA As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents txt_ip_workgen As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents txt_hostname As System.Windows.Forms.TextBox
@@ -758,8 +772,8 @@ Partial Class FRM_Tarea
     Friend WithEvents CB_status_workgen As System.Windows.Forms.CheckBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents RB_diferencial As System.Windows.Forms.RadioButton
-    Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
+    Friend WithEvents CB_usevsc_workgen As System.Windows.Forms.CheckBox
+    Friend WithEvents CB_splitbackup_workgen As System.Windows.Forms.CheckBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
@@ -792,4 +806,5 @@ Partial Class FRM_Tarea
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txt_username_workgen As System.Windows.Forms.TextBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents Button13 As System.Windows.Forms.Button
 End Class

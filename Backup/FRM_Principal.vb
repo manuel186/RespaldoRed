@@ -1237,7 +1237,7 @@ Public Class FRM_Principal
         End If
 
 
-        DBG_TAREAS.Columns(0).Width = 70 ''estado
+        DBG_TAREAS.Columns(0).Width = 80 ''estado
         DBG_TAREAS.Columns(1).Width = 40  ''Id
         DBG_TAREAS.Columns(2).Width = 100 ''equipo
         DBG_TAREAS.Columns(3).Width = 100 ''user
@@ -1711,6 +1711,7 @@ Public Class FRM_Principal
 
 
     Private Sub EditarTareaToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditarTareaToolStripMenuItem.Click
+        ID_SELECCIONADO = 0
         FRM_Tarea.ShowDialog()
     End Sub
 
