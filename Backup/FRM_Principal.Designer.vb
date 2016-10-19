@@ -152,7 +152,7 @@ Partial Class FRM_Principal
         'ToolStripStatusLabel2
         '
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(121, 26)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(121, 15)
         Me.ToolStripStatusLabel2.Text = "ToolStripStatusLabel2"
         '
         'TBcontrol1
@@ -208,7 +208,7 @@ Partial Class FRM_Principal
         Me.TB_Config.Location = New System.Drawing.Point(4, 22)
         Me.TB_Config.Name = "TB_Config"
         Me.TB_Config.Padding = New System.Windows.Forms.Padding(3)
-        Me.TB_Config.Size = New System.Drawing.Size(996, 465)
+        Me.TB_Config.Size = New System.Drawing.Size(978, 465)
         Me.TB_Config.TabIndex = 1
         Me.TB_Config.Text = "Configuración"
         Me.TB_Config.UseVisualStyleBackColor = True

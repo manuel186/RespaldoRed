@@ -968,6 +968,8 @@ Public Class FRM_Principal
 
         If dt_workgen.Rows.Count <> 0 Then
             DBG_TAREAS.DataSource = dt_workgen
+
+            abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
         Else
             DBG_TAREAS.DataSource = Nothing
         End If
@@ -1038,6 +1040,24 @@ Public Class FRM_Principal
 
     End Sub
 
+    Private Sub abre_detalle_de_item_seleccionado(ID As Integer)
+        DBG_Det.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+
+        Dim dts As New vworkgen
+        Dim func As New fworkgen
+
+        dt_workdet = func.mostrar_workdet(ID)
+
+        If dt_workdet.Rows.Count <> 0 Then
+            DBG_Det.DataSource = dt_workdet
+
+            DBG_Det.Columns(1).Width = 150 ''equipo
+        Else
+
+            DBG_Det.DataSource = Nothing
+
+        End If
+    End Sub
 
     Private Function lee_xml_filter_mascara(ByVal ID_ACTUAL)
 
@@ -1540,41 +1560,6 @@ Public Class FRM_Principal
 
 
 
-    Private Sub DBG_Estado_Click(sender As Object, e As EventArgs) Handles DBG_TAREAS.Click
-
-        Try
-            DBG_Det.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-
-            Dim ID As Integer = DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString()
-
-            Dim dts As New vworkgen
-            Dim func As New fworkgen
-
-            dt_workdet = func.mostrar_workdet(ID)
-
-            If dt_workdet.Rows.Count <> 0 Then
-                DBG_Det.DataSource = dt_workdet
-
-                DBG_Det.Columns(1).Width = 150 ''equipo
-            Else
-
-                DBG_Det.DataSource = Nothing
-
-            End If
-            Try
-                ''   DBG_Det.Sort(DBG_Det.Columns(3), System.ComponentModel.ListSortDirection.Descending)
-                ''  DBG_Det.Rows(0).Selected = True
-                '' DBG_Det.CurrentCell = DBG_Det.Rows(0).Cells(0)
-            Catch ex As Exception
-
-            End Try
-
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
-
     Private Sub DBG_Estado_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DBG_TAREAS.CellDoubleClick
         ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
         FRM_Tarea.ShowDialog()
@@ -1913,5 +1898,9 @@ Public Class FRM_Principal
 
     End Function
 
+    Private Sub DBG_TAREAS_Click(sender As Object, e As EventArgs) Handles DBG_TAREAS.Click
+      abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+    
+    End Sub
 End Class
 
