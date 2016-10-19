@@ -49,14 +49,8 @@ Partial Class FRM_Principal
         Me.Label31 = New System.Windows.Forms.Label()
         Me.TXT_NOMBRE_DOMINIO = New System.Windows.Forms.TextBox()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button10 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenu_Abrir = New System.Windows.Forms.ToolStripMenuItem()
@@ -72,6 +66,7 @@ Partial Class FRM_Principal
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Timer_Actualiza_Tareas = New System.Windows.Forms.Timer(Me.components)
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -86,7 +81,7 @@ Partial Class FRM_Principal
         '
         Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.ToolStripMenuItem2, Me.EditarTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
         Me.Menu_Estado.Name = "Menu_Estado"
-        Me.Menu_Estado.Size = New System.Drawing.Size(184, 158)
+        Me.Menu_Estado.Size = New System.Drawing.Size(184, 136)
         '
         'EjecutarTareaAhoraToolStripMenuItem
         '
@@ -132,9 +127,9 @@ Partial Class FRM_Principal
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ProgressBar_archivo, Me.ProgressBar_total, Me.ToolStripStatusLabel2})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 692)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 699)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1370, 31)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1008, 31)
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -167,7 +162,7 @@ Partial Class FRM_Principal
         Me.TBcontrol1.Location = New System.Drawing.Point(23, 53)
         Me.TBcontrol1.Name = "TBcontrol1"
         Me.TBcontrol1.SelectedIndex = 0
-        Me.TBcontrol1.Size = New System.Drawing.Size(1004, 491)
+        Me.TBcontrol1.Size = New System.Drawing.Size(986, 491)
         Me.TBcontrol1.TabIndex = 16
         '
         'TB_principal
@@ -177,7 +172,7 @@ Partial Class FRM_Principal
         Me.TB_principal.Location = New System.Drawing.Point(4, 22)
         Me.TB_principal.Name = "TB_principal"
         Me.TB_principal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TB_principal.Size = New System.Drawing.Size(996, 465)
+        Me.TB_principal.Size = New System.Drawing.Size(978, 465)
         Me.TB_principal.TabIndex = 0
         Me.TB_principal.Text = "Principal"
         Me.TB_principal.UseVisualStyleBackColor = True
@@ -266,33 +261,6 @@ Partial Class FRM_Principal
         Me.Label21.TabIndex = 2
         Me.Label21.Text = "Dominio"
         '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(1165, 75)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
-        Me.Button5.TabIndex = 25
-        Me.Button5.Text = "Button5"
-        Me.Button5.UseVisualStyleBackColor = True
-        '
-        'Button10
-        '
-        Me.Button10.Location = New System.Drawing.Point(1201, 203)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(75, 23)
-        Me.Button10.TabIndex = 24
-        Me.Button10.Text = "Button10"
-        Me.Button10.UseVisualStyleBackColor = True
-        '
-        'Button9
-        '
-        Me.Button9.Location = New System.Drawing.Point(1217, 104)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(75, 23)
-        Me.Button9.TabIndex = 23
-        Me.Button9.Text = "Button9"
-        Me.Button9.UseVisualStyleBackColor = True
-        '
         'Button8
         '
         Me.Button8.Location = New System.Drawing.Point(437, 32)
@@ -304,43 +272,16 @@ Partial Class FRM_Principal
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(1316, 2)
+        Me.Button7.Location = New System.Drawing.Point(951, 2)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(54, 23)
         Me.Button7.TabIndex = 21
         Me.Button7.Text = "-"
         Me.Button7.UseVisualStyleBackColor = True
         '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(1165, 174)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 23)
-        Me.Button4.TabIndex = 18
-        Me.Button4.Text = "Tamaña dce carpeta"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(1118, 53)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 23)
-        Me.Button3.TabIndex = 17
-        Me.Button3.Text = "Ver Peso "
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(1229, 133)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 15
-        Me.Button2.Text = "inserta"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(1068, 666)
+        Me.Button6.Location = New System.Drawing.Point(963, 657)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(42, 23)
         Me.Button6.TabIndex = 17
@@ -382,7 +323,7 @@ Partial Class FRM_Principal
         Me.LB_log.FormattingEnabled = True
         Me.LB_log.Location = New System.Drawing.Point(23, 546)
         Me.LB_log.Name = "LB_log"
-        Me.LB_log.Size = New System.Drawing.Size(1000, 134)
+        Me.LB_log.Size = New System.Drawing.Size(927, 134)
         Me.LB_log.TabIndex = 18
         '
         'BT_STOP
@@ -454,29 +395,33 @@ Partial Class FRM_Principal
         '
         Me.Timer_Actualiza_Tareas.Interval = 1000
         '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(325, 7)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(75, 23)
+        Me.Button4.TabIndex = 18
+        Me.Button4.Text = "Tamaña dce carpeta"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1370, 723)
+        Me.ClientSize = New System.Drawing.Size(1008, 730)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Button8)
-        Me.Controls.Add(Me.Button10)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button9)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.BT_STOP)
         Me.Controls.Add(Me.BT_PLAY)
         Me.Controls.Add(Me.LB_log)
         Me.Controls.Add(Me.Button6)
         Me.Controls.Add(Me.TBcontrol1)
-        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_Principal"
@@ -508,9 +453,6 @@ Partial Class FRM_Principal
     Friend WithEvents TBcontrol1 As System.Windows.Forms.TabControl
     Friend WithEvents TB_principal As System.Windows.Forms.TabPage
     Friend WithEvents TB_Config As System.Windows.Forms.TabPage
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents DBG_TAREAS As System.Windows.Forms.DataGridView
     Friend WithEvents DBG_Det As System.Windows.Forms.DataGridView
     Friend WithEvents Button6 As System.Windows.Forms.Button
@@ -521,11 +463,8 @@ Partial Class FRM_Principal
     Friend WithEvents NotifyIcon1 As System.Windows.Forms.NotifyIcon
     Friend WithEvents Button7 As System.Windows.Forms.Button
     Friend WithEvents Button8 As System.Windows.Forms.Button
-    Friend WithEvents Button9 As System.Windows.Forms.Button
-    Friend WithEvents Button10 As System.Windows.Forms.Button
     Friend WithEvents LB_log As System.Windows.Forms.ListBox
     Friend WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents BT_PLAY As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents BT_STOP As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents EditarTareaToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
@@ -544,6 +483,7 @@ Partial Class FRM_Principal
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BorrarTareaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Timer_Actualiza_Tareas As System.Windows.Forms.Timer
+    Friend WithEvents Button4 As System.Windows.Forms.Button
 
 
 

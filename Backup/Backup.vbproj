@@ -129,6 +129,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Logica\vworkgen.vb" />
+    <Compile Include="Resolucion.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FRM_Principal.resx">

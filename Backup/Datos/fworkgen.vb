@@ -122,7 +122,7 @@ Public Class fworkgen
             consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,ip_workgen as IP, descri_type as Tipo, "
             consulta = consulta & "'Detectando' as 'Estado en Red',' ' as 'Tamaño',  "
             consulta = consulta & "ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet "
-            consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),99) as 'Respaldo' "
+            consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),999) as 'Respaldo' "
             ''  consulta = consulta & "(select size_workdet from workdet order by id_workdet desc  LIMIT 1 )  as 'Ul. Respaldo'"
             consulta = consulta & " from workgen"
 
@@ -167,7 +167,7 @@ Public Class fworkgen
             consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,ip_workgen as IP, descri_type as Tipo, "
             consulta = consulta & "'Detectando' as 'Estado en Red',' ' as 'Tamaño',  "
             consulta = consulta & "ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet "
-            consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),99) as 'Respaldo' "
+            consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),999) as 'Respaldo' "
             ''  consulta = consulta & "(select size_workdet from workdet order by id_workdet desc  LIMIT 1 )  as 'Ul. Respaldo'"
             consulta = consulta & " from workgen"
 
@@ -219,8 +219,6 @@ Public Class fworkgen
             Dim command As New SQLiteCommand(consulta, cnn)
             Dim da As New SQLiteDataAdapter
 
-
-            '  If command.ExecuteNonQuery Then
             '  If command.ExecuteNonQuery Then
             da.SelectCommand = command
             Dim dt As New DataTable

@@ -473,17 +473,12 @@ Public Class FRM_Tarea
     End Sub
 
     Private Sub agrega_tarea_a_grilla(ID As Integer)
-
-
         Try
             ' Referenciamos el objeto DataTable enlazado
             ' con el control DataGridView
-            '
             Dim dt As DataTable = DirectCast(FRM_Principal.DBG_TAREAS.DataSource, DataTable)
-
             ' Creamos una nueva fila u objeto DataRow.
             Dim row As DataRow = dt.NewRow()
-
 
             Dim dt_workgen2 As DataTable
             Dim dts As New vworkgen

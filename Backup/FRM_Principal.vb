@@ -322,267 +322,6 @@ Public Class FRM_Principal
         Loop
     End Sub
 
-
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        'Dim total
-
-
-        'total = calcula_tamano_directorios(1, "LULLOA32PC_LSUA.xml")
-        ' Me.SUBPCalcula_dirs = New Threading.Thread(AddressOf Me.Funcion_calcula_dirs_full)
-        ' If Me.SUBPCalcula_dirs.ThreadState <> Threading.ThreadState.Running Then
-        '  Me.SUBPCalcula_dirs.Start()
-
-        ' ' End If
-        'MsgBox(" bytes:" & total & ", KB:" & (total / 1024) & ", MB: " & ((total / 1024) / 1024))
-
-        Funcion_calcula_dirs_full()
-
-
-    End Sub
-
-
-
-    Private Sub Funcion_calcula_dirs_full()
-
-        Dim total_peso
-        Dim login As Boolean
-
-        CheckForIllegalCrossThreadCalls = False  'Evitar el error System.InvalidOperationException
-        'el error dice que se tuvo acceso al control '' desde un subproceso distinto a aquel en que lo creó
-
-        Dim largo As String
-        Dim var As String
-        Dim totalfilas As Integer = DBG_TAREAS.Rows.Count
-        Dim ID As Integer
-
-
-        Dim j As Integer = 0
-        For j = 0 To totalfilas - 2
-            Try
-                Me.Refresh()
-                If My.Computer.Network.IsAvailable() Then
-                    Try
-                        If ((DBG_TAREAS(COL_ESTADO_RED, j).Value = "Online") And (DBG_TAREAS(COL_TAMANO, j).Value = "")) Then
-
-                            '' Dim aa As New AliasAccount(DOMINIO & "\" & USER_DOMINIO, PASSWORD_DOMINIO)
-                            ''aa.BeginImpersonation()
-
-                            ' login = NetUseWithCredentials("\\10.56.21.36\c$\Users\lsua\Desktop", USER_DOMINIO, DOMINIO, PASSWORD_DOMINIO)
-
-
-                            '  If login Then
-
-                            ' XML_ACTUAL = 
-                            ID = DBG_TAREAS(COL_ID, j).Value
-                            total_peso = total_peso + calcula_tamano_directorios(DBG_TAREAS(COL_ID, j).Value, DBG_TAREAS(COL_EQUIPO, j).Value.ToString() + "_" + DBG_TAREAS(COL_USER, j).Value.ToString() + ".xml")
-
-                            Dim totalfilas2 As Integer = DBG_TAREAS.Rows.Count
-
-                            Dim j2 As Integer = 0
-                            For j2 = 0 To totalfilas2 - 2
-                                If ((DBG_TAREAS(COL_ID, j).Value = ID)) Then
-                                    DBG_TAREAS(COL_TAMANO, j).Value = total_peso
-                                End If
-
-                                DBG_TAREAS(COL_ID, j).Value = total_peso
-                            Next
-
-                            ' aa.EndImpersonation()
-                            ' MsgBox(" bytes:" & total_peso & ", KB:" & (total_peso / 1024) & ", MB: " & ((total_peso / 1024) / 1024))
-
-                            'Else
-                            '  LB_log.Items.Add("Error al iniciad Sesión como " + " Administrador " + " en equipo " & DBG_Estado(COL_EQUIPO, DBG_Estado.CurrentRow.Index).Value.ToString())
-
-                            '  End If
-
-
-
-
-
-                        End If
-
-                    Catch ex As Exception
-                    End Try
-
-                Else
-
-                    MsgBox("Revise su conexion a internet")
-
-
-
-                End If
-
-
-
-            Catch ex As Exception
-
-            End Try
-        Next
-
-
-
-
-
-
-
-
-
-
-
-
-
-    End Sub
-
-    Function calcula_tamano_directorios(ByVal ID, ByVal nombrexml)
-        Dim total_peso
-        total_peso = 0
-
-        Dim sourceDir As String
-        Dim documetoXML As XmlDocument
-        Dim nodelist As XmlNodeList
-        Dim nodo As XmlNode
-
-        Dim j As Integer
-        Dim j2 As Integer
-        Dim login
-
-
-
-        documetoXML = New XmlDocument
-        documetoXML.Load(RUTA_SERVIDOR + "\" + nombrexml)
-
-        nodelist = documetoXML.SelectNodes("/backups/source")
-
-        j2 = 0
-        For Each nodoDet In nodelist
-            j2 = j2 + 1
-        Next
-
-        'Dim Filtro_mascaras_dir(j2) As String
-
-        ' nodelist = documetoXMLDet.SelectNodes("/backups")
-        Filtro_mascaras_dir2 = lee_xml_filter_mascara(nombrexml)
-
-        lee_user_y_pass_peso(nombrexml)
-
-        j = 0
-        For Each nodoDet In nodelist
-            '  Dim proceso As New Process()
-            '  proceso.StartInfo.Arguments = "net use s: " & "\\10.56.21.36\c$\Users\lsua\Documents" & " /USER:" & DOMINIO & "\" & USER_DOMINIO & " " & PASSWORD_DOMINIO
-            ' proceso.Start()
-            'Dim var
-            ' var = Shell("net use " & nodoDet.ChildNodes(1).InnerText() & " /USER:SALMONESAUSTRAL\Administrador Info2016Aust")
-
-            login = True
-
-
-            ''NetUseWithCredentials(nodoDet.ChildNodes(1).InnerText(), USER_DOMINIO, DOMINIO, PASSWORD_DOMINIO)
-            If login Then
-                total_peso = total_peso + tamano_directorios(nodoDet.ChildNodes(1).InnerText())
-            Else
-                LB_log.Items.Add("Error al iniciad Sesión como " + USER_DOMINIO_peso + " en equipo " & HOSTNAME_peso)
-
-            End If
-
-
-            j = j + 1
-        Next
-
-
-        Return total_peso
-
-
-    End Function
-
-
-
-    Private Function tamano_directorios(ByVal sourceDir As String)
-        Dim suma As Long = 0
-        Dim total As Double
-        Dim f As FileInfo
-        Dim op
-
-
-        Dim var_copia, i2, extencion_arch_origen, largo2, extencion_new
-
-        Filtro_mascaras_dir = Filtro_mascaras_dir2.Split(New Char() {";"c})
-
-        ' op = NetUseWithCredentials(sourceDir, USER_DOMINIO, DOMINIO, PASSWORD_DOMINIO)
-        '' op = True  'NetUseWithCredentials(sourceDir & "\Music", USER_DOMINIO, DOMINIO, PASSWORD_DOMINIO)
-
-
-        ''  op = True
-        op = False
-
-        Try
-
-
-            IPers = Impersonate.ImpersonateValidUserAndSetThreadPrincipal(USER_DOMINIO_peso, DOMINIO_peso, PASSWORD_DOMINIO_peso)
-            t1 = New Thread(AddressOf ThreadTask)
-            t1.IsBackground = True
-            t1.Start()
-            op = True
-        Catch ex As Exception
-            op = False
-
-        End Try
-
-        If op Then
-            Dim di As DirectoryInfo = New DirectoryInfo(sourceDir)
-            di.GetDirectories()
-            Dim diarr As DirectoryInfo() = di.GetDirectories()
-            Dim fiArr As FileInfo() = di.GetFiles("*", SearchOption.AllDirectories)
-
-            For Each di In diarr
-
-                For Each f In fiArr
-
-                    extencion_arch_origen = f.Extension.ToString().ToLower()
-
-                    var_copia = True
-
-                    'Si extencion de archivo no esta dentro de la lista de filtro ve el tamaña del archivo
-                    i2 = 0
-                    For i2 = 0 To Filtro_mascaras_dir.Length - 1 Step 1
-                        largo2 = Filtro_mascaras_dir(i2).Length - 1
-                        If largo2 = -1 Then
-                            i2 = i2 + 1
-                        Else
-                            extencion_new = Filtro_mascaras_dir(i2).Substring(1, largo2)
-                            If (extencion_arch_origen = extencion_new) Then
-                                var_copia = False
-                            End If
-
-                        End If
-                    Next
-
-
-                    If var_copia = True Then
-                        suma = suma + f.Length  'tranforma de bytes a kb y luego a mb dividir *1024
-                        ' LB_log.Items.Add("Leyendo  " + f)
-                    Else
-
-                        suma = suma + 0
-                    End If
-
-                Next f
-
-                diarr = di.GetDirectories()
-                fiArr = di.GetFiles()
-            Next di
-        End If
-
-
-
-
-        'MsgBox(" bytes:" & suma & ", KB:" & (suma / 1024) & ", MB: " & ((suma / 1024) / 1024))
-        total = Math.Round(((suma / 1048576) / 1024), 2) ' Obtenemos el tamaño en GB y lo redondeo
-
-        Return total
-
-
-    End Function
-
     Private Sub calcula_peso_directorio(ByVal info_origen, ByVal sw)
         Dim peso_arch_origen As Long = (info_origen.Length)
 
@@ -816,21 +555,21 @@ Public Class FRM_Principal
 
                             End If
 
-                    '' cambiar a (ex.Message) para ver el el mensaje corto
-                    ' code
-                Catch ax As UnauthorizedAccessException
+                            '' cambiar a (ex.Message) para ver el el mensaje corto
+                            ' code
+                        Catch ax As UnauthorizedAccessException
                             '' MsgBox("ax: " & ax.ToString)
                             LB_log.Items.Add("AX " & ax.Message)
                             LB_log.SelectedIndex = LB_log.Items.Count - 1
-                Catch ix As IO.IOException
+                        Catch ix As IO.IOException
                             ''MsgBox("ix: " & ix.ToString)
                             LB_log.Items.Add("IX " & ix.Message)
                             LB_log.SelectedIndex = LB_log.Items.Count - 1
-                Catch ex As Exception
+                        Catch ex As Exception
                             ''  MsgBox("ex2: " & ex.ToString)
                             LB_log.Items.Add("EX " & ex.Message)
                             LB_log.SelectedIndex = LB_log.Items.Count - 1
-                End Try
+                        End Try
 
 
                     Else
@@ -1032,12 +771,12 @@ Public Class FRM_Principal
 
                     End If
 
-        LB_log.SelectedIndex = LB_log.Items.Count - 1
+                    LB_log.SelectedIndex = LB_log.Items.Count - 1
 
                 Catch ex As Exception
-            LB_log.Items.Add("Error: " & ex.Message)
+                    LB_log.Items.Add("Error: " & ex.Message)
 
-        End Try
+                End Try
             Next
 
         End If
@@ -1214,13 +953,10 @@ Public Class FRM_Principal
 
         End If
         ''''''
+        Me.WindowState = FormWindowState.Maximized
 
-        ''  lee_configuracion()
-
-
-
-        ''  lee_carpeta_de_usuarios()
-
+        Dim classResize As New clsResizeForm
+        classResize.ResizeForm(Me, 1024, 768)
 
 
 
@@ -1417,7 +1153,7 @@ Public Class FRM_Principal
                 End If
 
 
-            
+
 
 
 
@@ -1746,57 +1482,6 @@ Public Class FRM_Principal
         ProgressBar_archivo.Value = 0
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        Dim myXmlTextWriter As XmlTextWriter = New XmlTextWriter("newbooks.xml", System.Text.Encoding.UTF8)
-        myXmlTextWriter.Formatting = System.Xml.Formatting.Indented
-        myXmlTextWriter.WriteStartDocument(False)
-        myXmlTextWriter.WriteComment("Esto es un comentario")
-        'Crear el elemento de documento principal.
-        myXmlTextWriter.WriteStartElement("bookstore")
-        myXmlTextWriter.WriteStartElement("book")
-
-        'Crear un elemento llamado 'title' con un nodo de texto
-        ' y cerrar el elemento.
-        myXmlTextWriter.WriteStartElement("title")
-        myXmlTextWriter.WriteString("The Autobiography of Mark Twain")
-        myXmlTextWriter.WriteEndElement()
-
-        'Crear un elemento llamado 'Author'.
-        myXmlTextWriter.WriteStartElement("Author")
-
-        'Crear un elemento llamado 'first-name' con un nodo de texto
-        ' y cerrarlo en una línea.
-        myXmlTextWriter.WriteElementString("first-name", "Mark")
-
-        'Crear un elemento llamado 'first-name' con un nodo de texto.
-        myXmlTextWriter.WriteElementString("last-name", "Twain")
-
-        'Cerrar el elemento primario.
-        myXmlTextWriter.WriteEndElement()
-
-        'Crear un elemento llamado 'price' con un nodo de texto
-        ' y cerrarlo en una línea.
-        myXmlTextWriter.WriteElementString("price", "7.99")
-
-        'Cerrar el elemento book.
-        myXmlTextWriter.WriteEndElement()
-
-        myXmlTextWriter.WriteStartElement("book")
-        myXmlTextWriter.WriteAttributeString("genre", "autobiography")
-        myXmlTextWriter.WriteAttributeString("publicationdate", "1979")
-        myXmlTextWriter.WriteAttributeString("ISBN", "0-7356-0562-9")
-
-        'Cerrar el elemento book.
-        myXmlTextWriter.WriteEndElement()
-        'Cerrar el elemento primario bookstore.
-        myXmlTextWriter.WriteEndElement()
-
-        myXmlTextWriter.Flush()
-        myXmlTextWriter.Close()
-        'Espera que el usuario presione ENTRAR antes de salir del programa.
-        Console.ReadLine()
-
-    End Sub
 
     Private Sub inserta_backupinfo(ByVal ID As String, ByVal tipo_respaldo As String, ByVal tamaño As Double)
 
@@ -1842,73 +1527,8 @@ Public Class FRM_Principal
 
 
 
-      
+
     End Sub
-
-
-
-    Private Sub Button9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button9.Click
-        Dim documetoXML As New XmlDocument, Nodo As XmlNode
-
-        Nodo = documetoXML.CreateElement("backupinfo")
-
-        ' Create a new element and add it to the document.
-        Dim elem As XmlElement = documetoXML.CreateElement("backupinfo")
-
-        Nodo = documetoXML.CreateElement("id")
-        Nodo.InnerText = "4"
-        documetoXML.DocumentElement.AppendChild(Nodo)
-
-        Nodo = documetoXML.CreateElement("type")
-        Nodo.InnerText = "incremental"
-        documetoXML.DocumentElement.AppendChild(Nodo)
-
-        Nodo = documetoXML.CreateElement("fecha")
-        Nodo.InnerText = "03-11-2015"
-        documetoXML.DocumentElement.AppendChild(Nodo)
-
-        Nodo = documetoXML.CreateElement("size")
-        Nodo.InnerText = "400"
-        documetoXML.DocumentElement.AppendChild(Nodo)
-
-        documetoXML.DocumentElement.AppendChild(elem)
-
-        documetoXML.Save(Application.StartupPath & "\FoSTeaM.xml")
-    End Sub
-
-    Private Sub Button10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button10.Click
-        ' Create the XmlDocument.
-        Dim documetoXML As XmlDocument = New XmlDocument()
-        documetoXML.Load(Application.StartupPath & "\CAPACITACION_Administrador.xml")
-
-        ' Create a new element and add it to the document.
-        Dim elem As XmlElement = documetoXML.CreateElement("backupinfo")
-
-
-
-        documetoXML.DocumentElement.AppendChild(elem)
-
-
-        documetoXML.Save(Application.StartupPath & "\CAPACITACION_Administrador.xml")
-    End Sub
-
-
-
-
-
-
-    Private Function ValidateActiveDirectoryLogin(ByVal Domain As String, ByVal Username As String, ByVal Password As String) As Boolean
-        ''  Dim Success As Boolean = False
-        '' Dim Entry As New System.DirectoryServices.DirectoryEntry("Ler(Entry)
-        '' Searcher.SearchScope = DirectoryServices.SearchScope.OneLevel
-        ''Try
-        '' Dim Results As System.DirectoryServices.SearchResult = Searcher.FindOne
-        ' Success = Not (Results Is Nothing)
-        '  Catch
-        ' Success = False
-        ' End Try
-        ' Return Success
-    End Function
 
 
     Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
@@ -1918,14 +1538,7 @@ Public Class FRM_Principal
         Me.Visible = True           'vuelve visible el Form de la aplicación
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        DBG_TAREAS.Columns(COL_ESTADO_RED).SortMode = DataGridViewColumnSortMode.Programmatic
-        DBG_TAREAS.Columns(COL_ULT_RESPALDO).SortMode = DataGridViewColumnSortMode.Programmatic
 
-        DBG_TAREAS.Columns(COL_ESTADO_RED).HeaderCell.SortGlyphDirection = SortOrder.Ascending
-        DBG_TAREAS.Columns(COL_ULT_RESPALDO).HeaderCell.SortGlyphDirection = SortOrder.Ascending
-
-    End Sub
 
     Private Sub DBG_Estado_Click(sender As Object, e As EventArgs) Handles DBG_TAREAS.Click
 
@@ -2040,7 +1653,7 @@ Public Class FRM_Principal
 
     End Function
 
- 
+
     Private Function busca_usuario(ID As Integer)
         Dim usuario
         For Each row As DataGridViewRow In DBG_TAREAS.Rows
@@ -2180,7 +1793,7 @@ Public Class FRM_Principal
                         row.Cells(COL_IP_EQUIPO).Value = dt_workgen.Rows(i).Item(6)
                         row.Cells(COL_TIPO_EQUIPO).Value = dt_workgen.Rows(i).Item(7)
                         row.Cells(COL_ULT_RESPALDO).Value = dt_workgen.Rows(i).Item(10)
-                        
+
 
                         'End If
                     End If
@@ -2189,7 +1802,7 @@ Public Class FRM_Principal
                 Next
 
 
-                
+
             Next
         Catch ex As Exception
 
@@ -2283,9 +1896,9 @@ Public Class FRM_Principal
 
         Try
 
-       
-        Dim tarea
-        For Each row As DataGridViewRow In DBG_TAREAS.Rows
+
+            Dim tarea
+            For Each row As DataGridViewRow In DBG_TAREAS.Rows
 
                 If Not (String.IsNullOrEmpty(row.ToString)) Then
                     If row.Cells(1).Value.ToString = ID Then
@@ -2299,7 +1912,6 @@ Public Class FRM_Principal
         End Try
 
     End Function
-
 
 End Class
 
