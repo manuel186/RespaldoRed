@@ -317,7 +317,6 @@ Partial Class FRM_Tarea
         'RB_completo
         '
         Me.RB_completo.AutoSize = True
-        Me.RB_completo.Enabled = False
         Me.RB_completo.Location = New System.Drawing.Point(247, 24)
         Me.RB_completo.Name = "RB_completo"
         Me.RB_completo.Size = New System.Drawing.Size(69, 17)
@@ -730,7 +729,6 @@ Partial Class FRM_Tarea
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "FRM_Tarea"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "s"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage_General.ResumeLayout(False)
         Me.TabPage_General.PerformLayout()

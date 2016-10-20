@@ -27,7 +27,7 @@ Partial Class FRM_Principal
         Me.Menu_Estado = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.EjecutarTareaAhoraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditarTareaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NuevaTareaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarTareaToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClonarTareaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BorrarTareaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -78,7 +78,7 @@ Partial Class FRM_Principal
         '
         'Menu_Estado
         '
-        Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.ToolStripMenuItem2, Me.EditarTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
+        Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.ToolStripMenuItem2, Me.NuevaTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
         Me.Menu_Estado.Name = "Menu_Estado"
         Me.Menu_Estado.Size = New System.Drawing.Size(184, 136)
         '
@@ -94,11 +94,11 @@ Partial Class FRM_Principal
         Me.ToolStripMenuItem2.Size = New System.Drawing.Size(183, 22)
         Me.ToolStripMenuItem2.Text = "_______________"
         '
-        'EditarTareaToolStripMenuItem
+        'NuevaTareaToolStripMenuItem
         '
-        Me.EditarTareaToolStripMenuItem.Name = "EditarTareaToolStripMenuItem"
-        Me.EditarTareaToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
-        Me.EditarTareaToolStripMenuItem.Text = "Nueva Tarea"
+        Me.NuevaTareaToolStripMenuItem.Name = "NuevaTareaToolStripMenuItem"
+        Me.NuevaTareaToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.NuevaTareaToolStripMenuItem.Text = "Nueva Tarea"
         '
         'EditarTareaToolStripMenuItem1
         '
@@ -443,7 +443,7 @@ Partial Class FRM_Principal
     Friend WithEvents Timer_Ping As System.Windows.Forms.Timer
     Friend WithEvents Menu_Estado As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents EjecutarTareaAhoraToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditarTareaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents NuevaTareaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel

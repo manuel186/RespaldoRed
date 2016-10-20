@@ -671,7 +671,15 @@ Public Class FRM_Principal
         If var_copia_car = True Then  '' accede a la copia de la carpeta
 
             'si no existe el directorio destino lo crear
-            If Not destDir.Exists Then destDir.Create()
+            If Not destDir.Exists Then
+                destDir.Create()
+
+                Dim carpeta3 As String = devuelte_ultima_carpeta(destDir.FullName)
+                If carpeta3 = "Documents" Then
+                    tipo_respaldo_tarea = "Completo"
+
+                End If
+            End If
             'Usar la recursividad para navegar por los subdirectorios
             'e ir obteniendo los archivos hasta llegar al final
             For Each diSourceSubDirectory As DirectoryInfo In diSourceSubDirectories
@@ -1128,206 +1136,9 @@ Public Class FRM_Principal
         Return retorno
     End Function
 
-    Private Sub lee_xml_full(ByVal nombrexml)
-        Dim documetoXML As XmlDocument
-        Dim nodelist0 As XmlNodeList
-        Dim nodelist As XmlNodeList
+   
 
-        Dim ultimoRespaldo As String
-        Dim HOST As String
-        Dim TIPOEQUIPO As String
-
-        Dim IP As String
-        Dim USER As String
-        Dim MAC As String
-
-
-        Dim ID As String
-        Dim j As Integer
-        Dim TIPO As String
-        Dim FECHA As String
-        Dim PESO As String
-
-        documetoXML = New XmlDocument
-        documetoXML.Load(RUTA_SERVIDOR + "\" + nombrexml)
-
-        nodelist = documetoXML.SelectNodes("/backups")
-        nodelist0 = documetoXML.SelectNodes("/backups/backupinfo")
-
-        For Each nodo In nodelist
-
-            For i2 = 0 To 6 Step 1
-                If nodo.ChildNodes.Item(i2).Name.ToString = "hostname" Then
-                    HOST = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                End If
-                If nodo.ChildNodes.Item(i2).Name.ToString = "ip" Then
-                    IP = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                End If
-
-                If nodo.ChildNodes.Item(i2).Name.ToString = "mac" Then
-                    MAC = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                End If
-
-                If nodo.ChildNodes.Item(i2).Name.ToString = "user" Then
-                    USER = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                End If
-
-                If nodo.ChildNodes.Item(i2).Name.ToString = "type" Then
-                    TIPOEQUIPO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                End If
-
-
-
-
-
-
-            Next
-
-        Next
-
-        For Each nodo In nodelist0
-            ultimoRespaldo = nodo.ChildNodes(2).InnerText
-        Next
-
-        Dim hoy As Date = Now
-        Dim dias As Integer
-
-        dias = DateDiff(DateInterval.Day, Date.Parse(ultimoRespaldo), hoy)
-
-    End Sub
-
-    Private Sub lee_carpeta_de_usuarios()
-        Dim documetoXML As XmlDocument
-        Dim nodelist0 As XmlNodeList
-        Dim nodelist As XmlNodeList
-        Dim nodo As XmlNode
-
-        Dim ultimoRespaldo As String
-        Dim HOST As String
-        Dim ID As String
-        Dim TIPOEQUIPO As String
-        Dim USUARIO As String
-
-        Dim TAMANO As String
-
-
-        Dim IP As String
-        Dim USER As String
-        Dim MAC As String
-        Dim i As Integer
-
-        Dim Fso As FileSystemObject   'agregar referemci com microsoft scriptng runtime
-        Dim El_Directorio As Folder
-
-        'Variable de tipo FILE y FOLDER para listar los archivos de un path
-        Dim El_Archivo As Scripting.File
-
-        'Nuevo objeto FileSystemObject
-        Fso = New FileSystemObject
-
-        ' Obtiene el directorio
-        El_Directorio = Fso.GetFolder(RUTA_SERVIDOR)
-
-        ' Lista los ficheros de esta carpeta
-        i = 0
-
-        DBG_TAREAS.Columns.Clear()
-
-
-
-        For Each El_Archivo In El_Directorio.Files
-            Try
-                DBG_TAREAS.Rows.Add()
-                documetoXML = New XmlDocument
-                documetoXML.Load(RUTA_SERVIDOR + "\" + El_Archivo.Name)
-
-                '' Dim f As FileInfo
-
-                '' f = El_Archivo
-
-                ''  If (f.Extension.ToString().ToLower() = ".xml") Then
-
-
-                nodelist = documetoXML.SelectNodes("/backups")
-                nodelist0 = documetoXML.SelectNodes("/backups/backupinfo")
-
-
-                For Each nodo In nodelist
-
-                    For i2 = 0 To 12 Step 1
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "status" Then
-                            ESTADO_TAREA = nodo.ChildNodes.Item(i2).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "id" Then
-                            ID = nodo.ChildNodes.Item(i2).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "hostname" Then
-                            HOST = nodo.ChildNodes.Item(i2).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "ip" Then
-                            IP = nodo.ChildNodes.Item(i2).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "user" Then
-                            USER = nodo.ChildNodes.Item(i2).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "name" Then
-                            USUARIO = nodo.ChildNodes.Item(i2).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "type" Then
-                            TIPOEQUIPO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "mac" Then
-                            MAC = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "Tamaño" Then
-                            TAMANO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                        End If
-                    Next
-                Next
-
-                For Each nodo In nodelist0
-                    ultimoRespaldo = nodo.ChildNodes(2).InnerText
-                Next
-
-                Dim hoy As Date = Now
-                Dim dias As Integer
-
-                dias = DateDiff(DateInterval.Day, Date.Parse(ultimoRespaldo), hoy)
-
-                DBG_TAREAS(COL_ESTADO, i).Value = ESTADO_TAREA
-                DBG_TAREAS(COL_ID, i).Value = ID
-                DBG_TAREAS(COL_EQUIPO, i).Value = HOST
-                DBG_TAREAS(COL_USER, i).Value = USER
-                DBG_TAREAS(COL_USUARIO, i).Value = USUARIO
-                DBG_TAREAS(COL_IP_EQUIPO, i).Value = IP
-                DBG_TAREAS(COL_TIPO_EQUIPO, i).Value = TIPOEQUIPO
-                DBG_TAREAS(COL_ESTADO_RED, i).Value = "Detectando.."
-                DBG_TAREAS(COL_ULT_RESPALDO, i).Value = dias
-                i = i + 1
-                ''  End If
-            Catch ex As Exception
-
-            End Try
-
-
-        Next El_Archivo
-
-
-        Try
-            DBG_TAREAS.Sort(DBG_TAREAS.Columns(COL_ULT_RESPALDO), System.ComponentModel.ListSortDirection.Descending)
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
+ 
 
 
 
@@ -1344,82 +1155,7 @@ Public Class FRM_Principal
 
     End Sub
 
-    Private Sub lee_xml_det(ByVal nombrexml, ByVal ID)
-        Me.DBG_Det.Columns.Clear()
-
-        Dim documetoXMLDet As XmlDocument
-        Dim nodelistDet As XmlNodeList
-        Dim nodoDet As XmlNode
-
-        Dim j As Integer
-        Dim TIPO As String
-        Dim FECHA As String
-        Dim PESO As String
-
-        DBG_Det.Columns.Add("Tipo de Respaldo", "Tipo de Respaldo")
-        DBG_Det.Columns(0).Width = 100
-        DBG_Det.Columns.Add("Fecha", "Fecha")
-        DBG_Det.Columns(1).Width = 200
-        DBG_Det.Columns.Add("Tamaño", "Tamaño")
-        DBG_Det.Columns(2).Width = 130
-
-        DBG_Det.Columns.Add("ID", "ID")
-        DBG_Det.Columns(3).Width = 60
-
-        documetoXMLDet = New XmlDocument
-        documetoXMLDet.Load(RUTA_SERVIDOR + "\" + nombrexml)
-
-        nodelistDet = documetoXMLDet.SelectNodes("/backups/backupinfo")
-
-
-        For Each nodoDet In nodelistDet
-            '' Dim campo As String = DBG_Det(0, j).Value.ToString()
-            ''  If Not (String.IsNullOrEmpty(campo)) Then
-            DBG_Det.Rows.Add()
-            ''  End If
-
-            ID = nodoDet.ChildNodes(0).InnerText
-            TIPO = nodoDet.ChildNodes(1).InnerText
-            FECHA = nodoDet.ChildNodes(2).InnerText
-            PESO = nodoDet.ChildNodes(3).InnerText
-
-            'DBG_Det(0, j).Value = ID
-            DBG_Det(0, j).Value = TIPO
-            DBG_Det(1, j).Value = FECHA
-            DBG_Det(2, j).Value = PESO
-            DBG_Det(3, j).Value = ID
-            j = j + 1
-
-        Next
-
-
-
-
-        ' Dim hoy As Date = Now
-        ' Dim dias As Integer
-
-        ' dias = DateDiff(DateInterval.Day, Date.Parse(FECHA), hoy)
-
-
-        ' If ID > 0 Then
-        ' Dim totalfilas As Integer = DBG_Estado.Rows.Count
-
-        '        Dim j1 As Integer = 0
-        '        For j1 = 0 To totalfilas - 2
-
-        'Me.Refresh()
-        'Try
-        'If (DBG_Estado(COL_ID, j1).Value = ID) Then
-        ' ID = DBG_Estado(COL_ID, j).Value
-        ' DBG_Estado(COL_ULT_RESPALDO, j).Value = dias
-        ' End If
-
-        '   Catch ex As Exception
-
-        ' End Try
-        ' Next
-        ' End If
-    End Sub
+   
 
 
    
@@ -1458,11 +1194,6 @@ Public Class FRM_Principal
 
     End Sub
 
-
-    Private Sub EditarTareaToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditarTareaToolStripMenuItem.Click
-        ID_SELECCIONADO = 0
-        FRM_Tarea.ShowDialog()
-    End Sub
 
 
 
@@ -1718,8 +1449,12 @@ Public Class FRM_Principal
     End Sub
 
     Private Sub EditarTareaToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EditarTareaToolStripMenuItem1.Click
-        ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
-        FRM_Tarea.ShowDialog()
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
+            ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+            FRM_Tarea.ShowDialog()
+        End If
+
+
     End Sub
 
     Private Sub Timer_Ping_Tick(sender As Object, e As EventArgs) Handles Timer_Ping.Tick
@@ -1788,18 +1523,39 @@ Public Class FRM_Principal
     End Sub
     Private Sub Menu_Estado_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles Menu_Estado.Opening
 
-        '' Bloquea el boton cuando la tarea ya esta en ejecucion
+        '''si la fila no esta vacia permite visualizar el menu
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
 
-        If RESPALDO = "INICIADO" Then
+            EjecutarTareaAhoraToolStripMenuItem.Enabled = True
 
-            If DBG_TAREAS(COL_ESTADO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() = "Respaldando" Then
-                EjecutarTareaAhoraToolStripMenuItem.Enabled = False
+            NuevaTareaToolStripMenuItem.Enabled = True
+            EditarTareaToolStripMenuItem1.Enabled = True
+            ClonarTareaToolStripMenuItem.Enabled = True
+            BorrarTareaToolStripMenuItem.Enabled = True
 
-            Else
-                EjecutarTareaAhoraToolStripMenuItem.Enabled = True
+
+            '' Bloquea el boton cuando la tarea ya esta en ejecucion
+
+            If RESPALDO = "INICIADO" Then
+               If DBG_TAREAS(COL_ESTADO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() = "Respaldando" Then
+                    EjecutarTareaAhoraToolStripMenuItem.Enabled = False
+
+                Else
+                    EjecutarTareaAhoraToolStripMenuItem.Enabled = True
+                End If
+
             End If
+        Else
+            EjecutarTareaAhoraToolStripMenuItem.Enabled = False
+
+            NuevaTareaToolStripMenuItem.Enabled = False
+            EditarTareaToolStripMenuItem1.Enabled = False
+            ClonarTareaToolStripMenuItem.Enabled = False
+            BorrarTareaToolStripMenuItem.Enabled = False
 
         End If
+
+
 
     End Sub
 
@@ -1906,6 +1662,11 @@ Public Class FRM_Principal
 
         End If
 
+    End Sub
+
+    Private Sub NuevaTareaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevaTareaToolStripMenuItem.Click
+        ID_SELECCIONADO = 0
+        FRM_Tarea.ShowDialog()
     End Sub
 End Class
 
