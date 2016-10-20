@@ -211,102 +211,6 @@ Public Class FRM_Principal
 
     End Sub
 
-
-
-
-
-
-
-
-    Private Sub lee_user_y_pass_peso(xml As String)
-
-
-        Dim total_peso
-        total_peso = 0
-
-        Dim documetoXML As XmlDocument
-        Dim nodelist As XmlNodeList
-        Dim nodo As XmlNode
-
-        Dim j As Integer
-        Dim j2 As Integer
-        Dim login, useownaccount, USEREQUIPO
-
-
-
-
-        documetoXML = New XmlDocument
-        documetoXML.Load(RUTA_SERVIDOR + "\" + xml)
-
-        nodelist = documetoXML.SelectNodes("/backups")
-
-
-        For Each nodo In nodelist
-
-            For i2 = 0 To 12 Step 1
-                Try
-
-                    If nodo.ChildNodes.Item(i2).Name.ToString = "usepasdomain" Then
-                        useownaccount = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                    End If
-
-                    If nodo.ChildNodes.Item(i2).Name.ToString = "user" Then
-                        USEREQUIPO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                    End If
-
-                    If nodo.ChildNodes.Item(i2).Name.ToString = "hostname" Then
-                        HOSTNAME = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                    End If
-
-
-                    If nodo.ChildNodes.Item(i2).Name.ToString = "domain" Then
-                        DOMINIO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                    End If
-
-                    If useownaccount = 1 Then
-                        ''SI USA CLAVE DE DOMINIO
-                        USER_DOMINIO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                        PASSWORD_DOMINIO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                    End If
-
-                    If useownaccount = 0 Then
-
-                        '' SI NO USA CLAVE Y USUARIO DE DOMINIO
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "username" Then
-                            USER_DOMINIO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                        End If
-
-                        If nodo.ChildNodes.Item(i2).Name.ToString = "password" Then
-                            ''  PASSWORD_DOMINIO =   'nodo.ChildNodes(0).InnerText
-
-                            ' Dim USEREQUIPO1 As String = Replace(USEREQUIPO, " ", "")
-                            Dim des As New EncriptarDesencriptar
-                            PASSWORD_DOMINIO = des.desencriptar128BitRijndael(nodo.ChildNodes.Item(i2).InnerText, DOMINIO + "\" + USEREQUIPO)
-                        End If
-                    End If
-
-
-
-                Catch ex As Exception
-
-                End Try
-
-            Next
-
-        Next
-
-
-
-
-
-
-
-
-    End Sub
-
-
-
     Private Sub ThreadTask()
         ''para el login en red 
         Dim counter As Integer = 0
@@ -871,69 +775,9 @@ Public Class FRM_Principal
 
 
 
-
-    Private Sub lee_configuracion()
-        Dim documetoXML As XmlDocument
-        documetoXML = New XmlDocument
-        Dim nodelist As XmlNodeList
-        Dim nodo As XmlNode
-        'variable donde se alojara la ruta de la aplicación
-        Dim ruta As String
-
-        'obtengo la ruta donde se encuentra la aplicación
-        ruta = Application.StartupPath
-
-        ''documetoXML.Load(Path.Combine(Application.StartupPath, "\config.xml"))
-
-        documetoXML.Load(ruta + "\config.xml")
-
-
-        nodelist = documetoXML.SelectNodes("/config")
-
-
-
-        For Each nodo In nodelist
-
-            For i2 = 0 To 3 Step 1
-                Try
-
-
-                    If nodo.ChildNodes.Item(i2).Name.ToString = "path" Then
-                        RUTA_SERVIDOR = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                        '' TXT_RUTA_SERVIDOR.Text = RUTA_SERVIDOR
-                    End If
-
-                    If nodo.ChildNodes.Item(i2).Name.ToString = "domain" Then
-                        NOMBRE_DOMINIO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                        TXT_NOMBRE_DOMINIO.Text = NOMBRE_DOMINIO
-                    End If
-
-                    If nodo.ChildNodes.Item(i2).Name.ToString = "userdomain" Then
-                        USUARIO_DOMINIO = nodo.ChildNodes.Item(i2).InnerText  'nodo.ChildNodes(0).InnerText
-                        TXT_USUARIO_DOMINIO.Text = USUARIO_DOMINIO
-                    End If
-
-                    If nodo.ChildNodes.Item(i2).Name.ToString = "passworddomain" Then
-                        Dim des As New EncriptarDesencriptar
-                        CLAVE_DOMINIO = des.desencriptar128BitRijndael(nodo.ChildNodes.Item(i2).InnerText, NOMBRE_DOMINIO + "\" + USUARIO_DOMINIO)
-                        TXT_CLAVE_DOMINIO.Text = CLAVE_DOMINIO
-                    End If
-
-                Catch ex As Exception
-
-                End Try
-
-            Next
-
-        Next
-
-
-    End Sub
-
-
-
-
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Me.KeyPreview = True
+
         BT_STOP.Enabled = False
         Me.ProgressBar_archivo.Visible = False
         'Me.ProgressBar_archivo.Scrolling = ccScrollingSmooth
@@ -1136,9 +980,9 @@ Public Class FRM_Principal
         Return retorno
     End Function
 
-   
 
- 
+
+
 
 
 
@@ -1155,10 +999,10 @@ Public Class FRM_Principal
 
     End Sub
 
-   
 
 
-   
+
+
 
     Private Sub ToolStripMenu_Abrir_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ToolStripMenu_Abrir.Click
 
@@ -1537,7 +1381,7 @@ Public Class FRM_Principal
             '' Bloquea el boton cuando la tarea ya esta en ejecucion
 
             If RESPALDO = "INICIADO" Then
-               If DBG_TAREAS(COL_ESTADO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() = "Respaldando" Then
+                If DBG_TAREAS(COL_ESTADO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() = "Respaldando" Then
                     EjecutarTareaAhoraToolStripMenuItem.Enabled = False
 
                 Else
@@ -1645,10 +1489,10 @@ Public Class FRM_Principal
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
             abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
         End If
-       
+
     End Sub
 
-  
+
     Private Sub BT_MINIMIZAR_Click(sender As Object, e As EventArgs) Handles BT_MINIMIZAR.Click
         Me.Visible = False         'oculta el Form de la aplicación
         NotifyIcon1.Visible = True 'vuelve visible el icono en la Tray Bar
@@ -1667,6 +1511,14 @@ Public Class FRM_Principal
     Private Sub NuevaTareaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevaTareaToolStripMenuItem.Click
         ID_SELECCIONADO = 0
         FRM_Tarea.ShowDialog()
+    End Sub
+
+    
+    Private Sub DBG_TAREAS_KeyUp(sender As Object, e As KeyEventArgs) Handles DBG_TAREAS.KeyUp
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
+            abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+        End If
+
     End Sub
 End Class
 
