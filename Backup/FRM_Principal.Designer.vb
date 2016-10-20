@@ -37,7 +37,6 @@ Partial Class FRM_Principal
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ProgressBar_archivo = New System.Windows.Forms.ToolStripProgressBar()
         Me.ProgressBar_total = New System.Windows.Forms.ToolStripProgressBar()
-        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TBcontrol1 = New System.Windows.Forms.TabControl()
         Me.TB_principal = New System.Windows.Forms.TabPage()
         Me.DBG_Det = New System.Windows.Forms.DataGridView()
@@ -50,8 +49,7 @@ Partial Class FRM_Principal
         Me.TXT_NOMBRE_DOMINIO = New System.Windows.Forms.TextBox()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.BT_MINIMIZAR = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenu_Abrir = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenu_configurar = New System.Windows.Forms.ToolStripMenuItem()
@@ -67,6 +65,7 @@ Partial Class FRM_Principal
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Timer_Actualiza_Tareas = New System.Windows.Forms.Timer(Me.components)
         Me.Button4 = New System.Windows.Forms.Button()
+        Me.BT_CERRAR = New System.Windows.Forms.Button()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -126,18 +125,20 @@ Partial Class FRM_Principal
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ProgressBar_archivo, Me.ProgressBar_total, Me.ToolStripStatusLabel2})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 699)
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ProgressBar_archivo, Me.ProgressBar_total})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 709)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1008, 31)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1350, 31)
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.AutoSize = False
+        Me.ToolStripStatusLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(700, 26)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(1000, 26)
+        Me.ToolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ProgressBar_archivo
         '
@@ -149,20 +150,14 @@ Partial Class FRM_Principal
         Me.ProgressBar_total.Name = "ProgressBar_total"
         Me.ProgressBar_total.Size = New System.Drawing.Size(150, 25)
         '
-        'ToolStripStatusLabel2
-        '
-        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(121, 15)
-        Me.ToolStripStatusLabel2.Text = "ToolStripStatusLabel2"
-        '
         'TBcontrol1
         '
         Me.TBcontrol1.Controls.Add(Me.TB_principal)
         Me.TBcontrol1.Controls.Add(Me.TB_Config)
-        Me.TBcontrol1.Location = New System.Drawing.Point(23, 53)
+        Me.TBcontrol1.Location = New System.Drawing.Point(-1, 53)
         Me.TBcontrol1.Name = "TBcontrol1"
         Me.TBcontrol1.SelectedIndex = 0
-        Me.TBcontrol1.Size = New System.Drawing.Size(986, 491)
+        Me.TBcontrol1.Size = New System.Drawing.Size(1364, 410)
         Me.TBcontrol1.TabIndex = 16
         '
         'TB_principal
@@ -172,7 +167,7 @@ Partial Class FRM_Principal
         Me.TB_principal.Location = New System.Drawing.Point(4, 22)
         Me.TB_principal.Name = "TB_principal"
         Me.TB_principal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TB_principal.Size = New System.Drawing.Size(978, 465)
+        Me.TB_principal.Size = New System.Drawing.Size(1356, 384)
         Me.TB_principal.TabIndex = 0
         Me.TB_principal.Text = "Principal"
         Me.TB_principal.UseVisualStyleBackColor = True
@@ -180,9 +175,9 @@ Partial Class FRM_Principal
         'DBG_Det
         '
         Me.DBG_Det.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DBG_Det.Location = New System.Drawing.Point(6, 253)
+        Me.DBG_Det.Location = New System.Drawing.Point(983, 6)
         Me.DBG_Det.Name = "DBG_Det"
-        Me.DBG_Det.Size = New System.Drawing.Size(698, 199)
+        Me.DBG_Det.Size = New System.Drawing.Size(351, 372)
         Me.DBG_Det.TabIndex = 20
         '
         'DBG_TAREAS
@@ -194,7 +189,7 @@ Partial Class FRM_Principal
         Me.DBG_TAREAS.Name = "DBG_TAREAS"
         Me.DBG_TAREAS.ReadOnly = True
         Me.DBG_TAREAS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DBG_TAREAS.Size = New System.Drawing.Size(965, 241)
+        Me.DBG_TAREAS.Size = New System.Drawing.Size(965, 372)
         Me.DBG_TAREAS.TabIndex = 1
         '
         'TB_Config
@@ -208,7 +203,7 @@ Partial Class FRM_Principal
         Me.TB_Config.Location = New System.Drawing.Point(4, 22)
         Me.TB_Config.Name = "TB_Config"
         Me.TB_Config.Padding = New System.Windows.Forms.Padding(3)
-        Me.TB_Config.Size = New System.Drawing.Size(978, 465)
+        Me.TB_Config.Size = New System.Drawing.Size(1356, 384)
         Me.TB_Config.TabIndex = 1
         Me.TB_Config.Text = "Configuración"
         Me.TB_Config.UseVisualStyleBackColor = True
@@ -270,23 +265,15 @@ Partial Class FRM_Principal
         Me.Button8.Text = "Actualiza Tabla"
         Me.Button8.UseVisualStyleBackColor = True
         '
-        'Button7
+        'BT_MINIMIZAR
         '
-        Me.Button7.Location = New System.Drawing.Point(951, 2)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(54, 23)
-        Me.Button7.TabIndex = 21
-        Me.Button7.Text = "-"
-        Me.Button7.UseVisualStyleBackColor = True
-        '
-        'Button6
-        '
-        Me.Button6.Location = New System.Drawing.Point(963, 657)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(42, 23)
-        Me.Button6.TabIndex = 17
-        Me.Button6.Text = "Salir"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.BT_MINIMIZAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!)
+        Me.BT_MINIMIZAR.Location = New System.Drawing.Point(1247, -1)
+        Me.BT_MINIMIZAR.Name = "BT_MINIMIZAR"
+        Me.BT_MINIMIZAR.Size = New System.Drawing.Size(32, 26)
+        Me.BT_MINIMIZAR.TabIndex = 21
+        Me.BT_MINIMIZAR.Text = "-"
+        Me.BT_MINIMIZAR.UseVisualStyleBackColor = True
         '
         'ContextMenuStrip1
         '
@@ -321,9 +308,9 @@ Partial Class FRM_Principal
         'LB_log
         '
         Me.LB_log.FormattingEnabled = True
-        Me.LB_log.Location = New System.Drawing.Point(23, 546)
+        Me.LB_log.Location = New System.Drawing.Point(1, 468)
         Me.LB_log.Name = "LB_log"
-        Me.LB_log.Size = New System.Drawing.Size(927, 134)
+        Me.LB_log.Size = New System.Drawing.Size(1349, 212)
         Me.LB_log.TabIndex = 18
         '
         'BT_STOP
@@ -404,26 +391,38 @@ Partial Class FRM_Principal
         Me.Button4.Text = "Tamaña dce carpeta"
         Me.Button4.UseVisualStyleBackColor = True
         '
+        'BT_CERRAR
+        '
+        Me.BT_CERRAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.BT_CERRAR.Location = New System.Drawing.Point(1285, -1)
+        Me.BT_CERRAR.Name = "BT_CERRAR"
+        Me.BT_CERRAR.Size = New System.Drawing.Size(32, 26)
+        Me.BT_CERRAR.TabIndex = 32
+        Me.BT_CERRAR.Text = "X"
+        Me.BT_CERRAR.UseVisualStyleBackColor = True
+        '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1008, 730)
+        Me.ClientSize = New System.Drawing.Size(1350, 740)
+        Me.Controls.Add(Me.BT_CERRAR)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Button8)
-        Me.Controls.Add(Me.Button7)
+        Me.Controls.Add(Me.BT_MINIMIZAR)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.BT_STOP)
         Me.Controls.Add(Me.BT_PLAY)
         Me.Controls.Add(Me.LB_log)
-        Me.Controls.Add(Me.Button6)
         Me.Controls.Add(Me.TBcontrol1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "FRM_Principal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form1"
@@ -455,16 +454,14 @@ Partial Class FRM_Principal
     Friend WithEvents TB_Config As System.Windows.Forms.TabPage
     Friend WithEvents DBG_TAREAS As System.Windows.Forms.DataGridView
     Friend WithEvents DBG_Det As System.Windows.Forms.DataGridView
-    Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ToolStripMenu_Abrir As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenu_configurar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenu_Salir As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NotifyIcon1 As System.Windows.Forms.NotifyIcon
-    Friend WithEvents Button7 As System.Windows.Forms.Button
+    Friend WithEvents BT_MINIMIZAR As System.Windows.Forms.Button
     Friend WithEvents Button8 As System.Windows.Forms.Button
     Friend WithEvents LB_log As System.Windows.Forms.ListBox
-    Friend WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents BT_PLAY As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents BT_STOP As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents EditarTareaToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
@@ -484,6 +481,7 @@ Partial Class FRM_Principal
     Friend WithEvents BorrarTareaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Timer_Actualiza_Tareas As System.Windows.Forms.Timer
     Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents BT_CERRAR As System.Windows.Forms.Button
 
 
 

@@ -956,7 +956,7 @@ Public Class FRM_Principal
         Me.WindowState = FormWindowState.Maximized
 
         Dim classResize As New clsResizeForm
-        classResize.ResizeForm(Me, 1024, 768)
+        classResize.ResizeForm(Me, 1336, 768)  ''1366
 
 
 
@@ -1042,6 +1042,7 @@ Public Class FRM_Principal
 
     Private Sub abre_detalle_de_item_seleccionado(ID As Integer)
         DBG_Det.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        DBG_Det.RowHeadersVisible = False  ''elimina la primera columna
 
         Dim dts As New vworkgen
         Dim func As New fworkgen
@@ -1051,7 +1052,10 @@ Public Class FRM_Principal
         If dt_workdet.Rows.Count <> 0 Then
             DBG_Det.DataSource = dt_workdet
 
-            DBG_Det.Columns(1).Width = 150 ''equipo
+            DBG_Det.Columns(0).Width = 80 ''tiepo de respald
+            DBG_Det.Columns(1).Width = 120 '' fecha
+            DBG_Det.Columns(2).Width = 70 '' tamañp
+            DBG_Det.Columns(3).Width = 50 '' ID
         Else
 
             DBG_Det.DataSource = Nothing
@@ -1418,18 +1422,7 @@ Public Class FRM_Principal
     End Sub
 
 
-    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
-        If MessageBox.Show("Estas seguro que desea Salir", "◄ AVISO |  ►", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = DialogResult.Yes Then
-            Me.Close()
-        End If
-    End Sub
-
-    Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
-        Me.Visible = False         'oculta el Form de la aplicación
-        NotifyIcon1.Visible = True 'vuelve visible el icono en la Tray Bar
-        NotifyIcon1.ShowBalloonTip("3000", titulo_aplicacion, "La aplicación seguirá abierta en segundo plano en la barra de tareas", ToolTipIcon.Info)
-        ToolStripMenu_Abrir.Text = "Abrir"
-    End Sub
+   
 
     Private Sub ToolStripMenu_Abrir_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ToolStripMenu_Abrir.Click
 
@@ -1878,29 +1871,41 @@ Public Class FRM_Principal
     End Sub
 
     Private Function elimina_tarea_de_grilla(ID As Integer)
-
         Try
-
-
             Dim tarea
             For Each row As DataGridViewRow In DBG_TAREAS.Rows
-
                 If Not (String.IsNullOrEmpty(row.ToString)) Then
                     If row.Cells(1).Value.ToString = ID Then
                         DBG_TAREAS.Rows.Remove(row)
-
                     End If
                 End If
             Next
         Catch ex As Exception
-
         End Try
-
     End Function
 
     Private Sub DBG_TAREAS_Click(sender As Object, e As EventArgs) Handles DBG_TAREAS.Click
-      abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
-    
+
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
+            abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+        End If
+       
+    End Sub
+
+  
+    Private Sub BT_MINIMIZAR_Click(sender As Object, e As EventArgs) Handles BT_MINIMIZAR.Click
+        Me.Visible = False         'oculta el Form de la aplicación
+        NotifyIcon1.Visible = True 'vuelve visible el icono en la Tray Bar
+        NotifyIcon1.ShowBalloonTip("3000", titulo_aplicacion, "La aplicación seguirá abierta en segundo plano en la barra de tareas", ToolTipIcon.Info)
+        ToolStripMenu_Abrir.Text = "Abrir"
+    End Sub
+
+    Private Sub BT_CERRAR_Click(sender As Object, e As EventArgs) Handles BT_CERRAR.Click
+        If MessageBox.Show("Estas seguro que desea salir, se detendra todo proceso de respaldo ", "◄ AVISO |  ►", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = DialogResult.Yes Then
+            Me.Close()
+
+        End If
+
     End Sub
 End Class
 
