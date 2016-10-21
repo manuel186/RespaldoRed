@@ -422,20 +422,20 @@ Public Class FRM_Principal
 
                                         ToolStripStatusLabel1.Text = ""
 
-                                        If peso_total_archivos_copiado > 0 Then
+                                        ''  If peso_total_archivos_copiado > 0 Then
 
-                                            inserta_backupinfo(ID_ACTUAL, tipo_respaldo_tarea, peso_total_archivos_copiado)
+                                        inserta_backupinfo(ID_ACTUAL, tipo_respaldo_tarea, peso_total_archivos_copiado)
 
-                                            cambia_a_0_ultimo_respaldo(ID_ACTUAL) '''cuando el respaldo se completa cambia a 0 el ultimo respaldo
-                                            ''  lee_xml_det(XML_ACTUAL, ID_ACTUAL) ''el 0 lee detalle  
-                                            j = 0
+                                        cambia_a_0_ultimo_respaldo(ID_ACTUAL) '''cuando el respaldo se completa cambia a 0 el ultimo respaldo
+                                        ''  lee_xml_det(XML_ACTUAL, ID_ACTUAL) ''el 0 lee detalle  
+                                        j = 0
 
 
-                                        Else
-                                            ''  MsgBox("Ok " & "Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con  0  de peso copiado ")
-                                            LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con 0  de peso copiado ")
+                                        ''Else
+                                        ''  MsgBox("Ok " & "Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con  0  de peso copiado ")
+                                        '' LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con 0  de peso copiado ")
 
-                                        End If
+                                        ''  End If
 
 
                                         LB_log.SelectedIndex = LB_log.Items.Count - 1
@@ -1104,6 +1104,20 @@ Public Class FRM_Principal
         Dim funcDET As New fworkgen
         If funcDET.inserta_workdet(ID, correl, tipo_respaldo, tamaño_ok) Then
             ''  MsgBox("Ok " & "Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
+
+
+            ''recorre la grilla y abre el detalle de la recien terminada tarea
+            Dim i As Integer = 0
+            For Each row As DataGridViewRow In DBG_TAREAS.Rows
+                If row.Cells(1).Value.ToString = ID Then
+                    abre_detalle_de_item_seleccionado(ID)
+                End If
+                i = +1
+
+            Next
+            ''   DBG_TAREAS.Rows(i).Selected = True
+            DBG_TAREAS.CurrentCell = DBG_TAREAS.Rows(i).Cells(0)
+
             LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
 
         Else
@@ -1111,6 +1125,7 @@ Public Class FRM_Principal
             LB_log.Items.Add("Error al insertar datos en tabla de detalle del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
 
         End If
+
 
 
 
@@ -1450,9 +1465,8 @@ Public Class FRM_Principal
                 Dim del As New fworkgen
                 Dim val, val2 As Boolean
 
+                ''elimina tarea de la DB
                 val = del.elimina_workdet(ID)
-
-
                 If val Then
 
                     If val = del.elimina_workgen(ID) Then
@@ -1519,6 +1533,11 @@ Public Class FRM_Principal
             abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
         End If
 
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        '' DBG_TAREAS.CurrentCell = DBG_TAREAS.Rows(0 + 1).Cells(0)
+        ''  DBG_TAREAS.Rows(0).Selected = True
     End Sub
 End Class
 

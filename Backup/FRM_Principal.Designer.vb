@@ -66,6 +66,7 @@ Partial Class FRM_Principal
         Me.Timer_Actualiza_Tareas = New System.Windows.Forms.Timer(Me.components)
         Me.Button4 = New System.Windows.Forms.Button()
         Me.BT_CERRAR = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -401,11 +402,21 @@ Partial Class FRM_Principal
         Me.BT_CERRAR.Text = "X"
         Me.BT_CERRAR.UseVisualStyleBackColor = True
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(199, 37)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 33
+        Me.Button2.Text = "Tamaña dce carpeta"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1350, 740)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.BT_CERRAR)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label2)
@@ -482,6 +493,7 @@ Partial Class FRM_Principal
     Friend WithEvents Timer_Actualiza_Tareas As System.Windows.Forms.Timer
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents BT_CERRAR As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 
 
 
