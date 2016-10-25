@@ -57,6 +57,8 @@ Public Class FRM_Principal
     Public tipo_respaldo As String = "A" '' identifica si el respaldo es manual o automatico
     Public tipo_respaldo_tarea As String ''identifica si es tarea respaldo incremental, completo.. diferencial..etc. 
 
+    Public divide_backup_por_fecha As Boolean
+
     Dim Filtro_mascaras2 As String
     Dim Filtro_mascaras As String()
 
@@ -315,13 +317,14 @@ Public Class FRM_Principal
                                 If (row.Cells(COL_ESTADO).Value.ToString = "Activa") And (row.Cells(COL_ESTADO_RED).Value.ToString = "Online") And ((row.Cells(COL_ULT_RESPALDO).Value.ToString) > 0) Then
                                     row.Cells(COL_ESTADO).Value = "Respaldando"
 
-
+                                    ''  DBG_TAREAS.CurrentRow.DefaultCellStyle.BackColor = Color.Blue
 
                                     Dim dts As New vworkgen
                                     Dim funcID As New fworkgen
                                     funcID.ver_workgen_by_id(dts, ID_ACTUAL)
                                     '' 
                                     tipo_respaldo_tarea = dts.gtypework_workgen
+                                    divide_backup_por_fecha = dts.gsplitbackup_workgen
 
                                     Dim funcDest As New fworkgen
                                     Dim TablaDest As New DataTable
@@ -395,7 +398,11 @@ Public Class FRM_Principal
                                         For i = 0 To total Step 1
                                             LB_log.Items.Add("Comenzando Copia de Archivos")
 
-                                            Dim carpeta As String = devuelte_ultima_carpeta(TablaDeT.Rows(i).Item(3).ToString) '''funcion que devuelve el nombre de la ultima carpeta
+                                            Dim carpeta As String = devuelte_ultima_carpeta(TablaDeT.Rows(i).Item(3).ToString)
+
+                                            If divide_backup_por_fecha = True Then
+                                                carpeta = Format(Now(), "dd-MM-yyyy") & "/" & carpeta
+                                            End If
 
                                             Dim diSource As New DirectoryInfo(TablaDeT.Rows(i).Item(3).ToString)
                                             Dim diDestiny As New DirectoryInfo(destino & "\" & carpeta)
@@ -424,9 +431,11 @@ Public Class FRM_Principal
 
                                         ''  If peso_total_archivos_copiado > 0 Then
 
+                                        cambia_a_0_ultimo_respaldo(ID_ACTUAL) '''cuando el respaldo se completa cambia a 0 el ultimo respaldo
+
                                         inserta_backupinfo(ID_ACTUAL, tipo_respaldo_tarea, peso_total_archivos_copiado)
 
-                                        cambia_a_0_ultimo_respaldo(ID_ACTUAL) '''cuando el respaldo se completa cambia a 0 el ultimo respaldo
+
                                         ''  lee_xml_det(XML_ACTUAL, ID_ACTUAL) ''el 0 lee detalle  
                                         j = 0
 
@@ -822,8 +831,10 @@ Public Class FRM_Principal
             DBG_TAREAS.DataSource = dt_workgen
 
             abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+
         Else
             DBG_TAREAS.DataSource = Nothing
+            abre_detalle_de_item_seleccionado(0)
         End If
 
 
@@ -1103,25 +1114,23 @@ Public Class FRM_Principal
 
         Dim funcDET As New fworkgen
         If funcDET.inserta_workdet(ID, correl, tipo_respaldo, tamaño_ok) Then
-            ''  MsgBox("Ok " & "Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
-
 
             ''recorre la grilla y abre el detalle de la recien terminada tarea
-            Dim i As Integer = 0
-            For Each row As DataGridViewRow In DBG_TAREAS.Rows
-                If row.Cells(1).Value.ToString = ID Then
-                    abre_detalle_de_item_seleccionado(ID)
+            Dim i2 As Integer = 0
+            For Each row2 As DataGridViewRow In DBG_TAREAS.Rows
+
+                Dim campo = row2.Cells(1).Value
+                If Not (String.IsNullOrEmpty(campo)) Then
+                    ''  selecciona la fila correpondiente a la tarea y muestra el detalle
+                    DBG_TAREAS.CurrentCell = DBG_TAREAS.Rows(i2).Cells(0)
+                    abre_detalle_de_item_seleccionado(ID_ACTUAL)
                 End If
-                i = +1
+                i2 = +1
 
             Next
-            ''   DBG_TAREAS.Rows(i).Selected = True
-            DBG_TAREAS.CurrentCell = DBG_TAREAS.Rows(i).Cells(0)
 
             LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
-
         Else
-            '' MsgBox("Error al insertar datos en tabla de detalle del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
             LB_log.Items.Add("Error al insertar datos en tabla de detalle del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
 
         End If
@@ -1144,8 +1153,11 @@ Public Class FRM_Principal
 
 
     Private Sub DBG_Estado_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DBG_TAREAS.CellDoubleClick
-        ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
-        FRM_Tarea.ShowDialog()
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
+            ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+            FRM_Tarea.ShowDialog()
+        End If
+
     End Sub
 
     Private Sub EjecutarTareaAhoraToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EjecutarTareaAhoraToolStripMenuItem.Click
@@ -1209,7 +1221,8 @@ Public Class FRM_Principal
             For Each row As DataGridViewRow In DBG_TAREAS.Rows
 
 
-                If row.Cells(1).Value.ToString = ID Then
+                Dim campo = row.Cells(1).Value
+                If Not (String.IsNullOrEmpty(campo)) Then
                     row.Cells(0).Value = "Activa"
 
                 End If
@@ -1227,7 +1240,8 @@ Public Class FRM_Principal
         For Each row As DataGridViewRow In DBG_TAREAS.Rows
 
 
-            If row.Cells(1).Value.ToString = ID Then
+            Dim campo = row.Cells(1).Value
+            If Not (String.IsNullOrEmpty(campo)) Then
                 usuario = row.Cells(3).Value.ToString
                 Return usuario
 
@@ -1240,11 +1254,9 @@ Public Class FRM_Principal
 
     Private Sub cambia_a_0_ultimo_respaldo(ID As Integer)
         Try
-
-
             For Each row As DataGridViewRow In DBG_TAREAS.Rows
                 ''If Not (String.IsNullOrEmpty(row.Cells(1).Value.ToString))  Then
-                Dim campo As String = row.Cells(1).Value.ToString()
+                Dim campo = row.Cells(1).Value
                 If Not (String.IsNullOrEmpty(campo)) Then
                     If row.Cells(1).Value.ToString = ID Then
                         row.Cells(COL_ULT_RESPALDO).Value = 0
@@ -1261,8 +1273,8 @@ Public Class FRM_Principal
         Dim equipo
         For Each row As DataGridViewRow In DBG_TAREAS.Rows
 
-
-            If row.Cells(1).Value.ToString = ID Then
+            Dim campo = row.Cells(1).Value
+            If Not (String.IsNullOrEmpty(campo)) Then
                 equipo = row.Cells(2).Value.ToString
                 Return equipo
 
@@ -1502,6 +1514,8 @@ Public Class FRM_Principal
 
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
             abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+        Else
+            abre_detalle_de_item_seleccionado(0)
         End If
 
     End Sub
@@ -1531,8 +1545,9 @@ Public Class FRM_Principal
     Private Sub DBG_TAREAS_KeyUp(sender As Object, e As KeyEventArgs) Handles DBG_TAREAS.KeyUp
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
             abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+        Else
+            abre_detalle_de_item_seleccionado(0)
         End If
-
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click

@@ -197,6 +197,20 @@ Public Class FRM_Tarea
         End If
 
 
+        If (swok = 1) And (LB_sources.Items.Count < 1) Then
+            msg_box("Debe ingresar al menos una fuente de datos", estilo_msgbox_informacion, titulo_aplicacion)
+            TabControl1.SelectTab(1)
+            LB_sources.Focus()
+            swok = 0
+        End If
+
+        If (swok = 1) And (LB_destinations.Items.Count < 1) Then
+            msg_box("Debe ingresar al menos una ruta de destino", estilo_msgbox_informacion, titulo_aplicacion)
+            TabControl1.SelectTab(1)
+            LB_destinations.Focus()
+            swok = 0
+        End If
+
 
         If swok = 1 Then
             Return True
@@ -505,13 +519,52 @@ Public Class FRM_Tarea
         Catch ex As Exception
             ' Se ha producido un error
             MessageBox.Show(ex.Message)
-
         End Try
-
-
-
-       
 
     End Sub
 
+ 
+    Private Sub BT_AGREGA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_SOURCE.Click
+        If FolderBrowser_Source.ShowDialog() = DialogResult.OK Then
+            LB_sources.Items.Add(FolderBrowser_Source.SelectedPath)
+        End If
+    End Sub
+
+    Private Sub CB_splitbackup_workgen_CheckedChanged(sender As Object, e As EventArgs) Handles CB_splitbackup_workgen.CheckedChanged
+        If CB_splitbackup_workgen.Checked = True Then
+            If RB_completo.Checked = False Then
+                Dim response
+                response = MsgBox("Esta opción solo se aplica a respaldo completo, desea ocuparla y cambiar la tarea a respaldo completo?", vbYesNo, titulo_aplicacion)
+
+                If response = vbYes Then
+                    RB_completo.Checked = True
+                Else
+                    CB_splitbackup_workgen.Checked = False
+                End If
+
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub RB_incremental_CheckedChanged(sender As Object, e As EventArgs) Handles RB_incremental.CheckedChanged
+        If RB_completo.Checked = False Then
+            If CB_splitbackup_workgen.Checked = True Then
+                CB_splitbackup_workgen.Checked = False
+            End If
+        End If
+
+       
+    End Sub
+
+    Private Sub RB_diferencial_CheckedChanged(sender As Object, e As EventArgs) Handles RB_diferencial.CheckedChanged
+        If RB_completo.Checked = False Then
+            If CB_splitbackup_workgen.Checked = True Then
+                CB_splitbackup_workgen.Checked = False
+            End If
+        End If
+       
+    End Sub
 End Class

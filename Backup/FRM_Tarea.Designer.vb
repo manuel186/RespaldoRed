@@ -69,7 +69,7 @@ Partial Class FRM_Tarea
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.BT_AGREGA_SOURCE = New System.Windows.Forms.Button()
         Me.TabPage_Filtros = New System.Windows.Forms.TabPage()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Button10 = New System.Windows.Forms.Button()
@@ -84,6 +84,7 @@ Partial Class FRM_Tarea
         Me.Button9 = New System.Windows.Forms.Button()
         Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
+        Me.FolderBrowser_Source = New System.Windows.Forms.FolderBrowserDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
@@ -252,7 +253,6 @@ Partial Class FRM_Tarea
         'CB_splitbackup_workgen
         '
         Me.CB_splitbackup_workgen.AutoSize = True
-        Me.CB_splitbackup_workgen.Enabled = False
         Me.CB_splitbackup_workgen.Location = New System.Drawing.Point(11, 139)
         Me.CB_splitbackup_workgen.Name = "CB_splitbackup_workgen"
         Me.CB_splitbackup_workgen.Size = New System.Drawing.Size(219, 17)
@@ -417,7 +417,6 @@ Partial Class FRM_Tarea
         Me.txt_ip_workgen.Name = "txt_ip_workgen"
         Me.txt_ip_workgen.Size = New System.Drawing.Size(90, 20)
         Me.txt_ip_workgen.TabIndex = 5
-        Me.txt_ip_workgen.Text = "192.168.100.100"
         '
         'Label3
         '
@@ -471,7 +470,7 @@ Partial Class FRM_Tarea
         Me.TabPage_Archivos.Controls.Add(Me.Label10)
         Me.TabPage_Archivos.Controls.Add(Me.Button3)
         Me.TabPage_Archivos.Controls.Add(Me.Button2)
-        Me.TabPage_Archivos.Controls.Add(Me.Button1)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_SOURCE)
         Me.TabPage_Archivos.Location = New System.Drawing.Point(4, 25)
         Me.TabPage_Archivos.Name = "TabPage_Archivos"
         Me.TabPage_Archivos.Padding = New System.Windows.Forms.Padding(3)
@@ -565,14 +564,14 @@ Partial Class FRM_Tarea
         Me.Button2.Text = "Editar"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'Button1
+        'BT_AGREGA_SOURCE
         '
-        Me.Button1.Location = New System.Drawing.Point(17, 173)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Agregar"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BT_AGREGA_SOURCE.Location = New System.Drawing.Point(17, 173)
+        Me.BT_AGREGA_SOURCE.Name = "BT_AGREGA_SOURCE"
+        Me.BT_AGREGA_SOURCE.Size = New System.Drawing.Size(75, 23)
+        Me.BT_AGREGA_SOURCE.TabIndex = 0
+        Me.BT_AGREGA_SOURCE.Text = "Agregar"
+        Me.BT_AGREGA_SOURCE.UseVisualStyleBackColor = True
         '
         'TabPage_Filtros
         '
@@ -772,7 +771,7 @@ Partial Class FRM_Tarea
     Friend WithEvents RB_diferencial As System.Windows.Forms.RadioButton
     Friend WithEvents CB_usevsc_workgen As System.Windows.Forms.CheckBox
     Friend WithEvents CB_splitbackup_workgen As System.Windows.Forms.CheckBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents BT_AGREGA_SOURCE As System.Windows.Forms.Button
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Button3 As System.Windows.Forms.Button
@@ -805,4 +804,5 @@ Partial Class FRM_Tarea
     Friend WithEvents txt_username_workgen As System.Windows.Forms.TextBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Button13 As System.Windows.Forms.Button
+    Friend WithEvents FolderBrowser_Source As System.Windows.Forms.FolderBrowserDialog
 End Class
