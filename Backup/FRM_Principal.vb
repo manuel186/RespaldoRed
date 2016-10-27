@@ -138,29 +138,29 @@ Public Class FRM_Principal
                                 If My.Computer.Network.Ping(ip, timeout) Then
                                     sw.Stop()
                                     ping = sw.ElapsedMilliseconds
-                                    Label1.Text = String.Format("{0}ms", ping)
+                                    ''    Label1.Text = String.Format("{0}ms", ping)
                                 End If
                                 If ping < 0 Then
                                     row.Cells(COL_ESTADO_RED).Value = "OFFLINE"
-                                    Label2.Text = "Ping Timed Out"
-                                    Label3.BackColor = Color.Brown
+                                    ''' Label2.Text = "Ping Timed Out"
+                                    '' Label3.BackColor = Color.Brown
                                 ElseIf ping < 200 Then
                                     row.Cells(COL_ESTADO_RED).Value = "Online"
-                                    Label2.Text = "Good Connection"
-                                    Label3.BackColor = Color.Green
+                                    ''  Label2.Text = "Good Connection"
+                                    '' Label3.BackColor = Color.Green
                                 ElseIf ping < 400 Then
                                     row.Cells(COL_ESTADO_RED).Value = "Online"
-                                    LB_DOMINIO.Text = "Medium Connection"
-                                    Label3.BackColor = Color.Orange
+                                    ''  LB_DOMINIO.Text = "Medium Connection"
+                                    '' Label3.BackColor = Color.Orange
                                 Else
-                                    row.Cells(COL_ESTADO_RED).Value = "Online"
-                                    Label2.Text = "Bad Connection"
-                                    Label3.BackColor = Color.Red
+                                    row.Cells(COL_ESTADO_RED).Value = "OFFLINE"
+                                    ''   Label2.Text = "Bad Connection"
+                                    ''  Label3.BackColor = Color.Red
                                 End If
                             Catch ex As Exception
-                                Label2.Text = ""
-                                Label1.Text = ex.Message
-                                Label3.BackColor = Color.Red
+                                ''  Label2.Text = ""
+                                '' Label1.Text = ex.Message
+                                ''   Label3.BackColor = Color.Red
 
                             End Try
 
@@ -1166,11 +1166,14 @@ Public Class FRM_Principal
     End Sub
 
     Private Sub inicia_respaldo()
+        RESPALDO = "INICIADO"
+
         Me.SUBPRespaldar = New Threading.Thread(AddressOf Me.Funcion_Respaldar)
         If Me.SUBPRespaldar.ThreadState <> Threading.ThreadState.Running Then
             Me.SUBPRespaldar.Start()
             LB_log.Items.Add("Se ha inciado el proceso respaldo  ")
             BT_PLAY.Enabled = False
+            BT_PAUSE.Enabled = True
             BT_STOP.Enabled = True
         End If
 
@@ -1178,23 +1181,47 @@ Public Class FRM_Principal
     End Sub
 
     Private Sub BT_PLAY_Click(sender As Object, e As EventArgs) Handles BT_PLAY.Click
-        inicia_respaldo()
+        BT_PAUSE.Enabled = True
+        BT_STOP.Enabled = True
+
+        If RESPALDO = "PAUSADO" Then
+            If Me.SUBPRespaldar.ThreadState = Threading.ThreadState.Suspended Then
+                Me.SUBPRespaldar.Resume()
+                RESPALDO = "INICIADO"
+                LB_log.Items.Add("Se ha reiniciado el proceso de copia de la tarea  ")
+                BT_PAUSE.Enabled = True
+                BT_STOP.Enabled = False
+
+                busca_y_cambia_estado_a_respaldando(ID_ACTUAL) ''cambia el estado respaldando
+            End If
+        Else
+            inicia_respaldo()
+        End If
+       
+
+
+
+
     End Sub
 
 
     Private Sub BT_STOP_Click(sender As Object, e As EventArgs) Handles BT_STOP.Click
-        ''  Me.SUBPRespaldar = New Threading.Thread(AddressOf Me.Funcion_Respaldar)
+        If Me.SUBPRespaldar.ThreadState = Threading.ThreadState.Suspended Then
+            Me.SUBPRespaldar.Resume()
+            Me.SUBPRespaldar.Abort()
+        End If
+
         If Me.SUBPRespaldar.ThreadState = Threading.ThreadState.Running Then
             Me.SUBPRespaldar.Abort()
-            LB_log.Items.Add("Se ha detenido el proceso de copia de la tarea  ")
-            BT_PLAY.Enabled = True
-            BT_STOP.Enabled = False
-
-
-            busca_y_cambia_estado_a_activo(ID_ACTUAL)
-            RESPALDO = "DETENIDO"
-            ''  Label4.Text = SUBPRespaldar.IsAlive
         End If
+
+        LB_log.Items.Add("Se ha detenido el proceso de copia de la tarea  ")
+        BT_PLAY.Enabled = True
+        BT_STOP.Enabled = False
+
+
+        busca_y_cambia_estado_a_activo(ID_ACTUAL)
+        RESPALDO = "DETENIDO"
 
     End Sub
     Private Function busca_y_cambia_estado_a_activo(ID As Integer)
@@ -1205,7 +1232,7 @@ Public Class FRM_Principal
 
 
                 Dim campo = row.Cells(1).Value
-                If Not (String.IsNullOrEmpty(campo)) Then
+                If (Not (String.IsNullOrEmpty(campo)) And campo = ID) Then
                     row.Cells(0).Value = "Activa"
 
                 End If
@@ -1218,6 +1245,45 @@ Public Class FRM_Principal
     End Function
 
 
+    Private Function busca_y_cambia_estado_a_respaldando(ID As Integer)
+
+        Try
+
+            For Each row As DataGridViewRow In DBG_TAREAS.Rows
+
+
+                Dim campo = row.Cells(1).Value
+                If (Not (String.IsNullOrEmpty(campo)) And campo = ID) Then
+                    row.Cells(0).Value = "Respaldando"
+
+                End If
+
+            Next
+        Catch ex As Exception
+
+        End Try
+
+    End Function
+
+    Private Function busca_y_cambia_estado_a_pausado(ID As Integer)
+
+        Try
+
+            For Each row As DataGridViewRow In DBG_TAREAS.Rows
+
+
+                Dim campo = row.Cells(1).Value
+                If (Not (String.IsNullOrEmpty(campo)) And campo = ID) Then
+                    row.Cells(0).Value = "Pausado"
+
+                End If
+
+            Next
+        Catch ex As Exception
+
+        End Try
+
+    End Function
     Private Function busca_usuario(ID As Integer)
         Dim usuario
         For Each row As DataGridViewRow In DBG_TAREAS.Rows
@@ -1269,38 +1335,7 @@ Public Class FRM_Principal
     End Function
 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim ip = "192.168.100.6"
-        Dim timeout = 1000
-        Dim sw = New Stopwatch()
-        Try
-            Dim ping As Long = -1
-            sw.Start()
-            If My.Computer.Network.Ping(ip, timeout) Then
-                sw.Stop()
-                ping = sw.ElapsedMilliseconds
-                Label1.Text = String.Format("{0}ms", ping)
-            End If
-            If ping < 0 Then
-                Label2.Text = "Ping Timed Out"
-                Label3.BackColor = Color.Brown
-            ElseIf ping < 200 Then
-                Label2.Text = "Good Connection"
-                Label3.BackColor = Color.Green
-            ElseIf ping < 400 Then
-                LB_DOMINIO.Text = "Medium Connection"
-                Label3.BackColor = Color.Orange
-            Else
-                Label2.Text = "Bad Connection"
-                Label3.BackColor = Color.Red
-            End If
-        Catch ex As Exception
-            Label2.Text = ""
-            Label1.Text = ex.Message
-            Label3.BackColor = Color.Red
-            '''  Console.WriteLine(ex.ToString())
-        End Try
-    End Sub
+ 
 
     Private Sub EditarTareaToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EditarTareaToolStripMenuItem1.Click
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
@@ -1611,5 +1646,30 @@ Public Class FRM_Principal
     End Sub
 
   
+
+    Private Sub BT_PAUSE_Click(sender As Object, e As EventArgs) Handles BT_PAUSE.Click
+        If RESPALDO = "INICIADO" Then
+
+
+            If Me.SUBPRespaldar.ThreadState = Threading.ThreadState.Running Then
+                Me.SUBPRespaldar.Suspend()
+                RESPALDO = "PAUSADO"
+                LB_log.Items.Add("Se ha pausado el proceso de copia de la tarea  ")
+                LB_log.SelectedIndex = LB_log.Items.Count - 1
+                BT_PLAY.Enabled = True
+                BT_PAUSE.Enabled = False
+                BT_STOP.Enabled = True
+
+                busca_y_cambia_estado_a_pausado(ID_ACTUAL) ''cambia el estado a activo
+
+
+                ''  Label4.Text = SUBPRespaldar.IsAlive
+            End If
+
+
+         
+
+        End If
+    End Sub
 End Class
 

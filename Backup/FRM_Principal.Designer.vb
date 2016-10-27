@@ -42,7 +42,6 @@ Partial Class FRM_Principal
         Me.DBG_Det = New System.Windows.Forms.DataGridView()
         Me.DBG_TAREAS = New System.Windows.Forms.DataGridView()
         Me.TB_Config = New System.Windows.Forms.TabPage()
-        Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.TXT_CLAVE_DOMINIO = New System.Windows.Forms.TextBox()
         Me.LBCLAVE = New System.Windows.Forms.Label()
@@ -60,15 +59,10 @@ Partial Class FRM_Principal
         Me.LB_log = New System.Windows.Forms.ListBox()
         Me.BT_STOP = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_PLAY = New DevExpress.XtraEditors.SimpleButton()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Timer_Actualiza_Tareas = New System.Windows.Forms.Timer(Me.components)
         Me.Button4 = New System.Windows.Forms.Button()
         Me.BT_CERRAR = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -197,7 +191,6 @@ Partial Class FRM_Principal
         '
         'TB_Config
         '
-        Me.TB_Config.Controls.Add(Me.BT_CANCELA)
         Me.TB_Config.Controls.Add(Me.BT_ACEPTA)
         Me.TB_Config.Controls.Add(Me.TXT_CLAVE_DOMINIO)
         Me.TB_Config.Controls.Add(Me.LBCLAVE)
@@ -213,29 +206,19 @@ Partial Class FRM_Principal
         Me.TB_Config.Text = "Configuración"
         Me.TB_Config.UseVisualStyleBackColor = True
         '
-        'BT_CANCELA
-        '
-        Me.BT_CANCELA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
-        Me.BT_CANCELA.Image = Global.Backup.My.Resources.Resources.cancelar
-        Me.BT_CANCELA.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BT_CANCELA.Location = New System.Drawing.Point(913, 321)
-        Me.BT_CANCELA.Name = "BT_CANCELA"
-        Me.BT_CANCELA.Size = New System.Drawing.Size(57, 58)
-        Me.BT_CANCELA.TabIndex = 23
-        '
         'BT_ACEPTA
         '
         Me.BT_ACEPTA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
         Me.BT_ACEPTA.Image = Global.Backup.My.Resources.Resources.aceptar
         Me.BT_ACEPTA.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BT_ACEPTA.Location = New System.Drawing.Point(846, 320)
+        Me.BT_ACEPTA.Location = New System.Drawing.Point(126, 306)
         Me.BT_ACEPTA.Name = "BT_ACEPTA"
         Me.BT_ACEPTA.Size = New System.Drawing.Size(61, 58)
         Me.BT_ACEPTA.TabIndex = 22
         '
         'TXT_CLAVE_DOMINIO
         '
-        Me.TXT_CLAVE_DOMINIO.Location = New System.Drawing.Point(149, 114)
+        Me.TXT_CLAVE_DOMINIO.Location = New System.Drawing.Point(152, 72)
         Me.TXT_CLAVE_DOMINIO.Name = "TXT_CLAVE_DOMINIO"
         Me.TXT_CLAVE_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_CLAVE_DOMINIO.TabIndex = 7
@@ -243,7 +226,7 @@ Partial Class FRM_Principal
         'LBCLAVE
         '
         Me.LBCLAVE.AutoSize = True
-        Me.LBCLAVE.Location = New System.Drawing.Point(6, 117)
+        Me.LBCLAVE.Location = New System.Drawing.Point(9, 75)
         Me.LBCLAVE.Name = "LBCLAVE"
         Me.LBCLAVE.Size = New System.Drawing.Size(133, 13)
         Me.LBCLAVE.TabIndex = 6
@@ -251,7 +234,7 @@ Partial Class FRM_Principal
         '
         'TXT_USUARIO_DOMINIO
         '
-        Me.TXT_USUARIO_DOMINIO.Location = New System.Drawing.Point(149, 84)
+        Me.TXT_USUARIO_DOMINIO.Location = New System.Drawing.Point(152, 42)
         Me.TXT_USUARIO_DOMINIO.Name = "TXT_USUARIO_DOMINIO"
         Me.TXT_USUARIO_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_USUARIO_DOMINIO.TabIndex = 5
@@ -259,7 +242,7 @@ Partial Class FRM_Principal
         'LBUSER
         '
         Me.LBUSER.AutoSize = True
-        Me.LBUSER.Location = New System.Drawing.Point(6, 88)
+        Me.LBUSER.Location = New System.Drawing.Point(9, 46)
         Me.LBUSER.Name = "LBUSER"
         Me.LBUSER.Size = New System.Drawing.Size(104, 13)
         Me.LBUSER.TabIndex = 4
@@ -267,7 +250,7 @@ Partial Class FRM_Principal
         '
         'TXT_NOMBRE_DOMINIO
         '
-        Me.TXT_NOMBRE_DOMINIO.Location = New System.Drawing.Point(149, 58)
+        Me.TXT_NOMBRE_DOMINIO.Location = New System.Drawing.Point(152, 16)
         Me.TXT_NOMBRE_DOMINIO.Name = "TXT_NOMBRE_DOMINIO"
         Me.TXT_NOMBRE_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_NOMBRE_DOMINIO.TabIndex = 3
@@ -275,7 +258,7 @@ Partial Class FRM_Principal
         'LB_DOMINIO
         '
         Me.LB_DOMINIO.AutoSize = True
-        Me.LB_DOMINIO.Location = New System.Drawing.Point(6, 61)
+        Me.LB_DOMINIO.Location = New System.Drawing.Point(9, 19)
         Me.LB_DOMINIO.Name = "LB_DOMINIO"
         Me.LB_DOMINIO.Size = New System.Drawing.Size(45, 13)
         Me.LB_DOMINIO.TabIndex = 2
@@ -283,7 +266,7 @@ Partial Class FRM_Principal
         '
         'Button8
         '
-        Me.Button8.Location = New System.Drawing.Point(437, 32)
+        Me.Button8.Location = New System.Drawing.Point(463, 41)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(75, 23)
         Me.Button8.TabIndex = 22
@@ -343,7 +326,7 @@ Partial Class FRM_Principal
         Me.BT_STOP.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
         Me.BT_STOP.Image = Global.Backup.My.Resources.Resources._stop
         Me.BT_STOP.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BT_STOP.Location = New System.Drawing.Point(84, 2)
+        Me.BT_STOP.Location = New System.Drawing.Point(125, 2)
         Me.BT_STOP.Name = "BT_STOP"
         Me.BT_STOP.Size = New System.Drawing.Size(45, 45)
         Me.BT_STOP.TabIndex = 20
@@ -358,58 +341,13 @@ Partial Class FRM_Principal
         Me.BT_PLAY.Size = New System.Drawing.Size(45, 45)
         Me.BT_PLAY.TabIndex = 19
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(451, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 26
-        Me.Button1.Text = "Ping"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(558, 7)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(39, 13)
-        Me.Label1.TabIndex = 27
-        Me.Label1.Text = "Label5"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(558, 42)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(39, 13)
-        Me.Label3.TabIndex = 29
-        Me.Label3.Text = "Label3"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(558, 25)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(39, 13)
-        Me.Label2.TabIndex = 30
-        Me.Label2.Text = "Label2"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(206, 12)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(39, 13)
-        Me.Label4.TabIndex = 31
-        Me.Label4.Text = "Label4"
-        '
         'Timer_Actualiza_Tareas
         '
         Me.Timer_Actualiza_Tareas.Interval = 1000
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(325, 7)
+        Me.Button4.Location = New System.Drawing.Point(463, 12)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(75, 23)
         Me.Button4.TabIndex = 18
@@ -426,27 +364,23 @@ Partial Class FRM_Principal
         Me.BT_CERRAR.Text = "X"
         Me.BT_CERRAR.UseVisualStyleBackColor = True
         '
-        'Button2
+        'BT_PAUSE
         '
-        Me.Button2.Location = New System.Drawing.Point(199, 37)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 33
-        Me.Button2.Text = "Tamaña dce carpeta"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.BT_PAUSE.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_PAUSE.Image = Global.Backup.My.Resources.Resources.pause
+        Me.BT_PAUSE.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_PAUSE.Location = New System.Drawing.Point(74, 2)
+        Me.BT_PAUSE.Name = "BT_PAUSE"
+        Me.BT_PAUSE.Size = New System.Drawing.Size(45, 45)
+        Me.BT_PAUSE.TabIndex = 33
         '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1350, 740)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.BT_PAUSE)
         Me.Controls.Add(Me.BT_CERRAR)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Button8)
         Me.Controls.Add(Me.BT_MINIMIZAR)
         Me.Controls.Add(Me.Button4)
@@ -506,20 +440,14 @@ Partial Class FRM_Principal
     Friend WithEvents LBUSER As System.Windows.Forms.Label
     Friend WithEvents TXT_NOMBRE_DOMINIO As System.Windows.Forms.TextBox
     Friend WithEvents LB_DOMINIO As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents ClonarTareaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BorrarTareaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Timer_Actualiza_Tareas As System.Windows.Forms.Timer
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents BT_CERRAR As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents BT_CANCELA As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents BT_ACEPTA As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BT_PAUSE As DevExpress.XtraEditors.SimpleButton
 
 
 

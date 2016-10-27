@@ -181,6 +181,7 @@
     <None Include="Resources\cancelar.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\pause.png" />
     <Content Include="Resources\test.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

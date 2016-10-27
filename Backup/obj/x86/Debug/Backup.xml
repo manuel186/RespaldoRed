@@ -52,6 +52,10 @@ Backup
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
+</member><member name="P:Backup.My.Resources.Resources.pause">
+	<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
 </member><member name="P:Backup.My.Resources.Resources.Play">
 	<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
