@@ -51,9 +51,12 @@ Partial Class FRM_Principal
         Me.LB_DOMINIO = New System.Windows.Forms.Label()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.BT_MINIMIZAR = New System.Windows.Forms.Button()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Menu_de_Aplicacion = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenu_Abrir = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenu_configurar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenu_Iniciar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenu_Pausar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenu_Detener = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenu_Acerca_De = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenu_Salir = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.LB_log = New System.Windows.Forms.ListBox()
@@ -70,7 +73,7 @@ Partial Class FRM_Principal
         CType(Me.DBG_Det, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DBG_TAREAS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TB_Config.SuspendLayout()
-        Me.ContextMenuStrip1.SuspendLayout()
+        Me.Menu_de_Aplicacion.SuspendLayout()
         Me.SuspendLayout()
         '
         'Menu_Estado
@@ -283,33 +286,51 @@ Partial Class FRM_Principal
         Me.BT_MINIMIZAR.Text = "-"
         Me.BT_MINIMIZAR.UseVisualStyleBackColor = True
         '
-        'ContextMenuStrip1
+        'Menu_de_Aplicacion
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenu_Abrir, Me.ToolStripMenu_configurar, Me.ToolStripMenu_Salir})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(151, 70)
+        Me.Menu_de_Aplicacion.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenu_Abrir, Me.ToolStripMenu_Iniciar, Me.ToolStripMenu_Pausar, Me.ToolStripMenu_Detener, Me.ToolStripMenu_Acerca_De, Me.ToolStripMenu_Salir})
+        Me.Menu_de_Aplicacion.Name = "ContextMenuStrip1"
+        Me.Menu_de_Aplicacion.Size = New System.Drawing.Size(153, 158)
         '
         'ToolStripMenu_Abrir
         '
         Me.ToolStripMenu_Abrir.Name = "ToolStripMenu_Abrir"
-        Me.ToolStripMenu_Abrir.Size = New System.Drawing.Size(150, 22)
+        Me.ToolStripMenu_Abrir.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenu_Abrir.Text = "Abrir"
         '
-        'ToolStripMenu_configurar
+        'ToolStripMenu_Iniciar
         '
-        Me.ToolStripMenu_configurar.Name = "ToolStripMenu_configurar"
-        Me.ToolStripMenu_configurar.Size = New System.Drawing.Size(150, 22)
-        Me.ToolStripMenu_configurar.Text = "Configuración"
+        Me.ToolStripMenu_Iniciar.Name = "ToolStripMenu_Iniciar"
+        Me.ToolStripMenu_Iniciar.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Iniciar.Text = "Iniciar"
+        '
+        'ToolStripMenu_Pausar
+        '
+        Me.ToolStripMenu_Pausar.Name = "ToolStripMenu_Pausar"
+        Me.ToolStripMenu_Pausar.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Pausar.Text = "Pausar"
+        '
+        'ToolStripMenu_Detener
+        '
+        Me.ToolStripMenu_Detener.Name = "ToolStripMenu_Detener"
+        Me.ToolStripMenu_Detener.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Detener.Text = "Detener"
+        '
+        'ToolStripMenu_Acerca_De
+        '
+        Me.ToolStripMenu_Acerca_De.Name = "ToolStripMenu_Acerca_De"
+        Me.ToolStripMenu_Acerca_De.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Acerca_De.Text = "Acerca de"
         '
         'ToolStripMenu_Salir
         '
         Me.ToolStripMenu_Salir.Name = "ToolStripMenu_Salir"
-        Me.ToolStripMenu_Salir.Size = New System.Drawing.Size(150, 22)
+        Me.ToolStripMenu_Salir.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenu_Salir.Text = "Salir"
         '
         'NotifyIcon1
         '
-        Me.NotifyIcon1.ContextMenuStrip = Me.ContextMenuStrip1
+        Me.NotifyIcon1.ContextMenuStrip = Me.Menu_de_Aplicacion
         Me.NotifyIcon1.Text = "NotifyIcon1"
         Me.NotifyIcon1.Visible = True
         '
@@ -404,7 +425,7 @@ Partial Class FRM_Principal
         CType(Me.DBG_TAREAS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TB_Config.ResumeLayout(False)
         Me.TB_Config.PerformLayout()
-        Me.ContextMenuStrip1.ResumeLayout(False)
+        Me.Menu_de_Aplicacion.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -423,10 +444,10 @@ Partial Class FRM_Principal
     Friend WithEvents TB_Config As System.Windows.Forms.TabPage
     Friend WithEvents DBG_TAREAS As System.Windows.Forms.DataGridView
     Friend WithEvents DBG_Det As System.Windows.Forms.DataGridView
-    Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents Menu_de_Aplicacion As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ToolStripMenu_Abrir As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenu_configurar As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenu_Salir As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenu_Iniciar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenu_Pausar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NotifyIcon1 As System.Windows.Forms.NotifyIcon
     Friend WithEvents BT_MINIMIZAR As System.Windows.Forms.Button
     Friend WithEvents Button8 As System.Windows.Forms.Button
@@ -448,6 +469,9 @@ Partial Class FRM_Principal
     Friend WithEvents BT_CERRAR As System.Windows.Forms.Button
     Friend WithEvents BT_ACEPTA As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents BT_PAUSE As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents ToolStripMenu_Detener As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenu_Acerca_De As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenu_Salir As System.Windows.Forms.ToolStripMenuItem
 
 
 

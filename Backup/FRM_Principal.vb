@@ -1023,31 +1023,7 @@ Public Class FRM_Principal
 
 
 
-    Private Sub ToolStripMenu_Abrir_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ToolStripMenu_Abrir.Click
 
-        If ToolStripMenu_Abrir.Text = "Minimizar" Then
-            Me.Visible = False         'oculta el Form de la aplicación
-            NotifyIcon1.Visible = True 'vuelve visible el icono en la Tray Bar
-            ToolStripMenu_Abrir.Text = "Abrir"
-        Else
-            ToolStripMenu_Abrir.Text = "Minimizar"
-            'NotifyIcon1.Visible = False 'oculta el icono en la Tray Bar
-            NotifyIcon1.Visible = True 'vuelve visible el icono en la Tray Bar
-            Me.Visible = True           'vuelve visible el Form de la aplicación
-        End If
-
-    End Sub
-
-    Private Sub ToolStripMenu_Salir_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ToolStripMenu_Salir.Click
-        Dim response
-        response = MsgBox("¿Esta Seguro que desea salir de la aplicación?", vbYesNo, titulo_aplicacion)
-
-        If response = vbYes Then
-            Me.Close()
-        End If
-
-
-    End Sub
 
     Private Sub ToolStripMenu_Abrir_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles ToolStripMenu_Abrir.DoubleClick
 
@@ -1670,6 +1646,69 @@ Public Class FRM_Principal
          
 
         End If
+    End Sub
+
+
+ 
+
+
+    Private Sub DetenerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToolStripMenu_Detener.Click
+        BT_STOP.PerformClick()
+    End Sub
+
+    Private Sub ToolStripMenu_Salir_Click(sender As Object, e As EventArgs) Handles ToolStripMenu_Salir.Click
+        Dim response
+        response = MsgBox("¿Esta Seguro que desea salir de la aplicación?", vbYesNo, titulo_aplicacion)
+
+        If response = vbYes Then
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub ToolStripMenu_Pausar_Click(sender As Object, e As EventArgs) Handles ToolStripMenu_Pausar.Click
+        BT_PAUSE.PerformClick()
+    End Sub
+
+    Private Sub ToolStripMenu_Iniciar_Click(sender As Object, e As EventArgs) Handles ToolStripMenu_Iniciar.Click
+        BT_PLAY.PerformClick()
+    End Sub
+
+    Private Sub ToolStripMenu_Abrir_Click(sender As Object, e As EventArgs) Handles ToolStripMenu_Abrir.Click
+        If ToolStripMenu_Abrir.Text = "Minimizar" Then
+            Me.Visible = False         'oculta el Form de la aplicación
+            NotifyIcon1.Visible = True 'vuelve visible el icono en la Tray Bar
+            ToolStripMenu_Abrir.Text = "Abrir"
+        Else
+            ToolStripMenu_Abrir.Text = "Minimizar"
+            'NotifyIcon1.Visible = False 'oculta el icono en la Tray Bar
+            NotifyIcon1.Visible = True 'vuelve visible el icono en la Tray Bar
+            Me.Visible = True           'vuelve visible el Form de la aplicación
+        End If
+    End Sub
+
+    Private Sub Menu_de_Aplicacion_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles Menu_de_Aplicacion.Opening
+
+        If RESPALDO = "INICIADO" Then
+            ToolStripMenu_Iniciar.Enabled = False
+            ToolStripMenu_Pausar.Enabled = True
+            ToolStripMenu_Detener.Enabled = True
+
+        End If
+
+        If RESPALDO = "PAUSADO" Then
+            ToolStripMenu_Iniciar.Enabled = True
+            ToolStripMenu_Pausar.Enabled = False
+            ToolStripMenu_Detener.Enabled = True
+
+        End If
+
+        If RESPALDO = "DETENIDO" Then
+            ToolStripMenu_Iniciar.Enabled = True
+            ToolStripMenu_Pausar.Enabled = True
+            ToolStripMenu_Detener.Enabled = False
+
+        End If
+
     End Sub
 End Class
 
