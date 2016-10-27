@@ -42,12 +42,14 @@ Partial Class FRM_Principal
         Me.DBG_Det = New System.Windows.Forms.DataGridView()
         Me.DBG_TAREAS = New System.Windows.Forms.DataGridView()
         Me.TB_Config = New System.Windows.Forms.TabPage()
+        Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.TXT_CLAVE_DOMINIO = New System.Windows.Forms.TextBox()
-        Me.Label45 = New System.Windows.Forms.Label()
+        Me.LBCLAVE = New System.Windows.Forms.Label()
         Me.TXT_USUARIO_DOMINIO = New System.Windows.Forms.TextBox()
-        Me.Label31 = New System.Windows.Forms.Label()
+        Me.LBUSER = New System.Windows.Forms.Label()
         Me.TXT_NOMBRE_DOMINIO = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.LB_DOMINIO = New System.Windows.Forms.Label()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.BT_MINIMIZAR = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -195,12 +197,14 @@ Partial Class FRM_Principal
         '
         'TB_Config
         '
+        Me.TB_Config.Controls.Add(Me.BT_CANCELA)
+        Me.TB_Config.Controls.Add(Me.BT_ACEPTA)
         Me.TB_Config.Controls.Add(Me.TXT_CLAVE_DOMINIO)
-        Me.TB_Config.Controls.Add(Me.Label45)
+        Me.TB_Config.Controls.Add(Me.LBCLAVE)
         Me.TB_Config.Controls.Add(Me.TXT_USUARIO_DOMINIO)
-        Me.TB_Config.Controls.Add(Me.Label31)
+        Me.TB_Config.Controls.Add(Me.LBUSER)
         Me.TB_Config.Controls.Add(Me.TXT_NOMBRE_DOMINIO)
-        Me.TB_Config.Controls.Add(Me.Label21)
+        Me.TB_Config.Controls.Add(Me.LB_DOMINIO)
         Me.TB_Config.Location = New System.Drawing.Point(4, 22)
         Me.TB_Config.Name = "TB_Config"
         Me.TB_Config.Padding = New System.Windows.Forms.Padding(3)
@@ -209,6 +213,26 @@ Partial Class FRM_Principal
         Me.TB_Config.Text = "Configuración"
         Me.TB_Config.UseVisualStyleBackColor = True
         '
+        'BT_CANCELA
+        '
+        Me.BT_CANCELA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_CANCELA.Image = Global.Backup.My.Resources.Resources.cancelar
+        Me.BT_CANCELA.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_CANCELA.Location = New System.Drawing.Point(913, 321)
+        Me.BT_CANCELA.Name = "BT_CANCELA"
+        Me.BT_CANCELA.Size = New System.Drawing.Size(57, 58)
+        Me.BT_CANCELA.TabIndex = 23
+        '
+        'BT_ACEPTA
+        '
+        Me.BT_ACEPTA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_ACEPTA.Image = Global.Backup.My.Resources.Resources.aceptar
+        Me.BT_ACEPTA.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_ACEPTA.Location = New System.Drawing.Point(846, 320)
+        Me.BT_ACEPTA.Name = "BT_ACEPTA"
+        Me.BT_ACEPTA.Size = New System.Drawing.Size(61, 58)
+        Me.BT_ACEPTA.TabIndex = 22
+        '
         'TXT_CLAVE_DOMINIO
         '
         Me.TXT_CLAVE_DOMINIO.Location = New System.Drawing.Point(149, 114)
@@ -216,14 +240,14 @@ Partial Class FRM_Principal
         Me.TXT_CLAVE_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_CLAVE_DOMINIO.TabIndex = 7
         '
-        'Label45
+        'LBCLAVE
         '
-        Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(6, 117)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(133, 13)
-        Me.Label45.TabIndex = 6
-        Me.Label45.Text = "Clave cuenta de Respaldo"
+        Me.LBCLAVE.AutoSize = True
+        Me.LBCLAVE.Location = New System.Drawing.Point(6, 117)
+        Me.LBCLAVE.Name = "LBCLAVE"
+        Me.LBCLAVE.Size = New System.Drawing.Size(133, 13)
+        Me.LBCLAVE.TabIndex = 6
+        Me.LBCLAVE.Text = "Clave cuenta de Respaldo"
         '
         'TXT_USUARIO_DOMINIO
         '
@@ -232,14 +256,14 @@ Partial Class FRM_Principal
         Me.TXT_USUARIO_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_USUARIO_DOMINIO.TabIndex = 5
         '
-        'Label31
+        'LBUSER
         '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(6, 88)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(104, 13)
-        Me.Label31.TabIndex = 4
-        Me.Label31.Text = "Cuenta de Respaldo"
+        Me.LBUSER.AutoSize = True
+        Me.LBUSER.Location = New System.Drawing.Point(6, 88)
+        Me.LBUSER.Name = "LBUSER"
+        Me.LBUSER.Size = New System.Drawing.Size(104, 13)
+        Me.LBUSER.TabIndex = 4
+        Me.LBUSER.Text = "Cuenta de Respaldo"
         '
         'TXT_NOMBRE_DOMINIO
         '
@@ -248,14 +272,14 @@ Partial Class FRM_Principal
         Me.TXT_NOMBRE_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_NOMBRE_DOMINIO.TabIndex = 3
         '
-        'Label21
+        'LB_DOMINIO
         '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(6, 61)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(45, 13)
-        Me.Label21.TabIndex = 2
-        Me.Label21.Text = "Dominio"
+        Me.LB_DOMINIO.AutoSize = True
+        Me.LB_DOMINIO.Location = New System.Drawing.Point(6, 61)
+        Me.LB_DOMINIO.Name = "LB_DOMINIO"
+        Me.LB_DOMINIO.Size = New System.Drawing.Size(45, 13)
+        Me.LB_DOMINIO.TabIndex = 2
+        Me.LB_DOMINIO.Text = "Dominio"
         '
         'Button8
         '
@@ -477,11 +501,11 @@ Partial Class FRM_Principal
     Friend WithEvents BT_STOP As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents EditarTareaToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TXT_CLAVE_DOMINIO As System.Windows.Forms.TextBox
-    Friend WithEvents Label45 As System.Windows.Forms.Label
+    Friend WithEvents LBCLAVE As System.Windows.Forms.Label
     Friend WithEvents TXT_USUARIO_DOMINIO As System.Windows.Forms.TextBox
-    Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents LBUSER As System.Windows.Forms.Label
     Friend WithEvents TXT_NOMBRE_DOMINIO As System.Windows.Forms.TextBox
-    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents LB_DOMINIO As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
@@ -494,6 +518,8 @@ Partial Class FRM_Principal
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents BT_CERRAR As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents BT_CANCELA As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BT_ACEPTA As DevExpress.XtraEditors.SimpleButton
 
 
 

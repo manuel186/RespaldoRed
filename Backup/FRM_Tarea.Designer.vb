@@ -25,7 +25,7 @@ Partial Class FRM_Tarea
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage_General = New System.Windows.Forms.TabPage()
         Me.PANEL_userpasdomain = New System.Windows.Forms.Panel()
-        Me.Button13 = New System.Windows.Forms.Button()
+        Me.BT_TEST_CONEX = New System.Windows.Forms.Button()
         Me.txt2_password_workgen = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.txt_password_workgen = New System.Windows.Forms.TextBox()
@@ -140,7 +140,7 @@ Partial Class FRM_Tarea
         '
         'PANEL_userpasdomain
         '
-        Me.PANEL_userpasdomain.Controls.Add(Me.Button13)
+        Me.PANEL_userpasdomain.Controls.Add(Me.BT_TEST_CONEX)
         Me.PANEL_userpasdomain.Controls.Add(Me.txt2_password_workgen)
         Me.PANEL_userpasdomain.Controls.Add(Me.Label17)
         Me.PANEL_userpasdomain.Controls.Add(Me.txt_password_workgen)
@@ -154,14 +154,14 @@ Partial Class FRM_Tarea
         Me.PANEL_userpasdomain.Size = New System.Drawing.Size(700, 75)
         Me.PANEL_userpasdomain.TabIndex = 32
         '
-        'Button13
+        'BT_TEST_CONEX
         '
-        Me.Button13.Location = New System.Drawing.Point(615, 14)
-        Me.Button13.Name = "Button13"
-        Me.Button13.Size = New System.Drawing.Size(75, 43)
-        Me.Button13.TabIndex = 40
-        Me.Button13.Text = "Probar Conexión"
-        Me.Button13.UseVisualStyleBackColor = True
+        Me.BT_TEST_CONEX.Location = New System.Drawing.Point(615, 14)
+        Me.BT_TEST_CONEX.Name = "BT_TEST_CONEX"
+        Me.BT_TEST_CONEX.Size = New System.Drawing.Size(75, 43)
+        Me.BT_TEST_CONEX.TabIndex = 40
+        Me.BT_TEST_CONEX.Text = "Probar Conexión"
+        Me.BT_TEST_CONEX.UseVisualStyleBackColor = True
         '
         'txt2_password_workgen
         '
@@ -391,7 +391,7 @@ Partial Class FRM_Tarea
         Me.CB_TYPE.FormattingEnabled = True
         Me.CB_TYPE.Location = New System.Drawing.Point(414, 97)
         Me.CB_TYPE.Name = "CB_TYPE"
-        Me.CB_TYPE.Size = New System.Drawing.Size(90, 21)
+        Me.CB_TYPE.Size = New System.Drawing.Size(122, 21)
         Me.CB_TYPE.TabIndex = 10
         '
         'txt_user_workgen
@@ -803,6 +803,6 @@ Partial Class FRM_Tarea
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txt_username_workgen As System.Windows.Forms.TextBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents Button13 As System.Windows.Forms.Button
+    Friend WithEvents BT_TEST_CONEX As System.Windows.Forms.Button
     Friend WithEvents FolderBrowser_Source As System.Windows.Forms.FolderBrowserDialog
 End Class

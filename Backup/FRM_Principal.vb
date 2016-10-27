@@ -21,8 +21,8 @@ Public Class FRM_Principal
     Private dt_workgen, dt_workdet As New DataTable
 
     ''declaracion de variables para login en red
-    Private IPers As System.Security.Principal.WindowsImpersonationContext
-    Private t1 As Thread
+    ''  Private IPers As System.Security.Principal.WindowsImpersonationContext
+    '' Private t1 As Thread
 
     ' DEFINICION DES VARIABLES DE COPIA DE ARCHIVOS
     Dim CopyProgress As CopyFileCallback    ' Eventos para la progresión de copia
@@ -102,6 +102,7 @@ Public Class FRM_Principal
     Private SUBPping As Thread = Nothing
     Private SUBPRespaldar As Thread = Nothing
     Private SUBPActualiza_Tarea As Thread = Nothing
+    Private SUBPLogin As Thread = Nothing
 
     Private SUBPCalcula_dirs As Thread = Nothing
     Public j As Integer = 0
@@ -149,7 +150,7 @@ Public Class FRM_Principal
                                     Label3.BackColor = Color.Green
                                 ElseIf ping < 400 Then
                                     row.Cells(COL_ESTADO_RED).Value = "Online"
-                                    Label21.Text = "Medium Connection"
+                                    LB_DOMINIO.Text = "Medium Connection"
                                     Label3.BackColor = Color.Orange
                                 Else
                                     row.Cells(COL_ESTADO_RED).Value = "Online"
@@ -365,11 +366,9 @@ Public Class FRM_Principal
                                         '  t1.IsBackground = True
                                         '  t1.Start()
 
+
+
                                         Impersonator.Impersonator(DOMINIO, USER_DOMINIO, PASSWORD_DOMINIO)
-                                        ' Run whatever code needs to run against the remote server
-
-
-                                        ''  Impersonator.Undo()
 
 
                                         login = True
@@ -411,7 +410,7 @@ Public Class FRM_Principal
                                         Next
 
 
-                                        Impersonator.Undo()
+                                        '' Impersonator.Undo()
 
                                         ''cierra el hilo de login
                                         '   If Not IPers Is Nothing Then
@@ -512,6 +511,9 @@ Public Class FRM_Principal
         End If
 
     End Sub
+
+
+
 
     Private Sub RecursiveCopyFiles(ByVal sourceDir As DirectoryInfo, ByVal destDir As DirectoryInfo, ByVal blOverwrite As Boolean)
         Dim info_origen As System.IO.FileInfo  ' obtiene propiedades del archivo de origen
@@ -825,6 +827,7 @@ Public Class FRM_Principal
         Dim dts As New vworkgen
         Dim func As New fworkgen
 
+        dt_workgen.Clear()
         dt_workgen = func.mostrar_workgen()
 
         If dt_workgen.Rows.Count <> 0 Then
@@ -893,6 +896,10 @@ Public Class FRM_Principal
 
         Next
         ''
+        
+      
+
+
 
         ''una vez cargado los datos de sistema inicia la busqueda de equipos disponibles
         RESPALDO = "DETENIDO"
@@ -910,6 +917,7 @@ Public Class FRM_Principal
         Dim dts As New vworkgen
         Dim func As New fworkgen
 
+        dt_workdet.Clear()
         dt_workdet = func.mostrar_workdet(ID)
 
         If dt_workdet.Rows.Count <> 0 Then
@@ -1152,14 +1160,6 @@ Public Class FRM_Principal
 
 
 
-    Private Sub DBG_Estado_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DBG_TAREAS.CellDoubleClick
-        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
-            ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
-            FRM_Tarea.ShowDialog()
-        End If
-
-    End Sub
-
     Private Sub EjecutarTareaAhoraToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EjecutarTareaAhoraToolStripMenuItem.Click
         tipo_respaldo = "M"
         inicia_respaldo()
@@ -1181,23 +1181,6 @@ Public Class FRM_Principal
         inicia_respaldo()
     End Sub
 
-
-    Private Sub DBG_Estado_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DBG_TAREAS.CellClick
-        Try
-            '''
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub DBG_Estado_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DBG_TAREAS.CellContentClick
-        Try
-            '''
-        Catch ex As Exception
-
-        End Try
-    End Sub
 
     Private Sub BT_STOP_Click(sender As Object, e As EventArgs) Handles BT_STOP.Click
         ''  Me.SUBPRespaldar = New Threading.Thread(AddressOf Me.Funcion_Respaldar)
@@ -1305,7 +1288,7 @@ Public Class FRM_Principal
                 Label2.Text = "Good Connection"
                 Label3.BackColor = Color.Green
             ElseIf ping < 400 Then
-                Label21.Text = "Medium Connection"
+                LB_DOMINIO.Text = "Medium Connection"
                 Label3.BackColor = Color.Orange
             Else
                 Label2.Text = "Bad Connection"
@@ -1550,9 +1533,83 @@ Public Class FRM_Principal
         End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        '' DBG_TAREAS.CurrentCell = DBG_TAREAS.Rows(0 + 1).Cells(0)
-        ''  DBG_TAREAS.Rows(0).Selected = True
+
+    Private Sub DBG_TAREAS_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DBG_TAREAS.CellDoubleClick
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
+            ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+            FRM_Tarea.ShowDialog()
+        End If
     End Sub
+
+    Private Sub TB_Config_Click(sender As Object, e As EventArgs) Handles TB_Config.Click
+
+    End Sub
+
+    Private Sub BT_ACEPTA_Click(sender As Object, e As EventArgs) Handles BT_ACEPTA.Click
+
+        If valida_config() Then
+            Dim pas
+            Dim func As New fconfig
+            func.actualiza_config(1, TXT_NOMBRE_DOMINIO.Text)
+            func.actualiza_config(2, TXT_USUARIO_DOMINIO.Text)
+
+            Dim des As New EncriptarDesencriptar
+            pas = des.encriptar128BitRijndael(TXT_CLAVE_DOMINIO.Text, TXT_NOMBRE_DOMINIO.Text + "\" + TXT_USUARIO_DOMINIO.Text)
+
+            func.actualiza_config(3, pas)
+
+
+            msg_box("Configuración Guardada Correctamente ", estilo_msgbox_informacion, titulo_aplicacion)
+        End If
+
+    End Sub
+
+    Private Function valida_config()
+        Dim swok As Integer = 0
+
+        swok = 1
+
+        If (swok = 1) And (Trim(TXT_NOMBRE_DOMINIO.Text) = "") And (Len(TXT_NOMBRE_DOMINIO.Text) < 5) Then
+
+            msg_box("Debe ingresar un nombre de dominio", estilo_msgbox_informacion, titulo_aplicacion)
+            TXT_NOMBRE_DOMINIO.Focus()
+            swok = 0
+        End If
+
+
+          If (swok = 1) And (Trim(TXT_USUARIO_DOMINIO.Text) = "") And (Len(TXT_USUARIO_DOMINIO.Text) < 5) Then
+            msg_box("Debe ingresar el nombre de usuario de cuenta de respaldo del dominio", estilo_msgbox_informacion, titulo_aplicacion)
+            TXT_USUARIO_DOMINIO.Focus()
+            swok = 0
+        End If
+      
+
+        If (swok = 1) And (Trim(TXT_CLAVE_DOMINIO.Text) = "") And (Len(TXT_CLAVE_DOMINIO.Text) < 5) Then
+            msg_box("Debe ingresar la clave de la cuenta de respaldo del dominio", estilo_msgbox_informacion, titulo_aplicacion)
+            TXT_CLAVE_DOMINIO.Focus()
+            swok = 0
+        End If
+        
+
+        If swok = 1 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Private Sub TBcontrol1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TBcontrol1.SelectedIndexChanged
+        Dim conf As New fconfig
+        TXT_NOMBRE_DOMINIO.Text = conf.ver_config(1)
+        TXT_USUARIO_DOMINIO.Text = conf.ver_config(2)
+        Dim pas2
+        Dim des As New EncriptarDesencriptar
+        pas2 = des.desencriptar128BitRijndael(conf.ver_config(3), TXT_NOMBRE_DOMINIO.Text + "\" + TXT_USUARIO_DOMINIO.Text)
+
+        TXT_CLAVE_DOMINIO.Text = pas2
+    End Sub
+
+  
 End Class
 

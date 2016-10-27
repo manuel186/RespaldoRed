@@ -567,4 +567,22 @@ Public Class FRM_Tarea
         End If
        
     End Sub
+
+   
+    Private Sub BT_TEST_CONEX_Click(sender As Object, e As EventArgs) Handles BT_TEST_CONEX.Click
+        '    Dim ImpersonatorTEST As New clsAuthenticator
+        '   Dim pas
+        '   Dim des As New EncriptarDesencriptar
+        '   pas = des.encriptar128BitRijndael(txt_password_workgen.Text, txt_domain_workgen.Text + "\" + txt_username_workgen.Text)
+        '   Try
+        ' ImpersonatorTEST.Impersonator(txt_domain_workgen.Text, txt_username_workgen.Text, pas)
+        ' msg_box("Conexión establecida con equipo", estilo_msgbox_informacion, titulo_aplicacion)
+        ' Catch ex As Exception
+        ' msg_box(ex.ToString, estilo_msgbox_informacion, titulo_aplicacion)
+        ' End Try
+
+
+        '       ImpersonatorTEST.Undo()
+        '
+    End Sub
 End Class

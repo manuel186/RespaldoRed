@@ -87,7 +87,7 @@ Public Class clsAuthenticator
     ' Logon domain
     ' User's password to logon with
     ' 
-    Public Sub Impersonator(ByVal sDomain As String, ByVal sUsername As String, ByVal sPassword As String)
+    Public Sub Impersonator(ByVal sDomain As String, ByVal sUsername As String, ByVal sPassword As String) 
         ' initialize tokens
 
         Dim pExistingTokenHandle As New IntPtr(0)
