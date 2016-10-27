@@ -42,6 +42,7 @@ Partial Class FRM_Principal
         Me.DBG_Det = New System.Windows.Forms.DataGridView()
         Me.DBG_TAREAS = New System.Windows.Forms.DataGridView()
         Me.TB_Config = New System.Windows.Forms.TabPage()
+        Me.CB_auto_ini_windows = New System.Windows.Forms.CheckBox()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.TXT_CLAVE_DOMINIO = New System.Windows.Forms.TextBox()
         Me.LBCLAVE = New System.Windows.Forms.Label()
@@ -66,6 +67,7 @@ Partial Class FRM_Principal
         Me.Button4 = New System.Windows.Forms.Button()
         Me.BT_CERRAR = New System.Windows.Forms.Button()
         Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -194,6 +196,7 @@ Partial Class FRM_Principal
         '
         'TB_Config
         '
+        Me.TB_Config.Controls.Add(Me.CB_auto_ini_windows)
         Me.TB_Config.Controls.Add(Me.BT_ACEPTA)
         Me.TB_Config.Controls.Add(Me.TXT_CLAVE_DOMINIO)
         Me.TB_Config.Controls.Add(Me.LBCLAVE)
@@ -209,6 +212,16 @@ Partial Class FRM_Principal
         Me.TB_Config.Text = "Configuración"
         Me.TB_Config.UseVisualStyleBackColor = True
         '
+        'CB_auto_ini_windows
+        '
+        Me.CB_auto_ini_windows.AutoSize = True
+        Me.CB_auto_ini_windows.Location = New System.Drawing.Point(12, 10)
+        Me.CB_auto_ini_windows.Name = "CB_auto_ini_windows"
+        Me.CB_auto_ini_windows.Size = New System.Drawing.Size(154, 17)
+        Me.CB_auto_ini_windows.TabIndex = 23
+        Me.CB_auto_ini_windows.Text = "Iniciar al arrancar Windows"
+        Me.CB_auto_ini_windows.UseVisualStyleBackColor = True
+        '
         'BT_ACEPTA
         '
         Me.BT_ACEPTA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
@@ -221,7 +234,7 @@ Partial Class FRM_Principal
         '
         'TXT_CLAVE_DOMINIO
         '
-        Me.TXT_CLAVE_DOMINIO.Location = New System.Drawing.Point(152, 72)
+        Me.TXT_CLAVE_DOMINIO.Location = New System.Drawing.Point(152, 125)
         Me.TXT_CLAVE_DOMINIO.Name = "TXT_CLAVE_DOMINIO"
         Me.TXT_CLAVE_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_CLAVE_DOMINIO.TabIndex = 7
@@ -229,7 +242,7 @@ Partial Class FRM_Principal
         'LBCLAVE
         '
         Me.LBCLAVE.AutoSize = True
-        Me.LBCLAVE.Location = New System.Drawing.Point(9, 75)
+        Me.LBCLAVE.Location = New System.Drawing.Point(9, 128)
         Me.LBCLAVE.Name = "LBCLAVE"
         Me.LBCLAVE.Size = New System.Drawing.Size(133, 13)
         Me.LBCLAVE.TabIndex = 6
@@ -237,7 +250,7 @@ Partial Class FRM_Principal
         '
         'TXT_USUARIO_DOMINIO
         '
-        Me.TXT_USUARIO_DOMINIO.Location = New System.Drawing.Point(152, 42)
+        Me.TXT_USUARIO_DOMINIO.Location = New System.Drawing.Point(152, 95)
         Me.TXT_USUARIO_DOMINIO.Name = "TXT_USUARIO_DOMINIO"
         Me.TXT_USUARIO_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_USUARIO_DOMINIO.TabIndex = 5
@@ -245,7 +258,7 @@ Partial Class FRM_Principal
         'LBUSER
         '
         Me.LBUSER.AutoSize = True
-        Me.LBUSER.Location = New System.Drawing.Point(9, 46)
+        Me.LBUSER.Location = New System.Drawing.Point(9, 99)
         Me.LBUSER.Name = "LBUSER"
         Me.LBUSER.Size = New System.Drawing.Size(104, 13)
         Me.LBUSER.TabIndex = 4
@@ -253,7 +266,7 @@ Partial Class FRM_Principal
         '
         'TXT_NOMBRE_DOMINIO
         '
-        Me.TXT_NOMBRE_DOMINIO.Location = New System.Drawing.Point(152, 16)
+        Me.TXT_NOMBRE_DOMINIO.Location = New System.Drawing.Point(152, 69)
         Me.TXT_NOMBRE_DOMINIO.Name = "TXT_NOMBRE_DOMINIO"
         Me.TXT_NOMBRE_DOMINIO.Size = New System.Drawing.Size(178, 20)
         Me.TXT_NOMBRE_DOMINIO.TabIndex = 3
@@ -261,7 +274,7 @@ Partial Class FRM_Principal
         'LB_DOMINIO
         '
         Me.LB_DOMINIO.AutoSize = True
-        Me.LB_DOMINIO.Location = New System.Drawing.Point(9, 19)
+        Me.LB_DOMINIO.Location = New System.Drawing.Point(9, 72)
         Me.LB_DOMINIO.Name = "LB_DOMINIO"
         Me.LB_DOMINIO.Size = New System.Drawing.Size(45, 13)
         Me.LB_DOMINIO.TabIndex = 2
@@ -290,42 +303,42 @@ Partial Class FRM_Principal
         '
         Me.Menu_de_Aplicacion.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenu_Abrir, Me.ToolStripMenu_Iniciar, Me.ToolStripMenu_Pausar, Me.ToolStripMenu_Detener, Me.ToolStripMenu_Acerca_De, Me.ToolStripMenu_Salir})
         Me.Menu_de_Aplicacion.Name = "ContextMenuStrip1"
-        Me.Menu_de_Aplicacion.Size = New System.Drawing.Size(153, 158)
+        Me.Menu_de_Aplicacion.Size = New System.Drawing.Size(127, 136)
         '
         'ToolStripMenu_Abrir
         '
         Me.ToolStripMenu_Abrir.Name = "ToolStripMenu_Abrir"
-        Me.ToolStripMenu_Abrir.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Abrir.Size = New System.Drawing.Size(126, 22)
         Me.ToolStripMenu_Abrir.Text = "Abrir"
         '
         'ToolStripMenu_Iniciar
         '
         Me.ToolStripMenu_Iniciar.Name = "ToolStripMenu_Iniciar"
-        Me.ToolStripMenu_Iniciar.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Iniciar.Size = New System.Drawing.Size(126, 22)
         Me.ToolStripMenu_Iniciar.Text = "Iniciar"
         '
         'ToolStripMenu_Pausar
         '
         Me.ToolStripMenu_Pausar.Name = "ToolStripMenu_Pausar"
-        Me.ToolStripMenu_Pausar.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Pausar.Size = New System.Drawing.Size(126, 22)
         Me.ToolStripMenu_Pausar.Text = "Pausar"
         '
         'ToolStripMenu_Detener
         '
         Me.ToolStripMenu_Detener.Name = "ToolStripMenu_Detener"
-        Me.ToolStripMenu_Detener.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Detener.Size = New System.Drawing.Size(126, 22)
         Me.ToolStripMenu_Detener.Text = "Detener"
         '
         'ToolStripMenu_Acerca_De
         '
         Me.ToolStripMenu_Acerca_De.Name = "ToolStripMenu_Acerca_De"
-        Me.ToolStripMenu_Acerca_De.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Acerca_De.Size = New System.Drawing.Size(126, 22)
         Me.ToolStripMenu_Acerca_De.Text = "Acerca de"
         '
         'ToolStripMenu_Salir
         '
         Me.ToolStripMenu_Salir.Name = "ToolStripMenu_Salir"
-        Me.ToolStripMenu_Salir.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenu_Salir.Size = New System.Drawing.Size(126, 22)
         Me.ToolStripMenu_Salir.Text = "Salir"
         '
         'NotifyIcon1
@@ -395,11 +408,21 @@ Partial Class FRM_Principal
         Me.BT_PAUSE.Size = New System.Drawing.Size(45, 45)
         Me.BT_PAUSE.TabIndex = 33
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(195, 12)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 34
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1350, 740)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.BT_PAUSE)
         Me.Controls.Add(Me.BT_CERRAR)
         Me.Controls.Add(Me.Button8)
@@ -472,6 +495,8 @@ Partial Class FRM_Principal
     Friend WithEvents ToolStripMenu_Detener As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenu_Acerca_De As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenu_Salir As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CB_auto_ini_windows As System.Windows.Forms.CheckBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 
 

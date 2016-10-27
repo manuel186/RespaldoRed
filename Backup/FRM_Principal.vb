@@ -6,6 +6,7 @@ Imports FileCopyExtensions
 Imports System.IO
 Imports System.Runtime.InteropServices
 
+Imports Microsoft.Win32
 Imports System.Security.Principal
 
 Imports System.DirectoryServices
@@ -1569,6 +1570,14 @@ Public Class FRM_Principal
 
             func.actualiza_config(3, pas)
 
+            Dim funcINI As New fconfig
+            If CB_auto_ini_windows.Checked = True Then
+                funcINI.actualiza_config(4, "SI")
+            Else
+                funcINI.actualiza_config(4, "NO")
+            End If
+            
+
 
             msg_box("Configuración Guardada Correctamente ", estilo_msgbox_informacion, titulo_aplicacion)
         End If
@@ -1619,9 +1628,20 @@ Public Class FRM_Principal
         pas2 = des.desencriptar128BitRijndael(conf.ver_config(3), TXT_NOMBRE_DOMINIO.Text + "\" + TXT_USUARIO_DOMINIO.Text)
 
         TXT_CLAVE_DOMINIO.Text = pas2
+
+        Dim valor As String = conf.ver_config(4)
+
+        If conf.ver_config(4) = "SI" Then
+            CB_auto_ini_windows.Checked = True
+
+        Else
+            CB_auto_ini_windows.Checked = False
+        End If
+
+
     End Sub
 
-  
+
 
     Private Sub BT_PAUSE_Click(sender As Object, e As EventArgs) Handles BT_PAUSE.Click
         If RESPALDO = "INICIADO" Then
@@ -1643,13 +1663,13 @@ Public Class FRM_Principal
             End If
 
 
-         
+
 
         End If
     End Sub
 
 
- 
+
 
 
     Private Sub DetenerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToolStripMenu_Detener.Click
@@ -1710,5 +1730,45 @@ Public Class FRM_Principal
         End If
 
     End Sub
+
+    Private Sub CB_auto_ini_windows_CheckedChanged(sender As Object, e As EventArgs) Handles CB_auto_ini_windows.CheckedChanged
+        Dim testFile As System.IO.FileInfo
+        testFile = My.Computer.FileSystem.GetFileInfo("Backup.exe")
+        Dim folderPath As String = testFile.DirectoryName
+        Dim NOMBRE As String = testFile.FullName
+
+        If CB_auto_ini_windows.Checked = True Then
+            ''rutina para autoiniciar el programa en windows
+            Try
+                Dim REGISTRADOR As RegistryKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", True)
+                If REGISTRADOR Is Nothing Then
+                    Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run")
+                End If
+                ''  Dim NOMBRE As String = TextBox1.Text
+                NOMBRE = NOMBRE.Remove(0, NOMBRE.LastIndexOf("\") + 1)
+                REGISTRADOR.SetValue(NOMBRE, testFile.FullName, RegistryValueKind.String)
+
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+
+
+        Else
+            '' rutina que saca el autoinicio del programa en windows
+            Try
+                Dim REGISTRADOR As RegistryKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", True)
+                If REGISTRADOR IsNot Nothing Then
+                    '' Dim NOMBRE As String = TextBox1.Text
+                    NOMBRE = NOMBRE.Remove(0, NOMBRE.LastIndexOf("\") + 1)
+                    REGISTRADOR.DeleteValue(NOMBRE, False)
+                End If
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+
+        End If
+    End Sub
+
+
 End Class
 
