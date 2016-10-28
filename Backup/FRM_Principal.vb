@@ -788,6 +788,21 @@ Public Class FRM_Principal
 
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        Dim aplicacioncorriendo As Process() = Process.GetProcessesByName("Backup")
+
+        If aplicacioncorriendo.Length > 1 Then
+            ''si la aplicacion se encuentra funcionando y se abre por segunda vez la cierra.
+
+            '''MessageBox.Show("la aplciacion se esta ejecutando")
+            Me.Close()
+        End If
+
+
+        
+
+
+
         Me.KeyPreview = True
 
         BT_STOP.Enabled = False
@@ -897,8 +912,8 @@ Public Class FRM_Principal
 
         Next
         ''
-        
-      
+
+
 
 
 
@@ -1739,10 +1754,10 @@ Public Class FRM_Principal
 
         If CB_auto_ini_windows.Checked = True Then
             ''rutina para autoiniciar el programa en windows
-            Try
-                Dim REGISTRADOR As RegistryKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", True)
+            Try   ''''''''''cambiado de currenuser a LocalMachine
+                Dim REGISTRADOR As RegistryKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", True)
                 If REGISTRADOR Is Nothing Then
-                    Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run")
+                    Registry.LocalMachine.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run")
                 End If
                 ''  Dim NOMBRE As String = TextBox1.Text
                 NOMBRE = NOMBRE.Remove(0, NOMBRE.LastIndexOf("\") + 1)
@@ -1755,8 +1770,8 @@ Public Class FRM_Principal
 
         Else
             '' rutina que saca el autoinicio del programa en windows
-            Try
-                Dim REGISTRADOR As RegistryKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", True)
+            Try   ''''''''''cambiado de currenuser a LocalMachine
+                Dim REGISTRADOR As RegistryKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", True)
                 If REGISTRADOR IsNot Nothing Then
                     '' Dim NOMBRE As String = TextBox1.Text
                     NOMBRE = NOMBRE.Remove(0, NOMBRE.LastIndexOf("\") + 1)
