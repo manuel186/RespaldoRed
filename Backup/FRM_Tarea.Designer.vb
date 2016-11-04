@@ -24,6 +24,7 @@ Partial Class FRM_Tarea
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage_General = New System.Windows.Forms.TabPage()
+        Me.CB_wol_workgen = New System.Windows.Forms.CheckBox()
         Me.PANEL_userpasdomain = New System.Windows.Forms.Panel()
         Me.BT_TEST_CONEX = New System.Windows.Forms.Button()
         Me.txt2_password_workgen = New System.Windows.Forms.TextBox()
@@ -107,6 +108,7 @@ Partial Class FRM_Tarea
         '
         'TabPage_General
         '
+        Me.TabPage_General.Controls.Add(Me.CB_wol_workgen)
         Me.TabPage_General.Controls.Add(Me.PANEL_userpasdomain)
         Me.TabPage_General.Controls.Add(Me.CB_userpasdomain)
         Me.TabPage_General.Controls.Add(Me.CB_usevsc_workgen)
@@ -137,6 +139,16 @@ Partial Class FRM_Tarea
         Me.TabPage_General.TabIndex = 0
         Me.TabPage_General.Text = "General"
         Me.TabPage_General.UseVisualStyleBackColor = True
+        '
+        'CB_wol_workgen
+        '
+        Me.CB_wol_workgen.AutoSize = True
+        Me.CB_wol_workgen.Location = New System.Drawing.Point(12, 178)
+        Me.CB_wol_workgen.Name = "CB_wol_workgen"
+        Me.CB_wol_workgen.Size = New System.Drawing.Size(226, 17)
+        Me.CB_wol_workgen.TabIndex = 33
+        Me.CB_wol_workgen.Text = "Usar WOL (Wake On Lan) para esta tarea"
+        Me.CB_wol_workgen.UseVisualStyleBackColor = True
         '
         'PANEL_userpasdomain
         '
@@ -243,7 +255,7 @@ Partial Class FRM_Tarea
         '
         Me.CB_usevsc_workgen.AutoSize = True
         Me.CB_usevsc_workgen.Enabled = False
-        Me.CB_usevsc_workgen.Location = New System.Drawing.Point(11, 162)
+        Me.CB_usevsc_workgen.Location = New System.Drawing.Point(12, 156)
         Me.CB_usevsc_workgen.Name = "CB_usevsc_workgen"
         Me.CB_usevsc_workgen.Size = New System.Drawing.Size(361, 17)
         Me.CB_usevsc_workgen.TabIndex = 22
@@ -253,7 +265,7 @@ Partial Class FRM_Tarea
         'CB_splitbackup_workgen
         '
         Me.CB_splitbackup_workgen.AutoSize = True
-        Me.CB_splitbackup_workgen.Location = New System.Drawing.Point(11, 139)
+        Me.CB_splitbackup_workgen.Location = New System.Drawing.Point(12, 134)
         Me.CB_splitbackup_workgen.Name = "CB_splitbackup_workgen"
         Me.CB_splitbackup_workgen.Size = New System.Drawing.Size(219, 17)
         Me.CB_splitbackup_workgen.TabIndex = 21
@@ -372,6 +384,7 @@ Partial Class FRM_Tarea
         'txt_mac_workgen
         '
         Me.txt_mac_workgen.Location = New System.Drawing.Point(594, 66)
+        Me.txt_mac_workgen.MaxLength = 17
         Me.txt_mac_workgen.Name = "txt_mac_workgen"
         Me.txt_mac_workgen.Size = New System.Drawing.Size(117, 20)
         Me.txt_mac_workgen.TabIndex = 12
@@ -805,4 +818,5 @@ Partial Class FRM_Tarea
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents BT_TEST_CONEX As System.Windows.Forms.Button
     Friend WithEvents FolderBrowser_Source As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents CB_wol_workgen As System.Windows.Forms.CheckBox
 End Class

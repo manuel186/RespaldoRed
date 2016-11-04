@@ -1,6 +1,9 @@
 ﻿Imports System.Xml
 
 Public Class FRM_Tarea
+    Public Const MAC_ADDR_BYTES As Integer = 6
+    Private Const PORT_BROADCAST = 2304
+
 
     Private Sub FRM_USUARIOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = titulo_aplicacion + "Tareas"
@@ -58,6 +61,12 @@ Public Class FRM_Tarea
                 CB_GRUPOS.SelectedValue = dts.ggroups_workgen
 
                 CB_TYPE.SelectedValue = dts.gtype_workgen
+
+                If dts.gwol_workgen = True Then
+                    CB_wol_workgen.Checked = True
+                Else
+                    CB_wol_workgen.Checked = False
+                End If
 
 
                 If dts.guseownaccount_workgen = True Then
@@ -140,6 +149,9 @@ Public Class FRM_Tarea
             txt_ip_workgen.Focus()
             swok = 0
         End If
+
+
+      
 
 
         If (swok = 1) And (Trim(txt_mac_workgen.Text) = "") And (Len(txt_mac_workgen.Text) < 5) Then
@@ -399,7 +411,13 @@ Public Class FRM_Tarea
                         estado = "Inactiva"
                     End If
 
-                    
+                    If CB_wol_workgen.Checked = True Then
+                        estado = "Activa"
+                    Else
+                        dts.gwol_workgen = 0
+                    End If
+
+
                     dts.gname_workgen = txt_name.Text
                     dts.ghostname_workgen = txt_hostname.Text
                     dts.guser_workgen = txt_user_workgen.Text
@@ -584,5 +602,20 @@ Public Class FRM_Tarea
 
         '       ImpersonatorTEST.Undo()
         '
+    End Sub
+
+  
+    Private Sub CB_wol_workgen_CheckedChanged(sender As Object, e As EventArgs) Handles CB_wol_workgen.CheckedChanged
+        If CB_wol_workgen.Checked = True Then
+            Dim campo As String
+            Dim funtipye As New fworkgen
+            campo = funtipye.lee_typework(CB_TYPE.SelectedValue.ToString)
+
+            If (campo) <> "PC" Then
+                msg_box("Solo se puede ocupar esta opción con equipos de escritorio", estilo_msgbox_informacion, titulo_aplicacion)
+                CB_wol_workgen.Checked = False
+            End If
+        End If
+        
     End Sub
 End Class

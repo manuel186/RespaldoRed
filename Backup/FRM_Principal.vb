@@ -16,9 +16,14 @@ Imports System.Security
 Imports System.Security.Permissions
 Imports System.Text
 
+Imports System.Net.Sockets
 
 
 Public Class FRM_Principal
+    ''declara variables de WOL
+    Public Const MAC_ADDR_BYTES As Integer = 6
+    Private Const PORT_BROADCAST = 2304
+
     Private dt_workgen, dt_workdet As New DataTable
 
     ''declaracion de variables para login en red
@@ -110,6 +115,51 @@ Public Class FRM_Principal
 
     ' Private dataGridView1 As New DataGridView()
     Private bindingSource1 As New BindingSource()
+
+
+    ' <remarks>
+    ' Constructs and returns a magic packet for the given 
+    ' MAC address.
+    ' A Magic Packet is 6 bytes of FF followed by the MAC 
+    ' address 16 times.
+    ' </remarks>
+    Public Shared Function GetMagicPacket(ByVal macAddress As String) As Byte()
+        Dim Packet As Byte() = New Byte(5 + 16 * MAC_ADDR_BYTES) {} '101 => 102 Elements
+        Dim strNumbers As String() = macAddress.Split(New Char() {":", ",", ";", "-"})
+        Dim macBytes As Byte() = New Byte(5) {}
+        If strNumbers.Length <> 6 Then
+            Throw New Exception("MAC Address incorrect!!!")
+        End If
+        'Convert Numbers to Bytes and set the first 6 FF Values
+        For i As Integer = 0 To 5
+            Packet(i) = &HFF
+            Dim strNumber As String = strNumbers(i)
+            'Strip possible leading 0x statments
+            If strNumber.StartsWith("0x") Then
+                strNumber = strNumber.Substring(2, 2)
+            End If
+            macBytes(i) = CByte(Int32.Parse(strNumber, System.Globalization.NumberStyles.HexNumber))
+        Next i
+        'Write the MAC address 16 times after the 6 FF values
+        For j As Integer = 0 To 15
+            For i As Integer = 0 To 5
+                Packet(6 + j * 6 + i) = macBytes(i)
+            Next i
+        Next j
+        Return Packet
+    End Function
+    '<remarks>
+    'Sends the magic packet for a specific MAC address
+    '</remarks>
+    Public Shared Sub WakeUp(ByVal macAddress As String)
+        Dim s As Socket = New Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)
+        s.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1)
+        Dim Message As Byte() = GetMagicPacket(macAddress)
+        Dim IPEP As New IPEndPoint(IPAddress.Broadcast, PORT_BROADCAST)
+        s.SendTo(Message, IPEP)
+    End Sub
+
+
 
 
     Private Sub Funcion_ping()
@@ -289,21 +339,27 @@ Public Class FRM_Principal
                         Dim dila As Integer
                         dila = DBG_TAREAS.CurrentCell.RowIndex
 
-                        ''XML_ACTUAL = DBG_TAREAS(COL_EQUIPO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() + "_" + DBG_TAREAS(COL_USER, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() + ".xml"
-                        ID_ACTUAL = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
-                        USUARIO_ACTUAL = DBG_TAREAS(COL_USER, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
-                        EQUIPO_ACTUAL = DBG_TAREAS(COL_EQUIPO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
-                        NOMBRE_DE_TAREA_ACTUAL = DBG_TAREAS(COL_USUARIO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
-                        '' busca_usuario(ID_ACTUAL)
+                        Dim campo = row.Cells(COL_ID).Value
+                        If Not (String.IsNullOrEmpty(campo)) Then
+                            ID_ACTUAL = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+                            USUARIO_ACTUAL = DBG_TAREAS(COL_USER, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+                            EQUIPO_ACTUAL = DBG_TAREAS(COL_EQUIPO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+                            NOMBRE_DE_TAREA_ACTUAL = DBG_TAREAS(COL_USUARIO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+                            '' busca_usuario(ID_ACTUAL)
+                        End If
                         j = DBG_TAREAS.CurrentCell.RowIndex
+
+
                     End If
 
                     If tipo_respaldo = "A" Then
-                        '' XML_ACTUAL = DBG_TAREAS(COL_EQUIPO, j).Value.ToString() + "_" + DBG_TAREAS(COL_USER, j).Value.ToString() + ".xml"
-                        ID_ACTUAL = row.Cells(COL_ID).Value.ToString
-                        USUARIO_ACTUAL = row.Cells(COL_USER).Value.ToString
-                        EQUIPO_ACTUAL = row.Cells(COL_EQUIPO).Value.ToString
-                        NOMBRE_DE_TAREA_ACTUAL = row.Cells(COL_USUARIO).Value.ToString
+                        Dim campo = row.Cells(COL_ID).Value
+                        If Not (String.IsNullOrEmpty(campo)) Then
+                            ID_ACTUAL = row.Cells(COL_ID).Value.ToString
+                            USUARIO_ACTUAL = row.Cells(COL_USER).Value.ToString
+                            EQUIPO_ACTUAL = row.Cells(COL_EQUIPO).Value.ToString
+                            NOMBRE_DE_TAREA_ACTUAL = row.Cells(COL_USUARIO).Value.ToString
+                        End If
 
 
                     End If
@@ -312,162 +368,163 @@ Public Class FRM_Principal
                     ''  Me.Refresh()
                     If My.Computer.Network.IsAvailable() Then
                         Try
+                            If Not (String.IsNullOrEmpty(ID_ACTUAL)) Then
 
-                            If row.Cells(COL_ID).Value.ToString = ID_ACTUAL Then
-
-
-                                If (row.Cells(COL_ESTADO).Value.ToString = "Activa") And (row.Cells(COL_ESTADO_RED).Value.ToString = "Online") And ((row.Cells(COL_ULT_RESPALDO).Value.ToString) > 0) Then
-                                    row.Cells(COL_ESTADO).Value = "Respaldando"
-
-                                    ''  DBG_TAREAS.CurrentRow.DefaultCellStyle.BackColor = Color.Blue
-
-                                    Dim dts As New vworkgen
-                                    Dim funcID As New fworkgen
-                                    funcID.ver_workgen_by_id(dts, ID_ACTUAL)
-                                    '' 
-                                    tipo_respaldo_tarea = dts.gtypework_workgen
-                                    divide_backup_por_fecha = dts.gsplitbackup_workgen
-
-                                    Dim funcDest As New fworkgen
-                                    Dim TablaDest As New DataTable
-                                    TablaDest = funcDest.carga_destinations(ID_ACTUAL)
-
-                                    destino = TablaDest.Rows(0).Item(3).ToString
-
-                                    Dim useownaccount, USEREQUIPO
+                                If row.Cells(COL_ID).Value = ID_ACTUAL Then
 
 
-                                    useownaccount = dts.guseownaccount_workgen
-                                    USEREQUIPO = dts.guser_workgen
-                                    HOSTNAME = dts.ghostname_workgen
-                                    DOMINIO = dts.gdomain_workgen
+                                    If (row.Cells(COL_ESTADO).Value.ToString = "Activa") And (row.Cells(COL_ESTADO_RED).Value.ToString = "Online") And ((row.Cells(COL_ULT_RESPALDO).Value.ToString) > 0) Then
+                                        row.Cells(COL_ESTADO).Value = "Respaldando"
+
+                                        ''  DBG_TAREAS.CurrentRow.DefaultCellStyle.BackColor = Color.Blue
+
+                                        Dim dts As New vworkgen
+                                        Dim funcID As New fworkgen
+                                        funcID.ver_workgen_by_id(dts, ID_ACTUAL)
+                                        '' 
+                                        tipo_respaldo_tarea = dts.gtypework_workgen
+                                        divide_backup_por_fecha = dts.gsplitbackup_workgen
+
+                                        Dim funcDest As New fworkgen
+                                        Dim TablaDest As New DataTable
+                                        TablaDest = funcDest.carga_destinations(ID_ACTUAL)
+
+                                        destino = TablaDest.Rows(0).Item(3).ToString
+
+                                        Dim useownaccount, USEREQUIPO
 
 
-                                    If useownaccount = True Then
-                                        '' SI NO USA una cuenta propia para su ejecucion
-                                        USER_DOMINIO = dts.gusername_workgen
-                                        Dim des As New EncriptarDesencriptar
-                                        PASSWORD_DOMINIO = des.desencriptar128BitRijndael(dts.gpassword_workgen, DOMINIO + "\" + USEREQUIPO)
-                                    Else
-                                        ''SI USA CLAVE DE DOMINIO
-                                        USER_DOMINIO = USUARIO_DOMINIO
-                                        PASSWORD_DOMINIO = CLAVE_DOMINIO
-                                    End If
+                                        useownaccount = dts.guseownaccount_workgen
+                                        USEREQUIPO = dts.guser_workgen
+                                        HOSTNAME = dts.ghostname_workgen
+                                        DOMINIO = dts.gdomain_workgen
 
 
-
-                                    login = False
-
-                                    Try
-                                        LB_log.Items.Add("Iniciando sesión como " + USER_DOMINIO + " en equipo " & HOSTNAME)
-
-
-                                        '  IPers = Impersonate.ImpersonateValidUserAndSetThreadPrincipal(USER_DOMINIO, DOMINIO, PASSWORD_DOMINIO)
-                                        '  t1 = New Thread(AddressOf ThreadTask)
-                                        '  t1.IsBackground = True
-                                        '  t1.Start()
+                                        If useownaccount = True Then
+                                            '' SI NO USA una cuenta propia para su ejecucion
+                                            USER_DOMINIO = dts.gusername_workgen
+                                            Dim des As New EncriptarDesencriptar
+                                            PASSWORD_DOMINIO = des.desencriptar128BitRijndael(dts.gpassword_workgen, DOMINIO + "\" + USEREQUIPO)
+                                        Else
+                                            ''SI USA CLAVE DE DOMINIO
+                                            USER_DOMINIO = USUARIO_DOMINIO
+                                            PASSWORD_DOMINIO = CLAVE_DOMINIO
+                                        End If
 
 
 
-                                        Impersonator.Impersonator(DOMINIO, USER_DOMINIO, PASSWORD_DOMINIO)
-
-
-                                        login = True
-                                    Catch ex As Exception
                                         login = False
-                                        LB_log.Items.Add("Error de inicio de sesión" & ex.ToString)
 
-                                    End Try
-
-
-                                    If login Then
-                                        LB_log.Items.Add("Sesión iniciada correctamente en equipo " & HOSTNAME)
-
-                                        Filtro_mascaras2 = lee_xml_filter_mascara(ID_ACTUAL)
-                                        Filtro_carpeta2 = lee_xml_filter_carpeta(ID_ACTUAL)
+                                        Try
+                                            LB_log.Items.Add("Iniciando sesión como " + USER_DOMINIO + " en equipo " & HOSTNAME)
 
 
-                                        Dim funcDET As New fworkgen
-                                        Dim TablaDeT As New DataTable
-                                        TablaDeT = funcDET.carga_sources(ID_ACTUAL)
-
-                                        Dim i, total
-                                        total = TablaDeT.Rows.Count - 1
+                                            '  IPers = Impersonate.ImpersonateValidUserAndSetThreadPrincipal(USER_DOMINIO, DOMINIO, PASSWORD_DOMINIO)
+                                            '  t1 = New Thread(AddressOf ThreadTask)
+                                            '  t1.IsBackground = True
+                                            '  t1.Start()
 
 
-                                        For i = 0 To total Step 1
-                                            LB_log.Items.Add("Comenzando Copia de Archivos")
 
-                                            Dim carpeta As String = devuelte_ultima_carpeta(TablaDeT.Rows(i).Item(3).ToString)
-
-                                            If divide_backup_por_fecha = True Then
-                                                carpeta = Format(Now(), "dd-MM-yyyy") & "/" & carpeta
-                                            End If
-
-                                            Dim diSource As New DirectoryInfo(TablaDeT.Rows(i).Item(3).ToString)
-                                            Dim diDestiny As New DirectoryInfo(destino & "\" & carpeta)
-                                            RecursiveCopyFiles(diSource, diDestiny, True)
-
-                                        Next
+                                            Impersonator.Impersonator(DOMINIO, USER_DOMINIO, PASSWORD_DOMINIO)
 
 
-                                        '' Impersonator.Undo()
+                                            login = True
+                                        Catch ex As Exception
+                                            login = False
+                                            LB_log.Items.Add("Error de inicio de sesión" & ex.ToString)
 
-                                        ''cierra el hilo de login
-                                        '   If Not IPers Is Nothing Then
-                                        ' undo impersonation at the level of the current windows identity
-                                        '  IPers.Undo()
-                                        ' removes prior thread impersonation by setting it back to the 
-                                        ' current windows identity
-                                        '   Impersonate.RestoreThreadPrincipal()
-                                        ' End If
+                                        End Try
 
 
-                                        ''    LB_log.Items.Clear()
+                                        If login Then
+                                            LB_log.Items.Add("Sesión iniciada correctamente en equipo " & HOSTNAME)
 
-                                        busca_y_cambia_estado_a_activo(ID_ACTUAL) ''cambia el estado a activo
-
-                                        ToolStripStatusLabel1.Text = ""
-
-                                        ''  If peso_total_archivos_copiado > 0 Then
-
-                                        cambia_a_0_ultimo_respaldo(ID_ACTUAL) '''cuando el respaldo se completa cambia a 0 el ultimo respaldo
-
-                                        inserta_backupinfo(ID_ACTUAL, tipo_respaldo_tarea, peso_total_archivos_copiado)
+                                            Filtro_mascaras2 = lee_xml_filter_mascara(ID_ACTUAL)
+                                            Filtro_carpeta2 = lee_xml_filter_carpeta(ID_ACTUAL)
 
 
-                                        ''  lee_xml_det(XML_ACTUAL, ID_ACTUAL) ''el 0 lee detalle  
-                                        j = 0
+                                            Dim funcDET As New fworkgen
+                                            Dim TablaDeT As New DataTable
+                                            TablaDeT = funcDET.carga_sources(ID_ACTUAL)
+
+                                            Dim i, total
+                                            total = TablaDeT.Rows.Count - 1
 
 
-                                        ''Else
-                                        ''  MsgBox("Ok " & "Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con  0  de peso copiado ")
-                                        '' LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con 0  de peso copiado ")
+                                            For i = 0 To total Step 1
+                                                LB_log.Items.Add("Comenzando Copia de Archivos")
 
-                                        ''  End If
+                                                Dim carpeta As String = devuelte_ultima_carpeta(TablaDeT.Rows(i).Item(3).ToString)
+
+                                                If divide_backup_por_fecha = True Then
+                                                    carpeta = Format(Now(), "dd-MM-yyyy") & "/" & carpeta
+                                                End If
+
+                                                Dim diSource As New DirectoryInfo(TablaDeT.Rows(i).Item(3).ToString)
+                                                Dim diDestiny As New DirectoryInfo(destino & "\" & carpeta)
+                                                RecursiveCopyFiles(diSource, diDestiny, True)
+
+                                            Next
 
 
-                                        LB_log.SelectedIndex = LB_log.Items.Count - 1
-                                        tipo_respaldo = "A" '' vuelve a setear el estado a automatico
+                                            '' Impersonator.Undo()
+
+                                            ''cierra el hilo de login
+                                            '   If Not IPers Is Nothing Then
+                                            ' undo impersonation at the level of the current windows identity
+                                            '  IPers.Undo()
+                                            ' removes prior thread impersonation by setting it back to the 
+                                            ' current windows identity
+                                            '   Impersonate.RestoreThreadPrincipal()
+                                            ' End If
 
 
-                                        '''falta que muestre el detalle del click
+                                            ''    LB_log.Items.Clear()
+
+                                            busca_y_cambia_estado_a_activo(ID_ACTUAL) ''cambia el estado a activo
+
+                                            ToolStripStatusLabel1.Text = ""
+
+                                            ''  If peso_total_archivos_copiado > 0 Then
+
+                                            cambia_a_0_ultimo_respaldo(ID_ACTUAL) '''cuando el respaldo se completa cambia a 0 el ultimo respaldo
+
+                                            inserta_backupinfo(ID_ACTUAL, tipo_respaldo_tarea, peso_total_archivos_copiado)
 
 
-                                    Else
-                                        '' LB_log.Items.Add("Error al iniciad Sesión como " + " Administrador " + " en equipo " & DBG_TAREAS(COL_EQUIPO, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+                                            ''  lee_xml_det(XML_ACTUAL, ID_ACTUAL) ''el 0 lee detalle  
+                                            j = 0
+
+
+                                            ''Else
+                                            ''  MsgBox("Ok " & "Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con  0  de peso copiado ")
+                                            '' LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con 0  de peso copiado ")
+
+                                            ''  End If
+
+
+                                            LB_log.SelectedIndex = LB_log.Items.Count - 1
+                                            tipo_respaldo = "A" '' vuelve a setear el estado a automatico
+
+
+                                            '''falta que muestre el detalle del click
+
+
+                                        Else
+                                            '' LB_log.Items.Add("Error al iniciad Sesión como " + " Administrador " + " en equipo " & DBG_TAREAS(COL_EQUIPO, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+
+                                        End If
+
+
+                                        ' DBG_Estado.CurrentCell = DBG_Estado(0, j)  ' mueve el cursor a la celda siguiente
+
 
                                     End If
-
-
-                                    ' DBG_Estado.CurrentCell = DBG_Estado(0, j)  ' mueve el cursor a la celda siguiente
 
 
                                 End If
-
-
                             End If
-
                             '' cambiar a (ex.Message) para ver el el mensaje corto
                             ' code
                         Catch ax As UnauthorizedAccessException
@@ -1120,7 +1177,7 @@ Public Class FRM_Principal
             For Each row2 As DataGridViewRow In DBG_TAREAS.Rows
 
                 Dim campo = row2.Cells(1).Value
-                If Not (String.IsNullOrEmpty(campo)) Then
+                If (Not (String.IsNullOrEmpty(campo)) And campo = ID) Then
                     ''  selecciona la fila correpondiente a la tarea y muestra el detalle
                     DBG_TAREAS.CurrentCell = DBG_TAREAS.Rows(i2).Cells(0)
                     abre_detalle_de_item_seleccionado(ID_ACTUAL)
@@ -1298,10 +1355,8 @@ Public Class FRM_Principal
             For Each row As DataGridViewRow In DBG_TAREAS.Rows
                 ''If Not (String.IsNullOrEmpty(row.Cells(1).Value.ToString))  Then
                 Dim campo = row.Cells(1).Value
-                If Not (String.IsNullOrEmpty(campo)) Then
-                    If row.Cells(1).Value.ToString = ID Then
-                        row.Cells(COL_ULT_RESPALDO).Value = 0
-                    End If
+                If Not (String.IsNullOrEmpty(campo)) And campo = ID Then
+                    row.Cells(COL_ULT_RESPALDO).Value = 0
                 End If
             Next
         Catch ex As Exception
@@ -1330,7 +1385,7 @@ Public Class FRM_Principal
  
 
     Private Sub EditarTareaToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EditarTareaToolStripMenuItem1.Click
-        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
             ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
             FRM_Tarea.ShowDialog()
         End If
@@ -1403,7 +1458,9 @@ Public Class FRM_Principal
         End Try
     End Sub
     Private Sub Menu_Estado_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles Menu_Estado.Opening
+        Try
 
+    
         '''si la fila no esta vacia permite visualizar el menu
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
 
@@ -1436,7 +1493,9 @@ Public Class FRM_Principal
 
         End If
 
+        Catch ex As Exception
 
+        End Try
 
     End Sub
 
@@ -1785,5 +1844,8 @@ Public Class FRM_Principal
     End Sub
 
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        WakeUp("00-0F-5D-FA-25-0C")
+    End Sub
 End Class
 

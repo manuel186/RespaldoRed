@@ -7,6 +7,43 @@ Public Class fworkgen
 
     Dim cmd As New SqlCommand
 
+    Public Function lee_typework(ID As Integer) As String
+        Try
+            conectado()
+            Dim consulta, valor As String
+
+            consulta = "select  descri_type from type where id_type=" & ID
+
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+
+
+            '  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            valor = dt.Rows(0).Item(0)
+            Return valor
+
+
+            If cmd.ExecuteNonQuery Then
+                Return valor
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        Finally
+            desconectado()
+        End Try
+    End Function
+
+
 
     Public Function insertar_workgen(ByVal dts As vworkgen) As Boolean
         Try
@@ -16,11 +53,11 @@ Public Class fworkgen
 
             consulta = "insert into Workgen (id_workgen,status_workgen,typework_workgen,name_workgen,user_workgen,type_workgen, "
             consulta = consulta & " groups_workgen,hostname_workgen,ip_workgen,mac_workgen,useownaccount_workgen,domain_workgen, "
-            consulta = consulta & " username_workgen,password_workgen,splitbackup_workgen,usevsc_workgen)"
+            consulta = consulta & " username_workgen,password_workgen,splitbackup_workgen,usevsc_workgen,wol_workgen)"
             consulta = consulta & " values(" & dts.gid_workgen & "," & dts.gstatus_workgen & ",'" & dts.gtypework_workgen & "','" & dts.gname_workgen & "',"
             consulta = consulta & "'" & dts.guser_workgen & "','" & dts.gtype_workgen & "'," & dts.ggroups_workgen & ",'" & dts.ghostname_workgen & "',"
             consulta = consulta & "'" & dts.gip_workgen & "','" & dts.gmac_workgen & "'," & dts.guseownaccount_workgen & ",'" & dts.gdomain_workgen & "',"
-            consulta = consulta & "'" & dts.gusername_workgen & "','" & dts.gpassword_workgen & "'," & dts.gsplitbackup_workgen & "," & dts.gusevsc_workgen & ") "
+            consulta = consulta & "'" & dts.gusername_workgen & "','" & dts.gpassword_workgen & "'," & dts.gsplitbackup_workgen & "," & dts.gusevsc_workgen & dts.gwol_workgen & ") "
         
 
             Dim command As New SQLiteCommand(consulta, cnn)
@@ -258,7 +295,8 @@ Public Class fworkgen
                 dts.gpassword_workgen = dt.Rows(0).Item(13)
                 dts.gsplitbackup_workgen = dt.Rows(0).Item(14)
                 dts.gusevsc_workgen = dt.Rows(0).Item(15)
-                dts.gfchbackup_workgen = dt.Rows(0).Item(16)
+                dts.gwol_workgen = dt.Rows(0).Item(16)
+                dts.gfchbackup_workgen = dt.Rows(0).Item(17)
                 Return True
             End If
 
