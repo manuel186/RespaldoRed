@@ -856,10 +856,6 @@ Public Class FRM_Principal
         End If
 
 
-        
-
-
-
         Me.KeyPreview = True
 
         BT_STOP.Enabled = False
@@ -1462,36 +1458,51 @@ Public Class FRM_Principal
 
     
         '''si la fila no esta vacia permite visualizar el menu
-        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
+            If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
+                Dim IDN As Integer = DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value
+                EjecutarTareaAhoraToolStripMenuItem.Enabled = True
 
-            EjecutarTareaAhoraToolStripMenuItem.Enabled = True
-
-            NuevaTareaToolStripMenuItem.Enabled = True
-            EditarTareaToolStripMenuItem1.Enabled = True
-            ClonarTareaToolStripMenuItem.Enabled = True
-            BorrarTareaToolStripMenuItem.Enabled = True
+                NuevaTareaToolStripMenuItem.Enabled = True
+                EditarTareaToolStripMenuItem1.Enabled = True
+                ClonarTareaToolStripMenuItem.Enabled = True
+                BorrarTareaToolStripMenuItem.Enabled = True
 
 
-            '' Bloquea el boton cuando la tarea ya esta en ejecucion
+                '' Bloquea el boton cuando la tarea ya esta en ejecucion
 
-            If RESPALDO = "INICIADO" Then
-                If DBG_TAREAS(COL_ESTADO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() = "Respaldando" Then
-                    EjecutarTareaAhoraToolStripMenuItem.Enabled = False
+                If RESPALDO = "INICIADO" Then
+                    If DBG_TAREAS(COL_ESTADO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() = "Respaldando" Then
+                        EjecutarTareaAhoraToolStripMenuItem.Enabled = False
 
-                Else
-                    EjecutarTareaAhoraToolStripMenuItem.Enabled = True
+                    Else
+                        EjecutarTareaAhoraToolStripMenuItem.Enabled = True
+                    End If
+
                 End If
 
+                Dim wakeupWorkgen
+                Dim verwol As New fworkgen
+                wakeupWorkgen = verwol.ver_wol_equipo(IDN)
+
+                If (wakeupWorkgen = True) And (DBG_TAREAS(COL_ESTADO_RED, DBG_TAREAS.CurrentRow.Index).Value = "OFFLINE") Then
+                    WakeUpToolStripMenuItem.Enabled = True
+                Else
+                    WakeUpToolStripMenuItem.Enabled = False
+
+                End If
+
+
+
+            Else
+                EjecutarTareaAhoraToolStripMenuItem.Enabled = False
+
+                NuevaTareaToolStripMenuItem.Enabled = False
+                EditarTareaToolStripMenuItem1.Enabled = False
+                ClonarTareaToolStripMenuItem.Enabled = False
+                BorrarTareaToolStripMenuItem.Enabled = False
+                WakeUpToolStripMenuItem.Enabled = False
+
             End If
-        Else
-            EjecutarTareaAhoraToolStripMenuItem.Enabled = False
-
-            NuevaTareaToolStripMenuItem.Enabled = False
-            EditarTareaToolStripMenuItem1.Enabled = False
-            ClonarTareaToolStripMenuItem.Enabled = False
-            BorrarTareaToolStripMenuItem.Enabled = False
-
-        End If
 
         Catch ex As Exception
 
@@ -1691,10 +1702,13 @@ Public Class FRM_Principal
         End If
 
 
-        If (swok = 1) And (Trim(TB_hora_wol.Text) = ":") Then
-            msg_box("Debe Ingresa la hora de encedido de equipo", estilo_msgbox_informacion, titulo_aplicacion)
-            TB_hora_wol.Focus()
-            swok = 0
+        If (swok = 1) And (CB_usar_wol.Checked = True) Then
+
+            If (swok = 1) And (Trim(TB_hora_wol.Text) = ":") Then
+                msg_box("Debe Ingresa la hora de encedido de equipo", estilo_msgbox_informacion, titulo_aplicacion)
+                TB_hora_wol.Focus()
+                swok = 0
+            End If
         End If
 
 
@@ -1864,30 +1878,29 @@ Public Class FRM_Principal
     End Sub
 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        WakeUp("00-0F-5D-FA-25-0C")
-    End Sub
+
 
     Private Sub Timer_WOL_Tick(sender As Object, e As EventArgs) Handles Timer_WOL.Tick
-        Static Sec As Integer, Min As Integer
+        Static Sec As Integer
 
         Sec = Sec + 1
 
-        If Sec = 60 Then   ''' cada 60 segundo busca equipos disponibles
-            ''Min = Min + 1
+        If Sec = 60 Then   ''' cada 60 segundo 
+
             Sec = 0
 
             ' Pongo el codigo a ejecutar aquí
-
             Dim fun As New fconfig
             Dim horaprogramada As String = fun.ver_config(5)
 
             Dim horaactual = DateTime.Now.ToShortTimeString()
 
-            If horaprogramada <> ":" Then  '' si la hora programada no esta vacio comprar la hora actual con la hora progrmada
+            If horaprogramada <> "" Then  '' si la hora programada no esta vacia. comprara la hora actual con la hora progrmada
                 If horaactual = horaprogramada Then
                     Me.SUBPAC_WOL = New Threading.Thread(AddressOf Me.Funcion_activar_wol)  ''ejecuta funcion para enviar paquetes para despertar
                     If Me.SUBPAC_WOL.ThreadState <> Threading.ThreadState.Running Then
+                        LB_log.Items.Add("Se ha iniciado el encendido de tareas en modo WOL")
+                        LB_log.SelectedIndex = LB_log.Items.Count - 1
                         Me.SUBPAC_WOL.Start()
                     End If
                 End If
@@ -1905,7 +1918,6 @@ Public Class FRM_Principal
         Dim funcWOL As New fworkgen
         dt_workMAC = funcWOL.muestra_equipos_para_wol()
 
-
         For i = 0 To dt_workMAC.Rows.Count - 1 Step 1
 
             MAC = dt_workMAC.Rows(i).Item(0)
@@ -1915,5 +1927,19 @@ Public Class FRM_Principal
 
     End Sub
 
+    Private Sub WakeUpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WakeUpToolStripMenuItem.Click
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
+            Dim mac As New fworkgen
+            Dim vermac
+            vermac = mac.ver_mac_equipo(DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value)
+            LB_log.Items.Add("Despertando manualmente el equipo " & DBG_TAREAS(COL_EQUIPO, DBG_TAREAS.CurrentCell.RowIndex).Value)
+            LB_log.SelectedIndex = LB_log.Items.Count - 1
+
+            WakeUp(vermac)
+
+        End If
+
+
+    End Sub
 End Class
 

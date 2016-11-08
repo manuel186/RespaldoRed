@@ -7,6 +7,80 @@ Public Class fworkgen
 
     Dim cmd As New SqlCommand
 
+    Public Function ver_wol_equipo(ID As Integer) As Boolean
+        Try
+            conectado()
+            Dim consulta, valor As String
+
+            consulta = "select wol_workgen from workgen where id_workgen=" & ID
+
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+
+
+            '  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            valor = dt.Rows(0).Item(0)
+            Return valor
+
+
+            If cmd.ExecuteNonQuery Then
+                Return valor
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        Finally
+            desconectado()
+        End Try
+    End Function
+
+    Public Function ver_mac_equipo(ID As Integer) As String
+        Try
+            conectado()
+            Dim consulta, valor As String
+
+            consulta = "select mac_workgen from workgen where id_workgen=" & ID
+
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+
+
+            '  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            valor = dt.Rows(0).Item(0)
+            Return valor
+
+            If cmd.ExecuteNonQuery Then
+                Return valor
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        Finally
+            desconectado()
+        End Try
+    End Function
+
+
+
+
     Public Function lee_typework(ID As Integer) As String
         Try
             conectado()

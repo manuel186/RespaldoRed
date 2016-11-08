@@ -26,7 +26,7 @@ Partial Class FRM_Principal
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_Principal))
         Me.Menu_Estado = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.EjecutarTareaAhoraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WakeUpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaTareaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarTareaToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClonarTareaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,7 +69,6 @@ Partial Class FRM_Principal
         Me.Button4 = New System.Windows.Forms.Button()
         Me.BT_CERRAR = New System.Windows.Forms.Button()
         Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Timer_WOL = New System.Windows.Forms.Timer(Me.components)
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -83,9 +82,9 @@ Partial Class FRM_Principal
         '
         'Menu_Estado
         '
-        Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.ToolStripMenuItem2, Me.NuevaTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
+        Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.WakeUpToolStripMenuItem, Me.NuevaTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
         Me.Menu_Estado.Name = "Menu_Estado"
-        Me.Menu_Estado.Size = New System.Drawing.Size(184, 136)
+        Me.Menu_Estado.Size = New System.Drawing.Size(184, 158)
         '
         'EjecutarTareaAhoraToolStripMenuItem
         '
@@ -93,11 +92,11 @@ Partial Class FRM_Principal
         Me.EjecutarTareaAhoraToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
         Me.EjecutarTareaAhoraToolStripMenuItem.Text = "Ejecutar Tarea Ahora"
         '
-        'ToolStripMenuItem2
+        'WakeUpToolStripMenuItem
         '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(183, 22)
-        Me.ToolStripMenuItem2.Text = "_______________"
+        Me.WakeUpToolStripMenuItem.Name = "WakeUpToolStripMenuItem"
+        Me.WakeUpToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.WakeUpToolStripMenuItem.Text = "Despertar Equipo"
         '
         'NuevaTareaToolStripMenuItem
         '
@@ -432,15 +431,6 @@ Partial Class FRM_Principal
         Me.BT_PAUSE.Size = New System.Drawing.Size(45, 45)
         Me.BT_PAUSE.TabIndex = 33
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(315, 19)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 34
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Timer_WOL
         '
         Me.Timer_WOL.Enabled = True
@@ -451,7 +441,6 @@ Partial Class FRM_Principal
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1350, 712)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.BT_PAUSE)
         Me.Controls.Add(Me.BT_CERRAR)
         Me.Controls.Add(Me.Button8)
@@ -514,7 +503,7 @@ Partial Class FRM_Principal
     Friend WithEvents TXT_NOMBRE_DOMINIO As System.Windows.Forms.TextBox
     Friend WithEvents LB_DOMINIO As System.Windows.Forms.Label
     Friend WithEvents ClonarTareaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents WakeUpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BorrarTareaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Timer_Actualiza_Tareas As System.Windows.Forms.Timer
     Friend WithEvents Button4 As System.Windows.Forms.Button
@@ -527,7 +516,6 @@ Partial Class FRM_Principal
     Friend WithEvents CB_auto_ini_windows As System.Windows.Forms.CheckBox
     Friend WithEvents TB_hora_wol As System.Windows.Forms.MaskedTextBox
     Friend WithEvents CB_usar_wol As System.Windows.Forms.CheckBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Timer_WOL As System.Windows.Forms.Timer
 
 
