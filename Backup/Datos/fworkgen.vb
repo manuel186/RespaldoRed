@@ -121,7 +121,32 @@ Public Class fworkgen
         End Try
     End Function
 
+    Public Function muestra_equipos_para_wol() As DataTable
+        Try
+            conectado()
+            Dim consulta As String
+            consulta = "select mac_workgen from workgen where status_workgen=1 and wol_workgen=1 "
 
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+
+
+            '  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            Return dt
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+    End Function
 
     Public Function carga_tipo() As DataTable
         Try

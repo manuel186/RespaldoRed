@@ -42,6 +42,8 @@ Partial Class FRM_Principal
         Me.DBG_Det = New System.Windows.Forms.DataGridView()
         Me.DBG_TAREAS = New System.Windows.Forms.DataGridView()
         Me.TB_Config = New System.Windows.Forms.TabPage()
+        Me.TB_hora_wol = New System.Windows.Forms.MaskedTextBox()
+        Me.CB_usar_wol = New System.Windows.Forms.CheckBox()
         Me.CB_auto_ini_windows = New System.Windows.Forms.CheckBox()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.TXT_CLAVE_DOMINIO = New System.Windows.Forms.TextBox()
@@ -67,9 +69,8 @@ Partial Class FRM_Principal
         Me.Button4 = New System.Windows.Forms.Button()
         Me.BT_CERRAR = New System.Windows.Forms.Button()
         Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
-        Me.CB_usar_wol = New System.Windows.Forms.CheckBox()
-        Me.TB_hora_wol = New System.Windows.Forms.MaskedTextBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.Timer_WOL = New System.Windows.Forms.Timer(Me.components)
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -215,6 +216,25 @@ Partial Class FRM_Principal
         Me.TB_Config.TabIndex = 1
         Me.TB_Config.Text = "Configuración"
         Me.TB_Config.UseVisualStyleBackColor = True
+        '
+        'TB_hora_wol
+        '
+        Me.TB_hora_wol.Location = New System.Drawing.Point(203, 30)
+        Me.TB_hora_wol.Mask = "00:00"
+        Me.TB_hora_wol.Name = "TB_hora_wol"
+        Me.TB_hora_wol.Size = New System.Drawing.Size(38, 20)
+        Me.TB_hora_wol.TabIndex = 26
+        Me.TB_hora_wol.ValidatingType = GetType(Date)
+        '
+        'CB_usar_wol
+        '
+        Me.CB_usar_wol.AutoSize = True
+        Me.CB_usar_wol.Location = New System.Drawing.Point(12, 33)
+        Me.CB_usar_wol.Name = "CB_usar_wol"
+        Me.CB_usar_wol.Size = New System.Drawing.Size(185, 17)
+        Me.CB_usar_wol.TabIndex = 24
+        Me.CB_usar_wol.Text = "Encender equipos via WOL a las:"
+        Me.CB_usar_wol.UseVisualStyleBackColor = True
         '
         'CB_auto_ini_windows
         '
@@ -412,25 +432,6 @@ Partial Class FRM_Principal
         Me.BT_PAUSE.Size = New System.Drawing.Size(45, 45)
         Me.BT_PAUSE.TabIndex = 33
         '
-        'CB_usar_wol
-        '
-        Me.CB_usar_wol.AutoSize = True
-        Me.CB_usar_wol.Location = New System.Drawing.Point(12, 33)
-        Me.CB_usar_wol.Name = "CB_usar_wol"
-        Me.CB_usar_wol.Size = New System.Drawing.Size(136, 17)
-        Me.CB_usar_wol.TabIndex = 24
-        Me.CB_usar_wol.Text = "Permitir usar WOL a las"
-        Me.CB_usar_wol.UseVisualStyleBackColor = True
-        '
-        'TB_hora_wol
-        '
-        Me.TB_hora_wol.Location = New System.Drawing.Point(149, 33)
-        Me.TB_hora_wol.Mask = "00:00"
-        Me.TB_hora_wol.Name = "TB_hora_wol"
-        Me.TB_hora_wol.Size = New System.Drawing.Size(38, 20)
-        Me.TB_hora_wol.TabIndex = 26
-        Me.TB_hora_wol.ValidatingType = GetType(Date)
-        '
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(315, 19)
@@ -439,6 +440,11 @@ Partial Class FRM_Principal
         Me.Button1.TabIndex = 34
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Timer_WOL
+        '
+        Me.Timer_WOL.Enabled = True
+        Me.Timer_WOL.Interval = 1000
         '
         'FRM_Principal
         '
@@ -522,6 +528,7 @@ Partial Class FRM_Principal
     Friend WithEvents TB_hora_wol As System.Windows.Forms.MaskedTextBox
     Friend WithEvents CB_usar_wol As System.Windows.Forms.CheckBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Timer_WOL As System.Windows.Forms.Timer
 
 
 

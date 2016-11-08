@@ -108,7 +108,7 @@ Public Class FRM_Principal
     Private SUBPping As Thread = Nothing
     Private SUBPRespaldar As Thread = Nothing
     Private SUBPActualiza_Tarea As Thread = Nothing
-    Private SUBPLogin As Thread = Nothing
+    Private SUBPAC_WOL As Thread = Nothing
 
     Private SUBPCalcula_dirs As Thread = Nothing
     Public j As Integer = 0
@@ -1652,6 +1652,12 @@ Public Class FRM_Principal
             End If
             
 
+            If CB_usar_wol.Checked = True Then
+                funcINI.actualiza_config(5, TB_hora_wol.Text)
+            End If
+
+
+
 
             msg_box("Configuración Guardada Correctamente ", estilo_msgbox_informacion, titulo_aplicacion)
         End If
@@ -1683,7 +1689,14 @@ Public Class FRM_Principal
             TXT_CLAVE_DOMINIO.Focus()
             swok = 0
         End If
-        
+
+
+        If (swok = 1) And (Trim(TB_hora_wol.Text) = ":") Then
+            msg_box("Debe Ingresa la hora de encedido de equipo", estilo_msgbox_informacion, titulo_aplicacion)
+            TB_hora_wol.Focus()
+            swok = 0
+        End If
+
 
         If swok = 1 Then
             Return True
@@ -1710,6 +1723,13 @@ Public Class FRM_Principal
 
         Else
             CB_auto_ini_windows.Checked = False
+        End If
+
+        If conf.ver_config(5) <> "" Then
+            CB_usar_wol.Checked = True
+            TB_hora_wol.Text = conf.ver_config(5)
+        Else
+            CB_usar_wol.Checked = False
         End If
 
 
@@ -1847,5 +1867,53 @@ Public Class FRM_Principal
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         WakeUp("00-0F-5D-FA-25-0C")
     End Sub
+
+    Private Sub Timer_WOL_Tick(sender As Object, e As EventArgs) Handles Timer_WOL.Tick
+        Static Sec As Integer, Min As Integer
+
+        Sec = Sec + 1
+
+        If Sec = 60 Then   ''' cada 60 segundo busca equipos disponibles
+            ''Min = Min + 1
+            Sec = 0
+
+            ' Pongo el codigo a ejecutar aquí
+
+            Dim fun As New fconfig
+            Dim horaprogramada As String = fun.ver_config(5)
+
+            Dim horaactual = DateTime.Now.ToShortTimeString()
+
+            If horaprogramada <> ":" Then  '' si la hora programada no esta vacio comprar la hora actual con la hora progrmada
+                If horaactual = horaprogramada Then
+                    Me.SUBPAC_WOL = New Threading.Thread(AddressOf Me.Funcion_activar_wol)  ''ejecuta funcion para enviar paquetes para despertar
+                    If Me.SUBPAC_WOL.ThreadState <> Threading.ThreadState.Running Then
+                        Me.SUBPAC_WOL.Start()
+                    End If
+                End If
+            End If
+
+        End If
+    End Sub
+
+
+
+
+    Private Sub Funcion_activar_wol()
+        Dim MAC As String
+        Dim dt_workMAC As DataTable
+        Dim funcWOL As New fworkgen
+        dt_workMAC = funcWOL.muestra_equipos_para_wol()
+
+
+        For i = 0 To dt_workMAC.Rows.Count - 1 Step 1
+
+            MAC = dt_workMAC.Rows(i).Item(0)
+            WakeUp(MAC)
+            i = i + 1
+        Next
+
+    End Sub
+
 End Class
 
