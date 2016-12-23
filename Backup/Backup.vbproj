@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archivo en uso.vb" />
+    <Compile Include="ClLiberaRam.vb" />
     <Compile Include="ClsAuthenticator.vb" />
     <Compile Include="conexion.vb" />
     <Compile Include="Datos\fconfig.vb" />

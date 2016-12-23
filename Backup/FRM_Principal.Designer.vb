@@ -70,6 +70,7 @@ Partial Class FRM_Principal
         Me.BT_CERRAR = New System.Windows.Forms.Button()
         Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
         Me.Timer_WOL = New System.Windows.Forms.Timer(Me.components)
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -84,7 +85,7 @@ Partial Class FRM_Principal
         '
         Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.WakeUpToolStripMenuItem, Me.NuevaTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
         Me.Menu_Estado.Name = "Menu_Estado"
-        Me.Menu_Estado.Size = New System.Drawing.Size(184, 158)
+        Me.Menu_Estado.Size = New System.Drawing.Size(184, 136)
         '
         'EjecutarTareaAhoraToolStripMenuItem
         '
@@ -436,11 +437,21 @@ Partial Class FRM_Principal
         Me.Timer_WOL.Enabled = True
         Me.Timer_WOL.Interval = 1000
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(230, 13)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 34
+        Me.Button1.Text = "Linera Ram"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1350, 712)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.BT_PAUSE)
         Me.Controls.Add(Me.BT_CERRAR)
         Me.Controls.Add(Me.Button8)
@@ -517,6 +528,7 @@ Partial Class FRM_Principal
     Friend WithEvents TB_hora_wol As System.Windows.Forms.MaskedTextBox
     Friend WithEvents CB_usar_wol As System.Windows.Forms.CheckBox
     Friend WithEvents Timer_WOL As System.Windows.Forms.Timer
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 
 

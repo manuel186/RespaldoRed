@@ -618,4 +618,11 @@ Public Class FRM_Tarea
         End If
         
     End Sub
+
+   
+    Private Sub BT_AGREGA_DESTINATIONS_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_DESTINATIONS.Click
+        If FolderBrowser_Destinations.ShowDialog() = DialogResult.OK Then
+            LB_destinations.Items.Add(FolderBrowser_Destinations.SelectedPath)
+        End If
+    End Sub
 End Class

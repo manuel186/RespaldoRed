@@ -327,8 +327,6 @@ Public Class FRM_Principal
 
 
         Dim j As Integer = 0
-        ''  For j = 0 To totalfilas - 2
-
 
         For Each row As DataGridViewRow In DBG_TAREAS.Rows
 
@@ -376,7 +374,7 @@ Public Class FRM_Principal
                                     If (row.Cells(COL_ESTADO).Value.ToString = "Activa") And (row.Cells(COL_ESTADO_RED).Value.ToString = "Online") And ((row.Cells(COL_ULT_RESPALDO).Value.ToString) > 0) Then
                                         row.Cells(COL_ESTADO).Value = "Respaldando"
 
-                                        ''  DBG_TAREAS.CurrentRow.DefaultCellStyle.BackColor = Color.Blue
+
 
                                         Dim dts As New vworkgen
                                         Dim funcID As New fworkgen
@@ -902,7 +900,7 @@ Public Class FRM_Principal
         If dt_workgen.Rows.Count <> 0 Then
             DBG_TAREAS.DataSource = dt_workgen
 
-            abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+            abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)
 
         Else
             DBG_TAREAS.DataSource = Nothing
@@ -1592,8 +1590,13 @@ Public Class FRM_Principal
 
     Private Sub DBG_TAREAS_Click(sender As Object, e As EventArgs) Handles DBG_TAREAS.Click
 
+       
+
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
-            abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
+            ' If DBG_TAREAS.SelectedRows.Count = 0 Then
+            'Return
+            'End If
+            abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value())
         Else
             abre_detalle_de_item_seleccionado(0)
         End If
@@ -1885,7 +1888,11 @@ Public Class FRM_Principal
 
         Sec = Sec + 1
 
-        If Sec = 60 Then   ''' cada 60 segundo 
+        
+
+
+
+        If Sec = 45 Then   ''' cada 60 segundo 
 
             Sec = 0
 
@@ -1893,7 +1900,8 @@ Public Class FRM_Principal
             Dim fun As New fconfig
             Dim horaprogramada As String = fun.ver_config(5)
 
-            Dim horaactual = DateTime.Now.ToShortTimeString()
+            Dim horaactual = DateTime.Now.ToString("hh:mm")
+            ''DateTime.Now.ToShortTimeString()
 
             If horaprogramada <> "" Then  '' si la hora programada no esta vacia. comprara la hora actual con la hora progrmada
                 If horaactual = horaprogramada Then
@@ -1940,6 +1948,10 @@ Public Class FRM_Principal
         End If
 
 
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ClLiberaRam.FlushMemory()
     End Sub
 End Class
 

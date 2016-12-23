@@ -63,7 +63,7 @@ Partial Class FRM_Tarea
         Me.TabPage_Archivos = New System.Windows.Forms.TabPage()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.BT_AGREGA_DESTINATIONS = New System.Windows.Forms.Button()
         Me.LB_destinations = New System.Windows.Forms.ListBox()
         Me.LB_sources = New System.Windows.Forms.ListBox()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -86,6 +86,7 @@ Partial Class FRM_Tarea
         Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.FolderBrowser_Source = New System.Windows.Forms.FolderBrowserDialog()
+        Me.FolderBrowser_Destinations = New System.Windows.Forms.FolderBrowserDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
@@ -476,7 +477,7 @@ Partial Class FRM_Tarea
         '
         Me.TabPage_Archivos.Controls.Add(Me.Button4)
         Me.TabPage_Archivos.Controls.Add(Me.Button5)
-        Me.TabPage_Archivos.Controls.Add(Me.Button6)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_DESTINATIONS)
         Me.TabPage_Archivos.Controls.Add(Me.LB_destinations)
         Me.TabPage_Archivos.Controls.Add(Me.LB_sources)
         Me.TabPage_Archivos.Controls.Add(Me.Label11)
@@ -510,14 +511,14 @@ Partial Class FRM_Tarea
         Me.Button5.Text = "Editar"
         Me.Button5.UseVisualStyleBackColor = True
         '
-        'Button6
+        'BT_AGREGA_DESTINATIONS
         '
-        Me.Button6.Location = New System.Drawing.Point(17, 361)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(75, 23)
-        Me.Button6.TabIndex = 21
-        Me.Button6.Text = "Agregar"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.BT_AGREGA_DESTINATIONS.Location = New System.Drawing.Point(17, 361)
+        Me.BT_AGREGA_DESTINATIONS.Name = "BT_AGREGA_DESTINATIONS"
+        Me.BT_AGREGA_DESTINATIONS.Size = New System.Drawing.Size(75, 23)
+        Me.BT_AGREGA_DESTINATIONS.TabIndex = 21
+        Me.BT_AGREGA_DESTINATIONS.Text = "Agregar"
+        Me.BT_AGREGA_DESTINATIONS.UseVisualStyleBackColor = True
         '
         'LB_destinations
         '
@@ -791,7 +792,7 @@ Partial Class FRM_Tarea
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents BT_AGREGA_DESTINATIONS As System.Windows.Forms.Button
     Friend WithEvents LB_destinations As System.Windows.Forms.ListBox
     Friend WithEvents LB_sources As System.Windows.Forms.ListBox
     Friend WithEvents TabPage_Filtros As System.Windows.Forms.TabPage
@@ -819,4 +820,5 @@ Partial Class FRM_Tarea
     Friend WithEvents BT_TEST_CONEX As System.Windows.Forms.Button
     Friend WithEvents FolderBrowser_Source As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents CB_wol_workgen As System.Windows.Forms.CheckBox
+    Friend WithEvents FolderBrowser_Destinations As System.Windows.Forms.FolderBrowserDialog
 End Class
