@@ -99,6 +99,12 @@
     <Compile Include="Datos\fconfig.vb" />
     <Compile Include="EncriptarDesencriptar.vb" />
     <Compile Include="FDM1.vb" />
+    <Compile Include="FRM_EDITA.Designer.vb">
+      <DependentUpon>FRM_EDITA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FRM_EDITA.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FRM_Principal.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     <Compile Include="Resolucion.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FRM_EDITA.resx">
+      <DependentUpon>FRM_EDITA.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FRM_Principal.resx">
       <DependentUpon>FRM_Principal.vb</DependentUpon>
     </EmbeddedResource>

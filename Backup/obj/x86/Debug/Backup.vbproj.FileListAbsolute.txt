@@ -11,3 +11,4 @@ C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.FRM_Principal.resources
 C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.FRM_Tarea.resources
 C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.Resources.resources
 C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.vbproj.GenerateResource.Cache
+C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.FRM_EDITA.resources

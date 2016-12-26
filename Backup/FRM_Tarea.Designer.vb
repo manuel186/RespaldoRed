@@ -61,15 +61,15 @@ Partial Class FRM_Tarea
         Me.txt_name = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage_Archivos = New System.Windows.Forms.TabPage()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.BT_ELIMINA_DESTINATIONS = New System.Windows.Forms.Button()
+        Me.BT_EDITA_DESTINATIONS = New System.Windows.Forms.Button()
         Me.BT_AGREGA_DESTINATIONS = New System.Windows.Forms.Button()
         Me.LB_destinations = New System.Windows.Forms.ListBox()
         Me.LB_sources = New System.Windows.Forms.ListBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.BT_ELIMINA_SOURCE = New System.Windows.Forms.Button()
+        Me.BT_EDITA_SOURCE = New System.Windows.Forms.Button()
         Me.BT_AGREGA_SOURCE = New System.Windows.Forms.Button()
         Me.TabPage_Filtros = New System.Windows.Forms.TabPage()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -83,10 +83,10 @@ Partial Class FRM_Tarea
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button9 = New System.Windows.Forms.Button()
-        Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
-        Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.FolderBrowser_Source = New System.Windows.Forms.FolderBrowserDialog()
         Me.FolderBrowser_Destinations = New System.Windows.Forms.FolderBrowserDialog()
+        Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
@@ -475,15 +475,15 @@ Partial Class FRM_Tarea
         '
         'TabPage_Archivos
         '
-        Me.TabPage_Archivos.Controls.Add(Me.Button4)
-        Me.TabPage_Archivos.Controls.Add(Me.Button5)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_ELIMINA_DESTINATIONS)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_EDITA_DESTINATIONS)
         Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_DESTINATIONS)
         Me.TabPage_Archivos.Controls.Add(Me.LB_destinations)
         Me.TabPage_Archivos.Controls.Add(Me.LB_sources)
         Me.TabPage_Archivos.Controls.Add(Me.Label11)
         Me.TabPage_Archivos.Controls.Add(Me.Label10)
-        Me.TabPage_Archivos.Controls.Add(Me.Button3)
-        Me.TabPage_Archivos.Controls.Add(Me.Button2)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_ELIMINA_SOURCE)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_EDITA_SOURCE)
         Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_SOURCE)
         Me.TabPage_Archivos.Location = New System.Drawing.Point(4, 25)
         Me.TabPage_Archivos.Name = "TabPage_Archivos"
@@ -493,23 +493,23 @@ Partial Class FRM_Tarea
         Me.TabPage_Archivos.Text = "Archivos"
         Me.TabPage_Archivos.UseVisualStyleBackColor = True
         '
-        'Button4
+        'BT_ELIMINA_DESTINATIONS
         '
-        Me.Button4.Location = New System.Drawing.Point(261, 361)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 23)
-        Me.Button4.TabIndex = 23
-        Me.Button4.Text = "Borrar"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.BT_ELIMINA_DESTINATIONS.Location = New System.Drawing.Point(261, 361)
+        Me.BT_ELIMINA_DESTINATIONS.Name = "BT_ELIMINA_DESTINATIONS"
+        Me.BT_ELIMINA_DESTINATIONS.Size = New System.Drawing.Size(75, 23)
+        Me.BT_ELIMINA_DESTINATIONS.TabIndex = 23
+        Me.BT_ELIMINA_DESTINATIONS.Text = "Borrar"
+        Me.BT_ELIMINA_DESTINATIONS.UseVisualStyleBackColor = True
         '
-        'Button5
+        'BT_EDITA_DESTINATIONS
         '
-        Me.Button5.Location = New System.Drawing.Point(136, 361)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
-        Me.Button5.TabIndex = 22
-        Me.Button5.Text = "Editar"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.BT_EDITA_DESTINATIONS.Location = New System.Drawing.Point(136, 361)
+        Me.BT_EDITA_DESTINATIONS.Name = "BT_EDITA_DESTINATIONS"
+        Me.BT_EDITA_DESTINATIONS.Size = New System.Drawing.Size(75, 23)
+        Me.BT_EDITA_DESTINATIONS.TabIndex = 22
+        Me.BT_EDITA_DESTINATIONS.Text = "Editar"
+        Me.BT_EDITA_DESTINATIONS.UseVisualStyleBackColor = True
         '
         'BT_AGREGA_DESTINATIONS
         '
@@ -560,23 +560,23 @@ Partial Class FRM_Tarea
         Me.Label10.TabIndex = 3
         Me.Label10.Text = "Fuente"
         '
-        'Button3
+        'BT_ELIMINA_SOURCE
         '
-        Me.Button3.Location = New System.Drawing.Point(261, 173)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 23)
-        Me.Button3.TabIndex = 2
-        Me.Button3.Text = "Borrar"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.BT_ELIMINA_SOURCE.Location = New System.Drawing.Point(261, 173)
+        Me.BT_ELIMINA_SOURCE.Name = "BT_ELIMINA_SOURCE"
+        Me.BT_ELIMINA_SOURCE.Size = New System.Drawing.Size(75, 23)
+        Me.BT_ELIMINA_SOURCE.TabIndex = 2
+        Me.BT_ELIMINA_SOURCE.Text = "Borrar"
+        Me.BT_ELIMINA_SOURCE.UseVisualStyleBackColor = True
         '
-        'Button2
+        'BT_EDITA_SOURCE
         '
-        Me.Button2.Location = New System.Drawing.Point(136, 173)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "Editar"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.BT_EDITA_SOURCE.Location = New System.Drawing.Point(136, 173)
+        Me.BT_EDITA_SOURCE.Name = "BT_EDITA_SOURCE"
+        Me.BT_EDITA_SOURCE.Size = New System.Drawing.Size(75, 23)
+        Me.BT_EDITA_SOURCE.TabIndex = 1
+        Me.BT_EDITA_SOURCE.Text = "Editar"
+        Me.BT_EDITA_SOURCE.UseVisualStyleBackColor = True
         '
         'BT_AGREGA_SOURCE
         '
@@ -788,10 +788,10 @@ Partial Class FRM_Tarea
     Friend WithEvents BT_AGREGA_SOURCE As System.Windows.Forms.Button
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents BT_ELIMINA_SOURCE As System.Windows.Forms.Button
+    Friend WithEvents BT_EDITA_SOURCE As System.Windows.Forms.Button
+    Friend WithEvents BT_ELIMINA_DESTINATIONS As System.Windows.Forms.Button
+    Friend WithEvents BT_EDITA_DESTINATIONS As System.Windows.Forms.Button
     Friend WithEvents BT_AGREGA_DESTINATIONS As System.Windows.Forms.Button
     Friend WithEvents LB_destinations As System.Windows.Forms.ListBox
     Friend WithEvents LB_sources As System.Windows.Forms.ListBox

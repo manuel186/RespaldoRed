@@ -625,4 +625,83 @@ Public Class FRM_Tarea
             LB_destinations.Items.Add(FolderBrowser_Destinations.SelectedPath)
         End If
     End Sub
+
+    Private Sub BT_EDITA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_EDITA_SOURCE.Click
+
+        Dim i As Integer = LB_sources.SelectedIndex
+        If i = -1 Then
+            msg_box("Debe seleccionar un item a modificar", estilo_msgbox_informacion, titulo_aplicacion)
+
+
+        Else
+
+            FRM_EDITA.TB_EDITA.Text = ""
+            FRM_EDITA.TB_EDITA.Text = LB_sources.Items(i).ToString
+            FRM_EDITA.ShowDialog()
+            If FRM_EDITA.PASA Then
+                LB_sources.Items(i) = FRM_EDITA.VALOR
+
+                '''MODIFCA EL VALOR EN LA BASE DE DATOS
+            End If
+
+        End If
+    End Sub
+
+    Private Sub BT_EDITA_DESTINATIONS_Click(sender As Object, e As EventArgs) Handles BT_EDITA_DESTINATIONS.Click
+        Dim i As Integer = LB_destinations.SelectedIndex
+        If i = -1 Then
+            msg_box("Debe seleccionar un item a modificar", estilo_msgbox_informacion, titulo_aplicacion)
+
+
+        Else
+
+            FRM_EDITA.TB_EDITA.Text = ""
+            FRM_EDITA.TB_EDITA.Text = LB_destinations.Items(i).ToString
+            FRM_EDITA.ShowDialog()
+            If FRM_EDITA.PASA Then
+                LB_destinations.Items(i) = FRM_EDITA.VALOR
+
+                '''MODIFCA EL VALOR EN LA BASE DE DATOS
+            End If
+
+        End If
+    End Sub
+
+    Private Sub BT_ELIMINA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_ELIMINA_SOURCE.Click
+        Dim i As Integer = LB_sources.SelectedIndex
+        If i = -1 Then
+            msg_box("Debe seleccionar un item a eliminar ", estilo_msgbox_informacion, titulo_aplicacion)
+
+
+        Else
+            Dim knt As Integer = LB_sources.SelectedIndices.Count
+            Dim i2 As Integer
+            For i2 = 0 To knt - 1
+                LB_sources.Items.RemoveAt(LB_sources.SelectedIndex)
+            Next
+
+
+            ''  LB_sources.Items.Remove(i)
+
+            ''ejecuta la eliminarcion en en base de dataos 
+        End If
+
+    End Sub
+
+    Private Sub BT_ELIMINA_DESTINATIONS_Click(sender As Object, e As EventArgs) Handles BT_ELIMINA_DESTINATIONS.Click
+        Dim i As Integer = LB_destinations.SelectedIndex
+        If i = -1 Then
+            msg_box("Debe seleccionar un item a eliminar ", estilo_msgbox_informacion, titulo_aplicacion)
+
+
+        Else
+            Dim knt As Integer = LB_destinations.SelectedIndices.Count
+            Dim i2 As Integer
+            For i2 = 0 To knt - 1
+                LB_destinations.Items.RemoveAt(LB_destinations.SelectedIndex)
+            Next
+
+            ''ejecuta la eliminarcion en en base de dataos 
+        End If
+    End Sub
 End Class
