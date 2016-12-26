@@ -980,7 +980,7 @@ Public Class FRM_Principal
 
 
 
-
+        calcula_espacio_de_tarea_en_disco(0)
 
         ''una vez cargado los datos de sistema inicia la busqueda de equipos disponibles
         RESPALDO = "DETENIDO"
@@ -988,6 +988,8 @@ Public Class FRM_Principal
         If Me.SUBPping.ThreadState <> Threading.ThreadState.Running Then
             Me.SUBPping.Start()
         End If
+
+
 
     End Sub
 
@@ -1193,6 +1195,8 @@ Public Class FRM_Principal
                 i2 = +1
 
             Next
+
+            calcula_espacio_de_tarea_en_disco(ID)
 
             LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
         Else
@@ -1646,6 +1650,90 @@ Public Class FRM_Principal
         End Try
     End Function
 
+
+    Private Function calcula_espacio_de_tarea_en_disco(ID As Integer)
+        Try
+
+            Dim fun As New fworkgen
+
+            If ID = 0 Then
+
+
+                For Each row As DataGridViewRow In DBG_TAREAS.Rows
+                    Dim campo = row.Cells(1).Value
+                    Dim campo2 = row.Cells(COL_TAMANO).Value
+                    If (Not (String.IsNullOrEmpty(campo)) And campo2 = " ") Then
+
+
+                        Dim filespec As String = fun.ver_ruta_destino_workgen(campo)
+                        Dim fso, f, tamaño, tamaño_ok
+                        fso = CreateObject("Scripting.FileSystemObject")
+                        f = fso.Getfolder(filespec)
+                        tamaño = f.size '' (CInt(f.size) / 1024)
+
+                        If (tamaño / 1024) > 1 Then
+                            tamaño_ok = FormatNumber((tamaño / 1024), 2) & " KB "
+
+                        End If
+
+                        If ((tamaño / 1024) / 1024) > 1 Then
+                            tamaño_ok = FormatNumber(((tamaño / 1024) / 1024), 2) & " MB "
+
+                        End If
+
+                        If (((tamaño / 1024) / 1024) / 1024) > 1 Then
+                            tamaño_ok = FormatNumber((((tamaño / 1024) / 1024) / 1024), 2) & " GB "
+                        End If
+                        row.Cells(COL_TAMANO).Value = tamaño_ok
+
+                    End If
+
+                Next
+
+            Else
+
+                For Each row As DataGridViewRow In DBG_TAREAS.Rows
+                    Dim campo = row.Cells(1).Value
+                    If (campo = ID) Then
+
+
+                        Dim filespec As String = fun.ver_ruta_destino_workgen(campo)
+                        Dim fso, f, tamaño, tamaño_ok
+                        fso = CreateObject("Scripting.FileSystemObject")
+                        f = fso.Getfolder(filespec)
+                        tamaño = f.size '' (CInt(f.size) / 1024)
+
+                        If (tamaño / 1024) > 1 Then
+                            tamaño_ok = FormatNumber((tamaño / 1024), 2) & " KB "
+
+                        End If
+
+                        If ((tamaño / 1024) / 1024) > 1 Then
+                            tamaño_ok = FormatNumber(((tamaño / 1024) / 1024), 2) & " MB "
+
+                        End If
+
+                        If (((tamaño / 1024) / 1024) / 1024) > 1 Then
+                            tamaño_ok = FormatNumber((((tamaño / 1024) / 1024) / 1024), 2) & " GB "
+                        End If
+                        row.Cells(COL_TAMANO).Value = tamaño_ok
+
+                    End If
+
+                Next
+
+
+
+            End If
+        Catch ex As Exception
+
+        End Try
+
+
+    End Function
+
+
+
     Private Sub DBG_TAREAS_Click(sender As Object, e As EventArgs) Handles DBG_TAREAS.Click
 
 
@@ -1941,6 +2029,7 @@ Public Class FRM_Principal
 
 
 
+
     Private Sub Timer_WOL_Tick(sender As Object, e As EventArgs) Handles Timer_WOL.Tick
         Static Sec As Integer
 
@@ -2013,5 +2102,9 @@ Public Class FRM_Principal
     End Sub
 
 
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+    End Sub
 End Class
 

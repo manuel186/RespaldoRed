@@ -687,6 +687,42 @@ Public Class fworkgen
 
     End Function
 
+    Public Function ver_ruta_destino_workgen(ID As Integer) As String
+        Try
+            Dim ruta As String
+
+            conectado()
+            Dim consulta As String
+            consulta = "select descri_destination from destinations where workgen_destination = " & ID
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+            da.SelectCommand = command
+
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+
+            If (dt.Rows.Count > 0) Then
+                ruta = dt.Rows(0).Item(0)
+                Return ruta
+
+
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+
+
+
+    End Function
+
     Public Function ver_correl_workdet(ID As Integer) As Integer
         Try
             Dim correl As Integer
