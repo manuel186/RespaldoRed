@@ -183,6 +183,7 @@ Partial Class FRM_Tarea
         Me.txt2_password_workgen.Name = "txt2_password_workgen"
         Me.txt2_password_workgen.Size = New System.Drawing.Size(197, 20)
         Me.txt2_password_workgen.TabIndex = 39
+        Me.txt2_password_workgen.UseSystemPasswordChar = True
         '
         'Label17
         '
@@ -199,6 +200,7 @@ Partial Class FRM_Tarea
         Me.txt_password_workgen.Name = "txt_password_workgen"
         Me.txt_password_workgen.Size = New System.Drawing.Size(197, 20)
         Me.txt_password_workgen.TabIndex = 37
+        Me.txt_password_workgen.UseSystemPasswordChar = True
         '
         'Label16
         '

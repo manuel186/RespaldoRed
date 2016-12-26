@@ -1393,11 +1393,16 @@ Public Class FRM_Principal
 
 
     Private Sub EditarTareaToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EditarTareaToolStripMenuItem1.Click
-        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
-            ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
-            FRM_Tarea.ShowDialog()
-        End If
+        Try
+            If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
+                ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+                FRM_Tarea.ShowDialog()
+            End If
 
+        Catch ex As Exception
+
+        End Try
+       
 
     End Sub
 
@@ -1465,6 +1470,45 @@ Public Class FRM_Principal
 
         End Try
     End Sub
+
+
+    Public Sub Actualiza_Tarea_por_id(id As Integer)
+        Try
+            For Each row As DataGridViewRow In DBG_TAREAS.Rows
+                Dim i As Integer
+                Dim dts As New vworkgen
+                Dim funcID As New fworkgen
+                dt_workgen = funcID.mostrar_workgen_by_id(id)
+
+
+                For i = 0 To dt_workgen.Rows.Count - 1 Step 1
+
+                    If row.Cells(COL_ID).Value = id Then
+                        row.Cells(COL_ESTADO).Value = dt_workgen.Rows(i).Item(0)
+
+                        row.Cells(COL_EQUIPO).Value = dt_workgen.Rows(i).Item(2)
+                        row.Cells(COL_USER).Value = dt_workgen.Rows(i).Item(3)
+                        row.Cells(COL_USUARIO).Value = dt_workgen.Rows(i).Item(4)
+                        row.Cells(COL_GRUPO).Value = dt_workgen.Rows(i).Item(5)
+                        row.Cells(COL_IP_EQUIPO).Value = dt_workgen.Rows(i).Item(6)
+                        row.Cells(COL_TIPO_EQUIPO).Value = dt_workgen.Rows(i).Item(7)
+                        row.Cells(COL_ULT_RESPALDO).Value = dt_workgen.Rows(i).Item(10)
+
+
+                        'End If
+                    End If
+
+                    i = i + 1
+                Next
+
+
+
+            Next
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
     Private Sub Menu_Estado_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles Menu_Estado.Opening
         Try
 

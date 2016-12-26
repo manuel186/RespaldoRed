@@ -8,6 +8,8 @@ Public Class FRM_Tarea
     Private Sub FRM_USUARIOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = titulo_aplicacion + "Tareas"
 
+        ''elimina los eventos de los combobox para que carge la grilla sin errores
+        RemoveHandler CB_wol_workgen.CheckedChanged, AddressOf CB_wol_workgen_CheckedChanged
 
         '' CB_userpasdomain.Checked = True
         carga_grupos()
@@ -100,6 +102,8 @@ Public Class FRM_Tarea
 
         End If
 
+
+        AddHandler CB_wol_workgen.CheckedChanged, AddressOf CB_wol_workgen_CheckedChanged
     End Sub
 
     Private Sub carga_sources()
@@ -390,119 +394,224 @@ Public Class FRM_Tarea
     End Sub
 
 
-    Private Sub BT_ACEPTA_Click(sender As Object, e As EventArgs) Handles BT_ACEPTA.Click
-        ''tarea nueva 
-        If (txt_id.Text) = "" And (Len(txt_id.Text) = 0) Then
-            If valida_tarea() Then
+    Private Sub inserta_workgen()
+        Try
+            Try
+                Dim estado
+                Dim dts As New vworkgen
+                Dim func As New fworkgen
 
-                Try
-                    Dim estado
-                    Dim dts As New vworkgen
-                    Dim func As New fworkgen
+                Dim correl = func.ver_correl_workgen
+                dts.gid_workgen = correl
 
-                    Dim correl = func.ver_correl_workgen
-                    dts.gid_workgen = correl
+                If CB_status_workgen.Checked = True Then
+                    dts.gstatus_workgen = 1
+                    estado = "Activa"
+                Else
+                    dts.gstatus_workgen = 0
+                    estado = "Inactiva"
+                End If
 
-                    If CB_status_workgen.Checked = True Then
-                        dts.gstatus_workgen = 1
-                        estado = "Activa"
-                    Else
-                        dts.gstatus_workgen = 0
-                        estado = "Inactiva"
-                    End If
-
-                    If CB_wol_workgen.Checked = True Then
-                        estado = "Activa"
-                    Else
-                        dts.gwol_workgen = 0
-                    End If
-
-
-                    dts.gname_workgen = txt_name.Text
-                    dts.ghostname_workgen = txt_hostname.Text
-                    dts.guser_workgen = txt_user_workgen.Text
-                    dts.gip_workgen = txt_ip_workgen.Text
-                    dts.gmac_workgen = txt_mac_workgen.Text
-
-                    If RB_incremental.Checked = True Then
-                        dts.gtypework_workgen = "Incremental"
-                    End If
-
-                    If RB_completo.Checked = True Then
-                        dts.gtypework_workgen = "Completo"
-                    End If
-
-                    If RB_diferencial.Checked = True Then
-                        dts.gtypework_workgen = "Diferencial"
-                    End If
-
-                    dts.ggroups_workgen = CB_GRUPOS.SelectedValue
-
-                    dts.gtype_workgen = CB_TYPE.SelectedValue
+                If CB_wol_workgen.Checked = True Then
+                    estado = "Activa"
+                    dts.gwol_workgen = 1
+                Else
+                    estado = "Inactiva"
+                    dts.gwol_workgen = 0
+                End If
 
 
-                    If CB_userpasdomain.Checked = True Then
-                        dts.guseownaccount_workgen = 1
+                dts.gname_workgen = txt_name.Text
+                dts.ghostname_workgen = txt_hostname.Text
+                dts.guser_workgen = txt_user_workgen.Text
+                dts.gip_workgen = txt_ip_workgen.Text
+                dts.gmac_workgen = txt_mac_workgen.Text
 
-                        dts.gusername_workgen = txt_username_workgen.Text
-                        dts.gdomain_workgen = txt_domain_workgen.Text
+                If RB_incremental.Checked = True Then
+                    dts.gtypework_workgen = "Incremental"
+                End If
 
-                        Dim des As New EncriptarDesencriptar
-                        dts.gpassword_workgen = des.encriptar128BitRijndael(txt_password_workgen.Text, dts.gdomain_workgen + "\" + dts.guser_workgen)
-                        ''dts.gpassword_workgen = des.desencriptar128BitRijndael(txt2_password_workgen.Text, dts.gdomain_workgen + "\" + dts.guser_workgen)
+                If RB_completo.Checked = True Then
+                    dts.gtypework_workgen = "Completo"
+                End If
 
-                    Else
-                        dts.guseownaccount_workgen = 0
+                If RB_diferencial.Checked = True Then
+                    dts.gtypework_workgen = "Diferencial"
+                End If
 
-                    End If
+                dts.ggroups_workgen = CB_GRUPOS.SelectedValue
 
-                    If CB_splitbackup_workgen.Checked = True Then
-                        dts.gsplitbackup_workgen = 1
-                    Else
-                        dts.gsplitbackup_workgen = 0
-                    End If
-
-                    If CB_usevsc_workgen.Checked = True Then
-                        dts.gusevsc_workgen = 1
-                    Else
-                        dts.gusevsc_workgen = 0
-                    End If
+                dts.gtype_workgen = CB_TYPE.SelectedValue
 
 
-                    If func.insertar_workgen(dts) Then
-                        MessageBox.Show("Tarea  fue registrado correctamente", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                If CB_userpasdomain.Checked = True Then
+                    dts.guseownaccount_workgen = 1
 
-                        txt_id.Text = correl
-                        agrega_tarea_a_grilla(correl)
+                    dts.gusername_workgen = txt_username_workgen.Text
+                    dts.gdomain_workgen = txt_domain_workgen.Text
 
-                    Else
-                        MessageBox.Show("Tarea  no fue registrado intente de nuevo", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        '  mostrar()
-                        ' limpiar()
-                    End If
+                    Dim des As New EncriptarDesencriptar
+                    dts.gpassword_workgen = des.encriptar128BitRijndael(txt_password_workgen.Text, dts.gdomain_workgen + "\" + dts.guser_workgen)
+                    ''dts.gpassword_workgen = des.desencriptar128BitRijndael(txt2_password_workgen.Text, dts.gdomain_workgen + "\" + dts.guser_workgen)
 
-                Catch ex As Exception
+                Else
+                    dts.guseownaccount_workgen = 0
+
+                End If
+
+                If CB_splitbackup_workgen.Checked = True Then
+                    dts.gsplitbackup_workgen = 1
+                Else
+                    dts.gsplitbackup_workgen = 0
+                End If
+
+                If CB_usevsc_workgen.Checked = True Then
+                    dts.gusevsc_workgen = 1
+                Else
+                    dts.gusevsc_workgen = 0
+                End If
+
+
+                If func.insertar_workgen(dts) Then
+                    MessageBox.Show("Tarea  fue registrado correctamente", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    txt_id.Text = correl
+                    agrega_tarea_a_grilla(correl)
+
+                Else
+                    MessageBox.Show("Tarea  no fue registrado intente de nuevo", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    '  mostrar()
+                    ' limpiar()
+                End If
+
+            Catch ex As Exception
                 MsgBox(ex.Message)
             End Try
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub BT_ACEPTA_Click(sender As Object, e As EventArgs) Handles BT_ACEPTA.Click
+
+
+        If TabControl1.TabIndex = 0 Then
+            ''tarea nueva 
+            If (txt_id.Text) = "" And (Len(txt_id.Text) = 0) Then
+                If valida_tarea() Then
+                    inserta_workgen()
+                End If
             Else
-                '' MessageBox.Show("Falta ingresar algunos datos", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                actualiza_workgen()
+                ''actualiza la tarea en pantalla
+                FRM_Principal.Actualiza_Tarea_por_id(txt_id.Text)
+
             End If
 
-        Else
-
-
-            ''    actualiza_inventario()
-
-            ''  actualiza_movgen()
 
         End If
 
 
-
-
-
-
     End Sub
+
+    Private Sub actualiza_workgen()
+        Try
+
+
+            Dim estado
+            Dim dts As New vworkgen
+            Dim func As New fworkgen
+
+            dts.gid_workgen = txt_id.Text
+
+            If CB_status_workgen.Checked = True Then
+                dts.gstatus_workgen = 1
+                estado = "Activa"
+            Else
+                dts.gstatus_workgen = 0
+                estado = "Inactiva"
+            End If
+
+            If CB_wol_workgen.Checked = True Then
+                estado = "Activa"
+                dts.gwol_workgen = 1
+            Else
+                estado = "Inactiva"
+                dts.gwol_workgen = 0
+            End If
+
+
+            dts.gname_workgen = txt_name.Text
+            dts.ghostname_workgen = txt_hostname.Text
+            dts.guser_workgen = txt_user_workgen.Text
+            dts.gip_workgen = txt_ip_workgen.Text
+            dts.gmac_workgen = txt_mac_workgen.Text
+
+            If RB_incremental.Checked = True Then
+                dts.gtypework_workgen = "Incremental"
+            End If
+
+            If RB_completo.Checked = True Then
+                dts.gtypework_workgen = "Completo"
+            End If
+
+            If RB_diferencial.Checked = True Then
+                dts.gtypework_workgen = "Diferencial"
+            End If
+
+            dts.ggroups_workgen = CB_GRUPOS.SelectedValue
+
+            dts.gtype_workgen = CB_TYPE.SelectedValue
+
+
+            If CB_userpasdomain.Checked = True Then
+                dts.guseownaccount_workgen = 1
+
+                dts.gusername_workgen = txt_username_workgen.Text
+                dts.gdomain_workgen = txt_domain_workgen.Text
+
+                Dim des As New EncriptarDesencriptar
+                dts.gpassword_workgen = des.encriptar128BitRijndael(txt_password_workgen.Text, dts.gdomain_workgen + "\" + dts.guser_workgen)
+                ''dts.gpassword_workgen = des.desencriptar128BitRijndael(txt2_password_workgen.Text, dts.gdomain_workgen + "\" + dts.guser_workgen)
+
+            Else
+                dts.guseownaccount_workgen = 0
+
+            End If
+
+            If CB_splitbackup_workgen.Checked = True Then
+                dts.gsplitbackup_workgen = 1
+            Else
+                dts.gsplitbackup_workgen = 0
+            End If
+
+            If CB_usevsc_workgen.Checked = True Then
+                dts.gusevsc_workgen = 1
+            Else
+                dts.gusevsc_workgen = 0
+            End If
+
+
+            If func.actualiza_workgen(dts) Then
+                MessageBox.Show("Tarea  fue Actualizada correctamente", "Actualizando Registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                ''    txt_id.Text = correl
+                ''   agrega_tarea_a_grilla(correl)
+
+            Else
+                MessageBox.Show("Tarea  no fue Actualizanda intente de nuevo", "Actualizando registros", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                '  mostrar()
+                ' limpiar()
+            End If
+
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 
     Private Sub agrega_tarea_a_grilla(ID As Integer)
         Try
@@ -541,7 +650,7 @@ Public Class FRM_Tarea
 
     End Sub
 
- 
+
     Private Sub BT_AGREGA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_SOURCE.Click
         If FolderBrowser_Source.ShowDialog() = DialogResult.OK Then
             LB_sources.Items.Add(FolderBrowser_Source.SelectedPath)
@@ -574,7 +683,7 @@ Public Class FRM_Tarea
             End If
         End If
 
-       
+
     End Sub
 
     Private Sub RB_diferencial_CheckedChanged(sender As Object, e As EventArgs) Handles RB_diferencial.CheckedChanged
@@ -583,10 +692,10 @@ Public Class FRM_Tarea
                 CB_splitbackup_workgen.Checked = False
             End If
         End If
-       
+
     End Sub
 
-   
+
     Private Sub BT_TEST_CONEX_Click(sender As Object, e As EventArgs) Handles BT_TEST_CONEX.Click
         '    Dim ImpersonatorTEST As New clsAuthenticator
         '   Dim pas
@@ -604,7 +713,7 @@ Public Class FRM_Tarea
         '
     End Sub
 
-  
+
     Private Sub CB_wol_workgen_CheckedChanged(sender As Object, e As EventArgs) Handles CB_wol_workgen.CheckedChanged
         If CB_wol_workgen.Checked = True Then
             Dim campo As String
@@ -616,10 +725,10 @@ Public Class FRM_Tarea
                 CB_wol_workgen.Checked = False
             End If
         End If
-        
+
     End Sub
 
-   
+
     Private Sub BT_AGREGA_DESTINATIONS_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_DESTINATIONS.Click
         If FolderBrowser_Destinations.ShowDialog() = DialogResult.OK Then
             LB_destinations.Items.Add(FolderBrowser_Destinations.SelectedPath)
@@ -736,7 +845,7 @@ Public Class FRM_Tarea
         End If
     End Sub
 
-  
+
     Private Sub BT_ELIMINA_DIR_Click(sender As Object, e As EventArgs) Handles BT_ELIMINA_DIR.Click
         Dim i As Integer = LB_filters_dir.SelectedIndex()
         If i = -1 Then
@@ -765,6 +874,26 @@ Public Class FRM_Tarea
         FRM_EDITA.ShowDialog()
         If FRM_EDITA.PASA Then
             LB_filters_masc.Items.Add(FRM_EDITA.VALOR)
+
+        End If
+    End Sub
+
+    Private Sub BT_EDITA_DIR_Click(sender As Object, e As EventArgs) Handles BT_EDITA_DIR.Click
+        Dim i As Integer = LB_filters_masc.SelectedIndex
+        If i = -1 Then
+            msg_box("Debe seleccionar un item a modificar", estilo_msgbox_informacion, titulo_aplicacion)
+
+
+        Else
+
+            FRM_EDITA.TB_EDITA.Text = ""
+            FRM_EDITA.TB_EDITA.Text = LB_filters_dir.Items(i).ToString
+            FRM_EDITA.ShowDialog()
+            If FRM_EDITA.PASA Then
+                LB_filters_dir.Items(i) = FRM_EDITA.VALOR
+
+                '''MODIFCA EL VALOR EN LA BASE DE DATOS
+            End If
 
         End If
     End Sub

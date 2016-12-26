@@ -163,6 +163,46 @@ Public Class fworkgen
 
 
 
+    Public Function actualiza_workgen(ByVal dts As vworkgen) As Boolean
+        Try
+            conectado()
+            Dim consulta As String
+
+
+            consulta = "update Workgen set status_workgen= " & dts.gstatus_workgen & ",typework_workgen='" & dts.gtypework_workgen & "', "
+            consulta = consulta & " name_workgen='" & dts.gname_workgen & "',user_workgen='" & dts.guser_workgen & "',type_workgen=" & dts.gtype_workgen & ","
+            consulta = consulta & " groups_workgen=" & dts.ggroups_workgen & ",hostname_workgen='" & dts.ghostname_workgen & "',"
+            consulta = consulta & " ip_workgen= '" & dts.gip_workgen & "',mac_workgen= '" & dts.gmac_workgen & "',useownaccount_workgen=" & dts.guseownaccount_workgen & ","
+            consulta = consulta & " domain_workgen='" & dts.gdomain_workgen & "',username_workgen='" & dts.gusername_workgen & "',password_workgen='" & dts.gpassword_workgen & "',"
+            consulta = consulta & " splitbackup_workgen=" & dts.gsplitbackup_workgen & ",usevsc_workgen=" & dts.gusevsc_workgen & ",wol_workgen=" & dts.gwol_workgen & " "
+            consulta = consulta & " where id_workgen=" & dts.gid_workgen & " "
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+
+
+            '  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            Return True
+
+
+            If cmd.ExecuteNonQuery Then
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        Finally
+            desconectado()
+        End Try
+    End Function
 
 
 
