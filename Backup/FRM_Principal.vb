@@ -19,7 +19,21 @@ Imports System.Text
 Imports System.Net.Sockets
 
 
+
+
 Public Class FRM_Principal
+
+    ''Soluciona error de X roja en datagrid.
+    Protected Overrides Sub OnPaint(ByVal e As System.Windows.Forms.PaintEventArgs)
+        Try
+            MyBase.OnPaint(e)
+        Catch ex As Exception
+            Me.Invalidate()
+        End Try
+    End Sub
+
+
+
     ''declara variables de WOL
     Public Const MAC_ADDR_BYTES As Integer = 6
     Private Const PORT_BROADCAST = 2304
@@ -1240,7 +1254,7 @@ Public Class FRM_Principal
         Else
             inicia_respaldo()
         End If
-       
+
 
 
 
@@ -1376,7 +1390,7 @@ Public Class FRM_Principal
     End Function
 
 
- 
+
 
     Private Sub EditarTareaToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EditarTareaToolStripMenuItem1.Click
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
@@ -1454,8 +1468,8 @@ Public Class FRM_Principal
     Private Sub Menu_Estado_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles Menu_Estado.Opening
         Try
 
-    
-        '''si la fila no esta vacia permite visualizar el menu
+
+            '''si la fila no esta vacia permite visualizar el menu
             If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
                 Dim IDN As Integer = DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value
                 EjecutarTareaAhoraToolStripMenuItem.Enabled = True
@@ -1590,7 +1604,7 @@ Public Class FRM_Principal
 
     Private Sub DBG_TAREAS_Click(sender As Object, e As EventArgs) Handles DBG_TAREAS.Click
 
-       
+
 
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
             ' If DBG_TAREAS.SelectedRows.Count = 0 Then
@@ -1624,7 +1638,7 @@ Public Class FRM_Principal
         FRM_Tarea.ShowDialog()
     End Sub
 
-    
+
     Private Sub DBG_TAREAS_KeyUp(sender As Object, e As KeyEventArgs) Handles DBG_TAREAS.KeyUp
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString)) Then
             abre_detalle_de_item_seleccionado(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value.ToString())
@@ -1664,7 +1678,7 @@ Public Class FRM_Principal
             Else
                 funcINI.actualiza_config(4, "NO")
             End If
-            
+
 
             If CB_usar_wol.Checked = True Then
                 funcINI.actualiza_config(5, TB_hora_wol.Text)
@@ -1691,12 +1705,12 @@ Public Class FRM_Principal
         End If
 
 
-          If (swok = 1) And (Trim(TXT_USUARIO_DOMINIO.Text) = "") And (Len(TXT_USUARIO_DOMINIO.Text) < 5) Then
+        If (swok = 1) And (Trim(TXT_USUARIO_DOMINIO.Text) = "") And (Len(TXT_USUARIO_DOMINIO.Text) < 5) Then
             msg_box("Debe ingresar el nombre de usuario de cuenta de respaldo del dominio", estilo_msgbox_informacion, titulo_aplicacion)
             TXT_USUARIO_DOMINIO.Focus()
             swok = 0
         End If
-      
+
 
         If (swok = 1) And (Trim(TXT_CLAVE_DOMINIO.Text) = "") And (Len(TXT_CLAVE_DOMINIO.Text) < 5) Then
             msg_box("Debe ingresar la clave de la cuenta de respaldo del dominio", estilo_msgbox_informacion, titulo_aplicacion)
@@ -1888,7 +1902,7 @@ Public Class FRM_Principal
 
         Sec = Sec + 1
 
-        
+
 
 
 
@@ -1953,5 +1967,7 @@ Public Class FRM_Principal
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         ClLiberaRam.FlushMemory()
     End Sub
+
+
 End Class
 

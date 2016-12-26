@@ -671,8 +671,6 @@ Public Class FRM_Tarea
         Dim i As Integer = LB_sources.SelectedIndex
         If i = -1 Then
             msg_box("Debe seleccionar un item a eliminar ", estilo_msgbox_informacion, titulo_aplicacion)
-
-
         Else
             Dim knt As Integer = LB_sources.SelectedIndices.Count
             Dim i2 As Integer
@@ -680,8 +678,6 @@ Public Class FRM_Tarea
                 LB_sources.Items.RemoveAt(LB_sources.SelectedIndex)
             Next
 
-
-            ''  LB_sources.Items.Remove(i)
 
             ''ejecuta la eliminarcion en en base de dataos 
         End If
@@ -692,8 +688,6 @@ Public Class FRM_Tarea
         Dim i As Integer = LB_destinations.SelectedIndex
         If i = -1 Then
             msg_box("Debe seleccionar un item a eliminar ", estilo_msgbox_informacion, titulo_aplicacion)
-
-
         Else
             Dim knt As Integer = LB_destinations.SelectedIndices.Count
             Dim i2 As Integer
@@ -702,6 +696,76 @@ Public Class FRM_Tarea
             Next
 
             ''ejecuta la eliminarcion en en base de dataos 
+        End If
+    End Sub
+
+
+    Private Sub BT_ADITA_EXTENSION_Click(sender As Object, e As EventArgs) Handles BT_ADITA_EXTENSION.Click
+        Dim i As Integer = LB_filters_masc.SelectedIndex
+        If i = -1 Then
+            msg_box("Debe seleccionar un item a modificar", estilo_msgbox_informacion, titulo_aplicacion)
+
+
+        Else
+
+            FRM_EDITA.TB_EDITA.Text = ""
+            FRM_EDITA.TB_EDITA.Text = LB_filters_masc.Items(i).ToString
+            FRM_EDITA.ShowDialog()
+            If FRM_EDITA.PASA Then
+                LB_filters_masc.Items(i) = FRM_EDITA.VALOR
+
+                '''MODIFCA EL VALOR EN LA BASE DE DATOS
+            End If
+
+        End If
+    End Sub
+
+    Private Sub BT_BORRA_EXTENSION_Click(sender As Object, e As EventArgs) Handles BT_BORRA_EXTENSION.Click
+        Dim i As Integer = LB_filters_masc.SelectedIndex
+        If i = -1 Then
+            msg_box("Debe seleccionar un item a eliminar ", estilo_msgbox_informacion, titulo_aplicacion)
+        Else
+            Dim knt As Integer = LB_filters_masc.SelectedIndices.Count
+            Dim i2 As Integer
+            For i2 = 0 To knt - 1
+                LB_filters_masc.Items.RemoveAt(LB_filters_masc.SelectedIndex)
+            Next
+
+
+            ''ejecuta la eliminarcion en en base de dataos 
+        End If
+    End Sub
+
+  
+    Private Sub BT_ELIMINA_DIR_Click(sender As Object, e As EventArgs) Handles BT_ELIMINA_DIR.Click
+        Dim i As Integer = LB_filters_dir.SelectedIndex()
+        If i = -1 Then
+            msg_box("Debe seleccionar un item a eliminar ", estilo_msgbox_informacion, titulo_aplicacion)
+        Else
+            Dim knt As Integer = LB_filters_dir.SelectedIndices.Count
+            Dim i2 As Integer
+            For i2 = 0 To knt - 1
+                LB_filters_dir.Items.RemoveAt(LB_filters_dir.SelectedIndex)
+            Next
+
+
+            ''ejecuta la eliminarcion en en base de dataos 
+        End If
+    End Sub
+
+    Private Sub BT_AGREGA_DIR_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_DIR.Click
+        If FolderBrowser_Dir.ShowDialog() = DialogResult.OK Then
+            LB_filters_dir.Items.Add(FolderBrowser_Source.SelectedPath)
+        End If
+    End Sub
+
+    Private Sub BT_AGREGA_EXTENSION_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_EXTENSION.Click
+        FRM_EDITA.TB_EDITA.Text = ""
+
+        FRM_EDITA.ShowDialog()
+        If FRM_EDITA.PASA Then
+            LB_filters_masc.Items.Add(FRM_EDITA.VALOR)
+
         End If
     End Sub
 End Class

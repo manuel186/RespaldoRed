@@ -73,20 +73,21 @@ Partial Class FRM_Tarea
         Me.BT_AGREGA_SOURCE = New System.Windows.Forms.Button()
         Me.TabPage_Filtros = New System.Windows.Forms.TabPage()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.Button10 = New System.Windows.Forms.Button()
-        Me.Button11 = New System.Windows.Forms.Button()
-        Me.Button12 = New System.Windows.Forms.Button()
+        Me.BT_ELIMINA_DIR = New System.Windows.Forms.Button()
+        Me.BT_EDITA_DIR = New System.Windows.Forms.Button()
+        Me.BT_AGREGA_DIR = New System.Windows.Forms.Button()
         Me.LB_filters_dir = New System.Windows.Forms.ListBox()
         Me.CB_incluir_predef = New System.Windows.Forms.CheckBox()
         Me.LB_filters_masc = New System.Windows.Forms.ListBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
+        Me.BT_BORRA_EXTENSION = New System.Windows.Forms.Button()
+        Me.BT_ADITA_EXTENSION = New System.Windows.Forms.Button()
+        Me.BT_AGREGA_EXTENSION = New System.Windows.Forms.Button()
         Me.FolderBrowser_Source = New System.Windows.Forms.FolderBrowserDialog()
         Me.FolderBrowser_Destinations = New System.Windows.Forms.FolderBrowserDialog()
         Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
+        Me.FolderBrowser_Dir = New System.Windows.Forms.FolderBrowserDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
@@ -590,16 +591,16 @@ Partial Class FRM_Tarea
         'TabPage_Filtros
         '
         Me.TabPage_Filtros.Controls.Add(Me.Label13)
-        Me.TabPage_Filtros.Controls.Add(Me.Button10)
-        Me.TabPage_Filtros.Controls.Add(Me.Button11)
-        Me.TabPage_Filtros.Controls.Add(Me.Button12)
+        Me.TabPage_Filtros.Controls.Add(Me.BT_ELIMINA_DIR)
+        Me.TabPage_Filtros.Controls.Add(Me.BT_EDITA_DIR)
+        Me.TabPage_Filtros.Controls.Add(Me.BT_AGREGA_DIR)
         Me.TabPage_Filtros.Controls.Add(Me.LB_filters_dir)
         Me.TabPage_Filtros.Controls.Add(Me.CB_incluir_predef)
         Me.TabPage_Filtros.Controls.Add(Me.LB_filters_masc)
         Me.TabPage_Filtros.Controls.Add(Me.Label12)
-        Me.TabPage_Filtros.Controls.Add(Me.Button7)
-        Me.TabPage_Filtros.Controls.Add(Me.Button8)
-        Me.TabPage_Filtros.Controls.Add(Me.Button9)
+        Me.TabPage_Filtros.Controls.Add(Me.BT_BORRA_EXTENSION)
+        Me.TabPage_Filtros.Controls.Add(Me.BT_ADITA_EXTENSION)
+        Me.TabPage_Filtros.Controls.Add(Me.BT_AGREGA_EXTENSION)
         Me.TabPage_Filtros.Location = New System.Drawing.Point(4, 25)
         Me.TabPage_Filtros.Name = "TabPage_Filtros"
         Me.TabPage_Filtros.Padding = New System.Windows.Forms.Padding(3)
@@ -617,32 +618,32 @@ Partial Class FRM_Tarea
         Me.Label13.TabIndex = 30
         Me.Label13.Text = "Excluir estos directorios"
         '
-        'Button10
+        'BT_ELIMINA_DIR
         '
-        Me.Button10.Location = New System.Drawing.Point(228, 380)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(75, 23)
-        Me.Button10.TabIndex = 29
-        Me.Button10.Text = "Borrar"
-        Me.Button10.UseVisualStyleBackColor = True
+        Me.BT_ELIMINA_DIR.Location = New System.Drawing.Point(228, 380)
+        Me.BT_ELIMINA_DIR.Name = "BT_ELIMINA_DIR"
+        Me.BT_ELIMINA_DIR.Size = New System.Drawing.Size(75, 23)
+        Me.BT_ELIMINA_DIR.TabIndex = 29
+        Me.BT_ELIMINA_DIR.Text = "Borrar"
+        Me.BT_ELIMINA_DIR.UseVisualStyleBackColor = True
         '
-        'Button11
+        'BT_EDITA_DIR
         '
-        Me.Button11.Location = New System.Drawing.Point(129, 380)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(75, 23)
-        Me.Button11.TabIndex = 28
-        Me.Button11.Text = "Editar"
-        Me.Button11.UseVisualStyleBackColor = True
+        Me.BT_EDITA_DIR.Location = New System.Drawing.Point(129, 380)
+        Me.BT_EDITA_DIR.Name = "BT_EDITA_DIR"
+        Me.BT_EDITA_DIR.Size = New System.Drawing.Size(75, 23)
+        Me.BT_EDITA_DIR.TabIndex = 28
+        Me.BT_EDITA_DIR.Text = "Editar"
+        Me.BT_EDITA_DIR.UseVisualStyleBackColor = True
         '
-        'Button12
+        'BT_AGREGA_DIR
         '
-        Me.Button12.Location = New System.Drawing.Point(18, 380)
-        Me.Button12.Name = "Button12"
-        Me.Button12.Size = New System.Drawing.Size(75, 23)
-        Me.Button12.TabIndex = 27
-        Me.Button12.Text = "Agregar"
-        Me.Button12.UseVisualStyleBackColor = True
+        Me.BT_AGREGA_DIR.Location = New System.Drawing.Point(18, 380)
+        Me.BT_AGREGA_DIR.Name = "BT_AGREGA_DIR"
+        Me.BT_AGREGA_DIR.Size = New System.Drawing.Size(75, 23)
+        Me.BT_AGREGA_DIR.TabIndex = 27
+        Me.BT_AGREGA_DIR.Text = "Agregar"
+        Me.BT_AGREGA_DIR.UseVisualStyleBackColor = True
         '
         'LB_filters_dir
         '
@@ -685,32 +686,32 @@ Partial Class FRM_Tarea
         Me.Label12.TabIndex = 23
         Me.Label12.Text = "Excluir extenciones"
         '
-        'Button7
+        'BT_BORRA_EXTENSION
         '
-        Me.Button7.Location = New System.Drawing.Point(227, 185)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(75, 23)
-        Me.Button7.TabIndex = 22
-        Me.Button7.Text = "Borrar"
-        Me.Button7.UseVisualStyleBackColor = True
+        Me.BT_BORRA_EXTENSION.Location = New System.Drawing.Point(227, 185)
+        Me.BT_BORRA_EXTENSION.Name = "BT_BORRA_EXTENSION"
+        Me.BT_BORRA_EXTENSION.Size = New System.Drawing.Size(75, 23)
+        Me.BT_BORRA_EXTENSION.TabIndex = 22
+        Me.BT_BORRA_EXTENSION.Text = "Borrar"
+        Me.BT_BORRA_EXTENSION.UseVisualStyleBackColor = True
         '
-        'Button8
+        'BT_ADITA_EXTENSION
         '
-        Me.Button8.Location = New System.Drawing.Point(128, 185)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(75, 23)
-        Me.Button8.TabIndex = 21
-        Me.Button8.Text = "Editar"
-        Me.Button8.UseVisualStyleBackColor = True
+        Me.BT_ADITA_EXTENSION.Location = New System.Drawing.Point(128, 185)
+        Me.BT_ADITA_EXTENSION.Name = "BT_ADITA_EXTENSION"
+        Me.BT_ADITA_EXTENSION.Size = New System.Drawing.Size(75, 23)
+        Me.BT_ADITA_EXTENSION.TabIndex = 21
+        Me.BT_ADITA_EXTENSION.Text = "Editar"
+        Me.BT_ADITA_EXTENSION.UseVisualStyleBackColor = True
         '
-        'Button9
+        'BT_AGREGA_EXTENSION
         '
-        Me.Button9.Location = New System.Drawing.Point(17, 185)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(75, 23)
-        Me.Button9.TabIndex = 20
-        Me.Button9.Text = "Agregar"
-        Me.Button9.UseVisualStyleBackColor = True
+        Me.BT_AGREGA_EXTENSION.Location = New System.Drawing.Point(17, 185)
+        Me.BT_AGREGA_EXTENSION.Name = "BT_AGREGA_EXTENSION"
+        Me.BT_AGREGA_EXTENSION.Size = New System.Drawing.Size(75, 23)
+        Me.BT_AGREGA_EXTENSION.TabIndex = 20
+        Me.BT_AGREGA_EXTENSION.Text = "Agregar"
+        Me.BT_AGREGA_EXTENSION.UseVisualStyleBackColor = True
         '
         'BT_CANCELA
         '
@@ -799,14 +800,14 @@ Partial Class FRM_Tarea
     Friend WithEvents CB_incluir_predef As System.Windows.Forms.CheckBox
     Protected WithEvents LB_filters_masc As System.Windows.Forms.ListBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents Button7 As System.Windows.Forms.Button
-    Friend WithEvents Button8 As System.Windows.Forms.Button
-    Friend WithEvents Button9 As System.Windows.Forms.Button
+    Friend WithEvents BT_BORRA_EXTENSION As System.Windows.Forms.Button
+    Friend WithEvents BT_ADITA_EXTENSION As System.Windows.Forms.Button
+    Friend WithEvents BT_AGREGA_EXTENSION As System.Windows.Forms.Button
     Protected WithEvents LB_filters_dir As System.Windows.Forms.ListBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents Button10 As System.Windows.Forms.Button
-    Friend WithEvents Button11 As System.Windows.Forms.Button
-    Friend WithEvents Button12 As System.Windows.Forms.Button
+    Friend WithEvents BT_ELIMINA_DIR As System.Windows.Forms.Button
+    Friend WithEvents BT_EDITA_DIR As System.Windows.Forms.Button
+    Friend WithEvents BT_AGREGA_DIR As System.Windows.Forms.Button
     Friend WithEvents CB_userpasdomain As System.Windows.Forms.CheckBox
     Friend WithEvents PANEL_userpasdomain As System.Windows.Forms.Panel
     Friend WithEvents txt2_password_workgen As System.Windows.Forms.TextBox
@@ -821,4 +822,5 @@ Partial Class FRM_Tarea
     Friend WithEvents FolderBrowser_Source As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents CB_wol_workgen As System.Windows.Forms.CheckBox
     Friend WithEvents FolderBrowser_Destinations As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents FolderBrowser_Dir As System.Windows.Forms.FolderBrowserDialog
 End Class
