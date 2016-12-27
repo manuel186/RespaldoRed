@@ -2,7 +2,7 @@
     Dim id_workgen, groups_workgen, type_workgen As Integer
     Dim status_workgen, useownaccount_workgen, splitbackup_workgen, usevsc_workgen, wol_workgen As Integer
 
-    Dim typework_workgen, name_workgen, user_workgen, hostname_workgen, ip_workgen As String
+    Dim typework_workgen, name_workgen, user_workgen, hostname_workgen, interface_workgen, ip_workgen As String
     Dim mac_workgen, domain_workgen, username_workgen, password_workgen, fchbackup_workgen As String
 
     'seeter y getter
@@ -85,6 +85,16 @@
             hostname_workgen = value
         End Set
     End Property
+    Public Property ginterface_workgen
+        Get
+            Return interface_workgen
+
+        End Get
+        Set(ByVal value)
+            interface_workgen = value
+        End Set
+    End Property
+
     Public Property gip_workgen
         Get
             Return ip_workgen
@@ -193,7 +203,7 @@
 
     Public Sub New(ByVal id_workgen As Integer, ByVal status_workgen As Integer, ByVal typework_workgen As String, ByVal name_workgen As String,
                    ByVal user_workgen As String, ByVal type_workgen As Integer, ByVal groups_workgen As Integer,
-                   ByVal hostname_workgen As String, ByVal ip_workgen As String, ByVal mac_workgen As String,
+                   ByVal hostname_workgen As String, ByVal interface_workgen As String, ByVal ip_workgen As String, ByVal mac_workgen As String,
                    ByVal useownaccount_workgen As Integer, ByVal domain_workgen As String, ByVal username_workgen As String,
                    ByVal password_workgen As String, ByVal splitbackup_workgen As Integer, ByVal wol_workgen As Integer, ByVal usevsc_workgen As Integer,
                    ByVal fchbackup_workgen As String)
@@ -205,6 +215,7 @@
         gtype_workgen = type_workgen
         ggroups_workgen = groups_workgen
         ghostname_workgen = hostname_workgen
+        ginterface_workgen = interface_workgen
         gip_workgen = ip_workgen
         gmac_workgen = mac_workgen
         guseownaccount_workgen = useownaccount_workgen

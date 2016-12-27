@@ -105,8 +105,9 @@ Public Class FRM_Principal
     Public COL_USUARIO As Integer
     Public COL_GRUPO As Integer
 
-    Public COL_IP_EQUIPO As Integer
     Public COL_TIPO_EQUIPO As Integer
+    Public COL_IP_EQUIPO As Integer
+    Public COL_INTERFACE As Integer
     Public COL_ESTADO_RED As Integer
     Public COL_TAMANO As Integer
     Public COL_ULT_RESPALDO As Integer
@@ -928,11 +929,13 @@ Public Class FRM_Principal
         DBG_TAREAS.Columns(3).Width = 100 ''user
         DBG_TAREAS.Columns(4).Width = 180 ''usuario
         DBG_TAREAS.Columns(5).Width = 100 ''grupo
-        DBG_TAREAS.Columns(6).Width = 95 '' ip
-        DBG_TAREAS.Columns(7).Width = 40 '' tipo
-        DBG_TAREAS.Columns(8).Width = 70 ''estado en red
-        DBG_TAREAS.Columns(9).Width = 70 ''tamaña
-        DBG_TAREAS.Columns(10).Width = 70 '' ultimo resp
+        DBG_TAREAS.Columns(6).Width = 40 '' Tipo
+        DBG_TAREAS.Columns(7).Width = 95 '' IP
+        DBG_TAREAS.Columns(8).Width = 50 ''Interface
+        DBG_TAREAS.Columns(9).Width = 60 ''Estado red
+        DBG_TAREAS.Columns(10).Width = 70 ''tamaño disco
+        DBG_TAREAS.Columns(11).Width = 70 ''Ultimo respaldo
+
 
         DBG_TAREAS.RowHeadersVisible = False  ''elimina la primera columna
 
@@ -959,11 +962,14 @@ Public Class FRM_Principal
             If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Grupo")) Then
                 COL_GRUPO = m
             End If
+            If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Tipo")) Then
+                COL_TIPO_EQUIPO = m
+            End If
             If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "IP")) Then
                 COL_IP_EQUIPO = m
             End If
-            If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Tipo")) Then
-                COL_TIPO_EQUIPO = m
+            If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Interface")) Then
+                COL_INTERFACE = m
             End If
             If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Estado en Red")) Then
                 COL_ESTADO_RED = m
@@ -1006,10 +1012,10 @@ Public Class FRM_Principal
         If dt_workdet.Rows.Count <> 0 Then
             DBG_Det.DataSource = dt_workdet
 
-            DBG_Det.Columns(0).Width = 80 ''tiepo de respald
-            DBG_Det.Columns(1).Width = 120 '' fecha
-            DBG_Det.Columns(2).Width = 70 '' tamañp
-            DBG_Det.Columns(3).Width = 50 '' ID
+            DBG_Det.Columns(0).Width = 70 ''tiepo de respald
+            DBG_Det.Columns(1).Width = 115 '' fecha
+            DBG_Det.Columns(2).Width = 65 '' tamañp
+            DBG_Det.Columns(3).Width = 60 '' ID
         Else
 
             DBG_Det.DataSource = Nothing
@@ -1458,6 +1464,7 @@ Public Class FRM_Principal
                         row.Cells(COL_GRUPO).Value = dt_workgen.Rows(i).Item(5)
                         row.Cells(COL_IP_EQUIPO).Value = dt_workgen.Rows(i).Item(6)
                         row.Cells(COL_TIPO_EQUIPO).Value = dt_workgen.Rows(i).Item(7)
+                        row.Cells(COL_TAMANO).Value = calcula_espacio_de_tarea_en_disco(0)
                         row.Cells(COL_ULT_RESPALDO).Value = dt_workgen.Rows(i).Item(10)
 
 
@@ -2103,7 +2110,7 @@ Public Class FRM_Principal
 
 
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
 
     End Sub
 End Class

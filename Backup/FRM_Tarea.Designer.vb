@@ -88,6 +88,8 @@ Partial Class FRM_Tarea
         Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.FolderBrowser_Dir = New System.Windows.Forms.FolderBrowserDialog()
+        Me.CB_Interface = New System.Windows.Forms.ComboBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
@@ -110,6 +112,8 @@ Partial Class FRM_Tarea
         '
         'TabPage_General
         '
+        Me.TabPage_General.Controls.Add(Me.Label18)
+        Me.TabPage_General.Controls.Add(Me.CB_Interface)
         Me.TabPage_General.Controls.Add(Me.CB_wol_workgen)
         Me.TabPage_General.Controls.Add(Me.PANEL_userpasdomain)
         Me.TabPage_General.Controls.Add(Me.CB_userpasdomain)
@@ -344,7 +348,7 @@ Partial Class FRM_Tarea
         'txt_id
         '
         Me.txt_id.Enabled = False
-        Me.txt_id.Location = New System.Drawing.Point(144, 11)
+        Me.txt_id.Location = New System.Drawing.Point(92, 11)
         Me.txt_id.Name = "txt_id"
         Me.txt_id.Size = New System.Drawing.Size(43, 20)
         Me.txt_id.TabIndex = 17
@@ -379,7 +383,7 @@ Partial Class FRM_Tarea
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(348, 101)
+        Me.Label6.Location = New System.Drawing.Point(6, 99)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(64, 13)
         Me.Label6.TabIndex = 13
@@ -387,7 +391,7 @@ Partial Class FRM_Tarea
         '
         'txt_mac_workgen
         '
-        Me.txt_mac_workgen.Location = New System.Drawing.Point(594, 66)
+        Me.txt_mac_workgen.Location = New System.Drawing.Point(585, 96)
         Me.txt_mac_workgen.MaxLength = 17
         Me.txt_mac_workgen.Name = "txt_mac_workgen"
         Me.txt_mac_workgen.Size = New System.Drawing.Size(117, 20)
@@ -396,7 +400,7 @@ Partial Class FRM_Tarea
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(513, 69)
+        Me.Label4.Location = New System.Drawing.Point(504, 99)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(78, 13)
         Me.Label4.TabIndex = 11
@@ -406,14 +410,14 @@ Partial Class FRM_Tarea
         '
         Me.CB_TYPE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CB_TYPE.FormattingEnabled = True
-        Me.CB_TYPE.Location = New System.Drawing.Point(414, 97)
+        Me.CB_TYPE.Location = New System.Drawing.Point(91, 94)
         Me.CB_TYPE.Name = "CB_TYPE"
-        Me.CB_TYPE.Size = New System.Drawing.Size(122, 21)
+        Me.CB_TYPE.Size = New System.Drawing.Size(96, 21)
         Me.CB_TYPE.TabIndex = 10
         '
         'txt_user_workgen
         '
-        Me.txt_user_workgen.Location = New System.Drawing.Point(144, 98)
+        Me.txt_user_workgen.Location = New System.Drawing.Point(508, 66)
         Me.txt_user_workgen.Name = "txt_user_workgen"
         Me.txt_user_workgen.Size = New System.Drawing.Size(197, 20)
         Me.txt_user_workgen.TabIndex = 9
@@ -421,7 +425,7 @@ Partial Class FRM_Tarea
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 101)
+        Me.Label5.Location = New System.Drawing.Point(364, 69)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(134, 13)
         Me.Label5.TabIndex = 8
@@ -429,7 +433,7 @@ Partial Class FRM_Tarea
         '
         'txt_ip_workgen
         '
-        Me.txt_ip_workgen.Location = New System.Drawing.Point(414, 66)
+        Me.txt_ip_workgen.Location = New System.Drawing.Point(411, 96)
         Me.txt_ip_workgen.MaxLength = 15
         Me.txt_ip_workgen.Name = "txt_ip_workgen"
         Me.txt_ip_workgen.Size = New System.Drawing.Size(90, 20)
@@ -438,7 +442,7 @@ Partial Class FRM_Tarea
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(348, 69)
+        Me.Label3.Location = New System.Drawing.Point(345, 99)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(65, 13)
         Me.Label3.TabIndex = 4
@@ -446,7 +450,7 @@ Partial Class FRM_Tarea
         '
         'txt_hostname
         '
-        Me.txt_hostname.Location = New System.Drawing.Point(144, 66)
+        Me.txt_hostname.Location = New System.Drawing.Point(92, 66)
         Me.txt_hostname.Name = "txt_hostname"
         Me.txt_hostname.Size = New System.Drawing.Size(197, 20)
         Me.txt_hostname.TabIndex = 3
@@ -462,7 +466,7 @@ Partial Class FRM_Tarea
         '
         'txt_name
         '
-        Me.txt_name.Location = New System.Drawing.Point(144, 39)
+        Me.txt_name.Location = New System.Drawing.Point(92, 39)
         Me.txt_name.Name = "txt_name"
         Me.txt_name.Size = New System.Drawing.Size(336, 20)
         Me.txt_name.TabIndex = 1
@@ -735,6 +739,25 @@ Partial Class FRM_Tarea
         Me.BT_ACEPTA.Size = New System.Drawing.Size(61, 58)
         Me.BT_ACEPTA.TabIndex = 20
         '
+        'CB_Interface
+        '
+        Me.CB_Interface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_Interface.FormattingEnabled = True
+        Me.CB_Interface.Items.AddRange(New Object() {"CABLE", "WIFI", "VMWR"})
+        Me.CB_Interface.Location = New System.Drawing.Point(276, 95)
+        Me.CB_Interface.Name = "CB_Interface"
+        Me.CB_Interface.Size = New System.Drawing.Size(66, 21)
+        Me.CB_Interface.TabIndex = 34
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(193, 99)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(80, 13)
+        Me.Label18.TabIndex = 35
+        Me.Label18.Text = "Interfaz de Red"
+        '
         'FRM_Tarea
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -825,4 +848,6 @@ Partial Class FRM_Tarea
     Friend WithEvents CB_wol_workgen As System.Windows.Forms.CheckBox
     Friend WithEvents FolderBrowser_Destinations As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents FolderBrowser_Dir As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents CB_Interface As System.Windows.Forms.ComboBox
+    Friend WithEvents Label18 As System.Windows.Forms.Label
 End Class

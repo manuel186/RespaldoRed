@@ -71,7 +71,6 @@ Partial Class FRM_Principal
         Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
         Me.Timer_WOL = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -86,7 +85,7 @@ Partial Class FRM_Principal
         '
         Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.WakeUpToolStripMenuItem, Me.NuevaTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
         Me.Menu_Estado.Name = "Menu_Estado"
-        Me.Menu_Estado.Size = New System.Drawing.Size(184, 136)
+        Me.Menu_Estado.Size = New System.Drawing.Size(184, 158)
         '
         'EjecutarTareaAhoraToolStripMenuItem
         '
@@ -181,9 +180,9 @@ Partial Class FRM_Principal
         'DBG_Det
         '
         Me.DBG_Det.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DBG_Det.Location = New System.Drawing.Point(983, 6)
+        Me.DBG_Det.Location = New System.Drawing.Point(1008, 6)
         Me.DBG_Det.Name = "DBG_Det"
-        Me.DBG_Det.Size = New System.Drawing.Size(351, 372)
+        Me.DBG_Det.Size = New System.Drawing.Size(326, 372)
         Me.DBG_Det.TabIndex = 20
         '
         'DBG_TAREAS
@@ -195,7 +194,7 @@ Partial Class FRM_Principal
         Me.DBG_TAREAS.Name = "DBG_TAREAS"
         Me.DBG_TAREAS.ReadOnly = True
         Me.DBG_TAREAS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DBG_TAREAS.Size = New System.Drawing.Size(965, 372)
+        Me.DBG_TAREAS.Size = New System.Drawing.Size(996, 372)
         Me.DBG_TAREAS.TabIndex = 1
         '
         'TB_Config
@@ -447,21 +446,11 @@ Partial Class FRM_Principal
         Me.Button1.Text = "Linera Ram"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(348, 41)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 35
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1350, 712)
-        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.BT_PAUSE)
         Me.Controls.Add(Me.BT_CERRAR)
@@ -540,7 +529,6 @@ Partial Class FRM_Principal
     Friend WithEvents CB_usar_wol As System.Windows.Forms.CheckBox
     Friend WithEvents Timer_WOL As System.Windows.Forms.Timer
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
 
 
 

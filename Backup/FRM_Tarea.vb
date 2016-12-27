@@ -51,6 +51,9 @@ Public Class FRM_Tarea
                 txt_name.Text = dts.gname_workgen
                 txt_hostname.Text = dts.ghostname_workgen
                 txt_user_workgen.Text = dts.guser_workgen
+
+                CB_Interface.SelectedItem = dts.ginterface_workgen
+
                 txt_ip_workgen.Text = dts.gip_workgen
                 txt_mac_workgen.Text = dts.gmac_workgen
                 If dts.gtypework_workgen = "Incremental" Then
@@ -896,5 +899,9 @@ Public Class FRM_Tarea
             End If
 
         End If
+    End Sub
+
+    Private Sub TabPage_General_Click(sender As Object, e As EventArgs) Handles TabPage_General.Click
+
     End Sub
 End Class

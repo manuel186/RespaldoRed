@@ -48,7 +48,7 @@ Public Class fworkgen
             conectado()
             Dim consulta, valor As String
 
-            consulta = "select mac_workgen from workgen where id_workgen=" & ID
+            consulta = "select mac_macaddress from macaddress where workgen_macaddress=" & ID & " and default_macaddress=1 "
 
 
             Dim command As New SQLiteCommand(consulta, cnn)
@@ -126,11 +126,11 @@ Public Class fworkgen
             Dim ID
 
             consulta = "insert into Workgen (id_workgen,status_workgen,typework_workgen,name_workgen,user_workgen,type_workgen, "
-            consulta = consulta & " groups_workgen,hostname_workgen,ip_workgen,mac_workgen,useownaccount_workgen,domain_workgen, "
+            consulta = consulta & " groups_workgen,hostname_workgen,useownaccount_workgen,domain_workgen, "
             consulta = consulta & " username_workgen,password_workgen,splitbackup_workgen,usevsc_workgen,wol_workgen)"
             consulta = consulta & " values(" & dts.gid_workgen & "," & dts.gstatus_workgen & ",'" & dts.gtypework_workgen & "','" & dts.gname_workgen & "',"
             consulta = consulta & "'" & dts.guser_workgen & "','" & dts.gtype_workgen & "'," & dts.ggroups_workgen & ",'" & dts.ghostname_workgen & "',"
-            consulta = consulta & "'" & dts.gip_workgen & "','" & dts.gmac_workgen & "'," & dts.guseownaccount_workgen & ",'" & dts.gdomain_workgen & "',"
+            consulta = consulta & "'" & dts.guseownaccount_workgen & ",'" & dts.gdomain_workgen & "',"
             consulta = consulta & "'" & dts.gusername_workgen & "','" & dts.gpassword_workgen & "'," & dts.gsplitbackup_workgen & "," & dts.gusevsc_workgen & dts.gwol_workgen & ") "
         
 
@@ -172,7 +172,7 @@ Public Class fworkgen
             consulta = "update Workgen set status_workgen= " & dts.gstatus_workgen & ",typework_workgen='" & dts.gtypework_workgen & "', "
             consulta = consulta & " name_workgen='" & dts.gname_workgen & "',user_workgen='" & dts.guser_workgen & "',type_workgen=" & dts.gtype_workgen & ","
             consulta = consulta & " groups_workgen=" & dts.ggroups_workgen & ",hostname_workgen='" & dts.ghostname_workgen & "',"
-            consulta = consulta & " ip_workgen= '" & dts.gip_workgen & "',mac_workgen= '" & dts.gmac_workgen & "',useownaccount_workgen=" & dts.guseownaccount_workgen & ","
+            consulta = consulta & "',useownaccount_workgen=" & dts.guseownaccount_workgen & ","
             consulta = consulta & " domain_workgen='" & dts.gdomain_workgen & "',username_workgen='" & dts.gusername_workgen & "',password_workgen='" & dts.gpassword_workgen & "',"
             consulta = consulta & " splitbackup_workgen=" & dts.gsplitbackup_workgen & ",usevsc_workgen=" & dts.gusevsc_workgen & ",wol_workgen=" & dts.gwol_workgen & " "
             consulta = consulta & " where id_workgen=" & dts.gid_workgen & " "
@@ -239,7 +239,9 @@ Public Class fworkgen
         Try
             conectado()
             Dim consulta As String
-            consulta = "select mac_workgen from workgen where status_workgen=1 and wol_workgen=1 "
+            consulta = "select (select mac_macaddress from macaddress "
+            consulta = consulta & " where workgen_macaddress=id_workgen and default_macaddress=1) as mac"
+            consulta = consulta & " from workgen where status_workgen=1 and wol_workgen=1 "
 
             Dim command As New SQLiteCommand(consulta, cnn)
             Dim da As New SQLiteDataAdapter
@@ -295,11 +297,12 @@ Public Class fworkgen
             Dim consulta As String
             consulta = "select case when status_workgen=1 then 'Activa' else 'Inactiva' end as Estado, "
             consulta = consulta & "id_workgen as ID,hostname_workgen as Equipo,user_workgen as 'User PC', "
-            consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,ip_workgen as IP, descri_type as Tipo, "
+            consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,descri_type as Tipo, "
+            consulta = consulta & " (select ip_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as IP,"
+            consulta = consulta & " (select interface_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as Interface,"
             consulta = consulta & "'Detectando' as 'Estado en Red',' ' as 'Tamaño',  "
             consulta = consulta & "ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet "
             consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),999) as 'Respaldo' "
-            ''  consulta = consulta & "(select size_workdet from workdet order by id_workdet desc  LIMIT 1 )  as 'Ul. Respaldo'"
             consulta = consulta & " from workgen"
 
             consulta = consulta & " left join groups on groups_workgen=id_groups "
@@ -340,17 +343,16 @@ Public Class fworkgen
             Dim consulta As String
             consulta = "select case when status_workgen=1 then 'Activa' else 'Inactiva' end as Estado, "
             consulta = consulta & "id_workgen as ID,hostname_workgen as Equipo,user_workgen as 'User PC', "
-            consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,ip_workgen as IP, descri_type as Tipo, "
+            consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,descri_type as Tipo, "
+            consulta = consulta & " (select ip_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as IP,"
+            consulta = consulta & " (select interface_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as Interface,"
             consulta = consulta & "'Detectando' as 'Estado en Red',' ' as 'Tamaño',  "
             consulta = consulta & "ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet "
             consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),999) as 'Respaldo' "
-            ''  consulta = consulta & "(select size_workdet from workdet order by id_workdet desc  LIMIT 1 )  as 'Ul. Respaldo'"
             consulta = consulta & " from workgen"
 
             consulta = consulta & " left join groups on groups_workgen=id_groups "
             consulta = consulta & " left join type on type_workgen = id_type "
-
-
 
 
             Dim command As New SQLiteCommand(consulta, cnn)
@@ -383,13 +385,15 @@ Public Class fworkgen
             conectado()
             Dim consulta As String = ""
             
-            consulta = "select * ,ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet "
+            consulta = "select id_workgen,status_workgen, typework_workgen ,name_workgen, user_workgen, type_workgen,groups_workgen,hostname_workgen ,"
+            consulta = consulta & " (select interface_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as interface,"
+            consulta = consulta & " (select ip_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as IP,"
+            consulta = consulta & " (select mac_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as mac,"
+            consulta = consulta & " useownaccount_workgen,domain_workgen,username_workgen,password_workgen,splitbackup_workgen,usevsc_workgen,wol_workgen,"
+            consulta = consulta & " ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet"
             consulta = consulta & " where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),99) as 'Respaldo'"
-            consulta = consulta & " from workgen"
-            consulta = consulta & " left join groups on groups_workgen=id_groups "
-            consulta = consulta & " left join type on type_workgen = id_type "
-
-            consulta = consulta & " where id_workgen= " & ID
+            consulta = consulta & " from workgen left join groups on groups_workgen=id_groups left join type on type_workgen = id_type "
+            consulta = consulta & " where id_workgen=" & ID
 
 
             Dim command As New SQLiteCommand(consulta, cnn)
@@ -420,22 +424,23 @@ Public Class fworkgen
                 dts.gtype_workgen = dt.Rows(0).Item(5)
                 dts.ggroups_workgen = dt.Rows(0).Item(6)
                 dts.ghostname_workgen = dt.Rows(0).Item(7)
-                dts.gip_workgen = dt.Rows(0).Item(8)
-                dts.gmac_workgen = dt.Rows(0).Item(9)
+                dts.ginterface_workgen = dt.Rows(0).Item(8)
+                dts.gip_workgen = dt.Rows(0).Item(9)
+                dts.gmac_workgen = dt.Rows(0).Item(10)
 
-                If IsDBNull(dt.Rows(0).Item(10)) Then
+                If IsDBNull(dt.Rows(0).Item(11)) Then
                     dts.guseownaccount_workgen = False
                 Else
-                    dts.guseownaccount_workgen = dt.Rows(0).Item(10)
+                    dts.guseownaccount_workgen = dt.Rows(0).Item(11)
                 End If
 
-                dts.gdomain_workgen = dt.Rows(0).Item(11)
-                dts.gusername_workgen = dt.Rows(0).Item(12)
-                dts.gpassword_workgen = dt.Rows(0).Item(13)
-                dts.gsplitbackup_workgen = dt.Rows(0).Item(14)
-                dts.gusevsc_workgen = dt.Rows(0).Item(15)
-                dts.gwol_workgen = dt.Rows(0).Item(16)
-                dts.gfchbackup_workgen = dt.Rows(0).Item(17)
+                dts.gdomain_workgen = dt.Rows(0).Item(12)
+                dts.gusername_workgen = dt.Rows(0).Item(13)
+                dts.gpassword_workgen = dt.Rows(0).Item(14)
+                dts.gsplitbackup_workgen = dt.Rows(0).Item(15)
+                dts.gusevsc_workgen = dt.Rows(0).Item(16)
+                dts.gwol_workgen = dt.Rows(0).Item(17)
+                dts.gfchbackup_workgen = dt.Rows(0).Item(18)
                 Return True
             End If
 
