@@ -6,7 +6,11 @@ Imports System.IO  ' para acceder a la carpeta de icono
 
 
 Public Class conexion
-    Dim cadena_de_conexion = "Data Source=config.s3db;Version=3;"
+    Dim testFile As System.IO.FileInfo
+    Dim folderPath As String = My.Computer.FileSystem.GetFileInfo("config.s3db").DirectoryName
+    Dim NOMBRE As String = My.Computer.FileSystem.GetFileInfo("config.s3db").FullName
+
+    Dim cadena_de_conexion = "Data Source=" & NOMBRE & ";Version=3;"
 
     Public cnn As New SQLiteConnection
     Dim coman As New SqlCommand

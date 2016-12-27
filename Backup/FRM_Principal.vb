@@ -1501,9 +1501,10 @@ Public Class FRM_Principal
                         row.Cells(COL_USER).Value = dt_workgen.Rows(i).Item(3)
                         row.Cells(COL_USUARIO).Value = dt_workgen.Rows(i).Item(4)
                         row.Cells(COL_GRUPO).Value = dt_workgen.Rows(i).Item(5)
-                        row.Cells(COL_IP_EQUIPO).Value = dt_workgen.Rows(i).Item(6)
-                        row.Cells(COL_TIPO_EQUIPO).Value = dt_workgen.Rows(i).Item(7)
-                        row.Cells(COL_ULT_RESPALDO).Value = dt_workgen.Rows(i).Item(10)
+                        row.Cells(COL_TIPO_EQUIPO).Value = dt_workgen.Rows(i).Item(6)
+                        row.Cells(COL_IP_EQUIPO).Value = dt_workgen.Rows(i).Item(7)
+                        row.Cells(COL_INTERFACE).Value = dt_workgen.Rows(i).Item(8)
+                        row.Cells(COL_ULT_RESPALDO).Value = dt_workgen.Rows(i).Item(11)
 
 
                         'End If
@@ -1559,6 +1560,17 @@ Public Class FRM_Principal
                 End If
 
 
+                Dim cbinterface
+                Dim cambiainterface As New fworkgen
+                cbinterface = cambiainterface.ver_interfaces_equipo(IDN)
+
+
+                If (cbinterface > 1) Then
+                    CambiaInterfazDeRedToolStripMenuItem.Enabled = True
+                Else
+                    CambiaInterfazDeRedToolStripMenuItem.Enabled = False
+
+                End If
 
             Else
                 EjecutarTareaAhoraToolStripMenuItem.Enabled = False
@@ -2111,6 +2123,36 @@ Public Class FRM_Principal
 
 
     Private Sub Button2_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub CambiaInterfazDeRedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CambiaInterfazDeRedToolStripMenuItem.Click
+        If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
+            Dim id = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value
+            Dim cbinterface
+            Dim cambiainterface As New fworkgen
+            cbinterface = cambiainterface.ver_interfaces_equipo(id)
+
+
+            If (cbinterface = 2) Then
+                Dim cbinter As New fworkgen
+                Dim cambiaif
+                cambiaif = cbinter.cambia_la_interfaces_default_de_equipo(DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value)
+
+                If cambiaif = True Then
+                    Actualiza_Tarea_por_id(id)
+                End If
+
+            End If
+
+
+
+
+           
+
+
+
+        End If
 
     End Sub
 End Class

@@ -71,6 +71,7 @@ Partial Class FRM_Principal
         Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
         Me.Timer_WOL = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.CambiaInterfazDeRedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -83,44 +84,44 @@ Partial Class FRM_Principal
         '
         'Menu_Estado
         '
-        Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.WakeUpToolStripMenuItem, Me.NuevaTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
+        Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.CambiaInterfazDeRedToolStripMenuItem, Me.WakeUpToolStripMenuItem, Me.NuevaTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
         Me.Menu_Estado.Name = "Menu_Estado"
-        Me.Menu_Estado.Size = New System.Drawing.Size(184, 158)
+        Me.Menu_Estado.Size = New System.Drawing.Size(194, 180)
         '
         'EjecutarTareaAhoraToolStripMenuItem
         '
         Me.EjecutarTareaAhoraToolStripMenuItem.Name = "EjecutarTareaAhoraToolStripMenuItem"
-        Me.EjecutarTareaAhoraToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.EjecutarTareaAhoraToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.EjecutarTareaAhoraToolStripMenuItem.Text = "Ejecutar Tarea Ahora"
         '
         'WakeUpToolStripMenuItem
         '
         Me.WakeUpToolStripMenuItem.Name = "WakeUpToolStripMenuItem"
-        Me.WakeUpToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.WakeUpToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.WakeUpToolStripMenuItem.Text = "Despertar Equipo"
         '
         'NuevaTareaToolStripMenuItem
         '
         Me.NuevaTareaToolStripMenuItem.Name = "NuevaTareaToolStripMenuItem"
-        Me.NuevaTareaToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.NuevaTareaToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.NuevaTareaToolStripMenuItem.Text = "Nueva Tarea"
         '
         'EditarTareaToolStripMenuItem1
         '
         Me.EditarTareaToolStripMenuItem1.Name = "EditarTareaToolStripMenuItem1"
-        Me.EditarTareaToolStripMenuItem1.Size = New System.Drawing.Size(183, 22)
+        Me.EditarTareaToolStripMenuItem1.Size = New System.Drawing.Size(193, 22)
         Me.EditarTareaToolStripMenuItem1.Text = "Editar Tarea"
         '
         'ClonarTareaToolStripMenuItem
         '
         Me.ClonarTareaToolStripMenuItem.Name = "ClonarTareaToolStripMenuItem"
-        Me.ClonarTareaToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.ClonarTareaToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.ClonarTareaToolStripMenuItem.Text = "Clonar Tarea"
         '
         'BorrarTareaToolStripMenuItem
         '
         Me.BorrarTareaToolStripMenuItem.Name = "BorrarTareaToolStripMenuItem"
-        Me.BorrarTareaToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.BorrarTareaToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.BorrarTareaToolStripMenuItem.Text = "Borrar Tarea"
         '
         'Timer_Ping
@@ -446,6 +447,12 @@ Partial Class FRM_Principal
         Me.Button1.Text = "Linera Ram"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'CambiaInterfazDeRedToolStripMenuItem
+        '
+        Me.CambiaInterfazDeRedToolStripMenuItem.Name = "CambiaInterfazDeRedToolStripMenuItem"
+        Me.CambiaInterfazDeRedToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
+        Me.CambiaInterfazDeRedToolStripMenuItem.Text = "Cambia interfaz de red"
+        '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -529,6 +536,7 @@ Partial Class FRM_Principal
     Friend WithEvents CB_usar_wol As System.Windows.Forms.CheckBox
     Friend WithEvents Timer_WOL As System.Windows.Forms.Timer
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents CambiaInterfazDeRedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 
 
