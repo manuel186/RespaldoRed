@@ -1,6 +1,7 @@
 ﻿Imports Finisar.SQLite
 Imports System.Data.SqlClient
 
+
 Public Class fconfig
     Inherits conexion
 

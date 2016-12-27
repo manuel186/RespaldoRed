@@ -5,7 +5,65 @@ Public Class fworkgen
     Inherits conexion
 
 
+
     Dim cmd As New SqlCommand
+    Public Function cambia_la_interfaces_default_de_equipo(ID As Integer) As Boolean
+        Try
+            conectado()
+
+            Dim dt As New DataTable
+            dt.Clear()
+
+            Dim consulta, valor As String
+
+            consulta = "select correl_macaddress from macaddress where workgen_macaddress=" & ID & " and default_macaddress=1"
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+            da.SelectCommand = command
+            da.Fill(dt)
+          
+            If (dt.Rows.Count > 0) Then
+                valor = dt.Rows(0).Item(0)
+
+                desconectado()
+                conectado()
+
+                Dim consulta2 = "update  macaddress set default_macaddress=0  where workgen_macaddress =" & ID
+                Dim command2 As New SQLiteCommand(consulta2, cnn)
+                Dim da2 As New SQLiteDataAdapter
+                da2.SelectCommand = command2
+                dt.Clear()
+                da2.Fill(dt)
+
+                desconectado()
+                conectado()
+
+                Threading.Thread.Sleep(400)  ''espera 0,5 segudnos
+
+                Dim consulta3 = "update macaddress set default_macaddress=1 where workgen_macaddress = " & ID & " And correl_macaddress <> " & valor
+                Dim command3 As New SQLiteCommand(consulta3, cnn)
+                Dim da3 As New SQLiteDataAdapter
+                da3.SelectCommand = command3
+                dt.Clear()
+                da3.Fill(dt)
+
+                desconectado()
+
+                Return True
+            Else
+                Return False
+            End If
+
+
+        Catch ex As Exception
+            '' MsgBox(ex.ToString & "--  ")
+            MsgBox(ex.Message)
+            Return False
+        Finally
+            desconectado()
+        End Try
+    End Function
+
 
     Public Function ver_wol_equipo(ID As Integer) As Boolean
         Try
@@ -71,56 +129,7 @@ Public Class fworkgen
     End Function
 
 
-    Public Function cambia_la_interfaces_default_de_equipo(ID As Integer) As Boolean
-        Try
-            conectado()
-            Dim consulta, valor As String
 
-            consulta = "select correl_macaddress from macaddress where workgen_macaddress=" & ID & " and default_macaddress=1"
-
-  
-            Dim command As New SQLiteCommand(consulta, cnn)
-            Dim da As New SQLiteDataAdapter
-            da.SelectCommand = command
-            Dim dt As New DataTable
-            dt.Clear()
-            da.Fill(dt)
-
-
-            If (dt.Rows.Count > 0) Then
-                valor = dt.Rows(0).Item(0)
-
-                '' desconectado()
-                '' conectado()
-                Dim consulta2 = "update  macaddress set default_macaddress=0  where workgen_macaddress =" & ID
-                Dim command2 As New SQLiteCommand(consulta2, cnn)
-                Dim da2 As New SQLiteDataAdapter
-                da.SelectCommand = command2
-                Dim dt2 As New DataTable
-                dt2.Clear()
-                da.Fill(dt2)
-                '' desconectado()
-                '' conectado()
-                Dim consulta3 = "update macaddress set default_macaddress=1 where workgen_macaddress = " & ID & " And correl_macaddress <> " & valor
-                Dim command3 As New SQLiteCommand(consulta3, cnn)
-                Dim da3 As New SQLiteDataAdapter
-                da.SelectCommand = command3
-                Dim dt3 As New DataTable
-                dt3.Clear()
-                da.Fill(dt3)
-                Return True
-            Else
-                Return False
-            End If
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            Return False
-        Finally
-            desconectado()
-        End Try
-    End Function
 
 
     Public Function ver_mac_equipo(ID As Integer) As String
@@ -252,7 +261,7 @@ Public Class fworkgen
             consulta = "update Workgen set status_workgen= " & dts.gstatus_workgen & ",typework_workgen='" & dts.gtypework_workgen & "', "
             consulta = consulta & " name_workgen='" & dts.gname_workgen & "',user_workgen='" & dts.guser_workgen & "',type_workgen=" & dts.gtype_workgen & ","
             consulta = consulta & " groups_workgen=" & dts.ggroups_workgen & ",hostname_workgen='" & dts.ghostname_workgen & "',"
-            consulta = consulta & "',useownaccount_workgen=" & dts.guseownaccount_workgen & ","
+            consulta = consulta & " useownaccount_workgen=" & dts.guseownaccount_workgen & ","
             consulta = consulta & " domain_workgen='" & dts.gdomain_workgen & "',username_workgen='" & dts.gusername_workgen & "',password_workgen='" & dts.gpassword_workgen & "',"
             consulta = consulta & " splitbackup_workgen=" & dts.gsplitbackup_workgen & ",usevsc_workgen=" & dts.gusevsc_workgen & ",wol_workgen=" & dts.gwol_workgen & " "
             consulta = consulta & " where id_workgen=" & dts.gid_workgen & " "
@@ -380,7 +389,7 @@ Public Class fworkgen
             consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,descri_type as Tipo, "
             consulta = consulta & " (select ip_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as IP,"
             consulta = consulta & " (select interface_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as Interface,"
-            consulta = consulta & "'Detectando' as 'Estado en Red',' ' as 'Tamaño',  "
+            consulta = consulta & "'Detectando' as 'Estado en Red','Calculando' as 'Tamaño en Disco',  "
             consulta = consulta & "ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet "
             consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),999) as 'Respaldo' "
             consulta = consulta & " from workgen"
@@ -426,7 +435,7 @@ Public Class fworkgen
             consulta = consulta & "name_workgen as Usuario, descri_groups as Grupo,descri_type as Tipo, "
             consulta = consulta & " (select ip_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as IP,"
             consulta = consulta & " (select interface_macaddress from macaddress where workgen_macaddress=id_workgen and default_macaddress=1) as Interface,"
-            consulta = consulta & "'Detectando' as 'Estado en Red',' ' as 'Tamaño',  "
+            consulta = consulta & "'Detectando' as 'Estado en Red','Calculando' as 'Tamaño en Disco',  "
             consulta = consulta & "ifnull( (select   CAST((julianday('now') - julianday(date_workdet)) as integer) from workdet "
             consulta = consulta & "where id_workdet = id_workgen order by correl_workdet desc  LIMIT 1),999) as 'Respaldo' "
             consulta = consulta & " from workgen"

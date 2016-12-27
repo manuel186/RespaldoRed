@@ -22,8 +22,7 @@ Imports System.Net.Sockets
 
 
 Public Class FRM_Principal
-
-    ''Soluciona error de X roja en datagrid.
+     ''Soluciona error de X roja en datagrid.
     Protected Overrides Sub OnPaint(ByVal e As System.Windows.Forms.PaintEventArgs)
         Try
             MyBase.OnPaint(e)
@@ -125,7 +124,6 @@ Public Class FRM_Principal
     Private SUBPActualiza_Tarea As Thread = Nothing
     Private SUBPAC_WOL As Thread = Nothing
 
-    Private SUBPCalcula_dirs As Thread = Nothing
     Public j As Integer = 0
 
     ' Private dataGridView1 As New DataGridView()
@@ -231,15 +229,19 @@ Public Class FRM_Principal
                             End Try
 
 
+                            If row.Cells(COL_TAMANO).Value = "Calculando" Then
+                                calcula_espacio_de_tarea_en_disco_by_id(row.Cells(COL_ID).Value)
+                            End If
+
                             If (row.Cells(COL_ESTADO_RED).Value = "Online") And (row.Cells(COL_ULT_RESPALDO).Value > 0) Then
                                 disponible = 1
                                 ''  BT_PLAY.PerformClick()
 
                             End If
 
-
                             DBG_TAREAS.ReadOnly = True
-                            ''  DBG_Estado.AllowUserToAddRows = False
+
+
                         End If
 
                     End If
@@ -279,6 +281,66 @@ Public Class FRM_Principal
 
 
     End Sub
+
+    Private Sub ping_by_id(ID As Integer)
+
+
+        Try
+
+            For Each row As DataGridViewRow In DBG_TAREAS.Rows
+
+
+                Dim campo = row.Cells(1).Value
+                If (Not (String.IsNullOrEmpty(campo)) And campo = ID) Then
+                    ''  row.Cells(0).Value = "Activa"
+                    Dim ip = row.Cells(COL_IP_EQUIPO).Value
+                    Dim timeout = 3000
+                    Dim sw = New Stopwatch()
+                    Try
+                        Dim ping As Long = -1
+                        sw.Start()
+                        If My.Computer.Network.Ping(ip, timeout) Then
+                            sw.Stop()
+                            ping = sw.ElapsedMilliseconds
+                            ''    Label1.Text = String.Format("{0}ms", ping)
+                        End If
+                        If ping < 0 Then
+                            row.Cells(COL_ESTADO_RED).Value = "OFFLINE"
+                            ''' Label2.Text = "Ping Timed Out"
+                            '' Label3.BackColor = Color.Brown
+                        ElseIf ping < 200 Then
+                            row.Cells(COL_ESTADO_RED).Value = "Online"
+                            ''  Label2.Text = "Good Connection"
+                            '' Label3.BackColor = Color.Green
+                        ElseIf ping < 400 Then
+                            row.Cells(COL_ESTADO_RED).Value = "Online"
+                            ''  LB_DOMINIO.Text = "Medium Connection"
+                            '' Label3.BackColor = Color.Orange
+                        Else
+                            row.Cells(COL_ESTADO_RED).Value = "OFFLINE"
+                            ''   Label2.Text = "Bad Connection"
+                            ''  Label3.BackColor = Color.Red
+                        End If
+                    Catch ex As Exception
+                        ''  Label2.Text = ""
+                        '' Label1.Text = ex.Message
+                        ''   Label3.BackColor = Color.Red
+
+                    End Try
+
+
+
+                End If
+
+            Next
+        Catch ex As Exception
+
+        End Try
+
+       
+    End Sub
+
+
 
     Private Sub ThreadTask()
         ''para el login en red 
@@ -932,9 +994,9 @@ Public Class FRM_Principal
         DBG_TAREAS.Columns(6).Width = 40 '' Tipo
         DBG_TAREAS.Columns(7).Width = 95 '' IP
         DBG_TAREAS.Columns(8).Width = 50 ''Interface
-        DBG_TAREAS.Columns(9).Width = 60 ''Estado red
+        DBG_TAREAS.Columns(9).Width = 70 ''Estado red
         DBG_TAREAS.Columns(10).Width = 70 ''tamaño disco
-        DBG_TAREAS.Columns(11).Width = 70 ''Ultimo respaldo
+        DBG_TAREAS.Columns(11).Width = 60 ''Ultimo respaldo
 
 
         DBG_TAREAS.RowHeadersVisible = False  ''elimina la primera columna
@@ -974,7 +1036,7 @@ Public Class FRM_Principal
             If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Estado en Red")) Then
                 COL_ESTADO_RED = m
             End If
-            If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Tamaño")) Then
+            If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Tamaño en Disco")) Then
                 COL_TAMANO = m
             End If
             If ((Me.DBG_TAREAS.Columns(m).Name.ToString() = "Respaldo")) Then
@@ -983,18 +1045,12 @@ Public Class FRM_Principal
 
         Next
         ''
-
-
-
-        calcula_espacio_de_tarea_en_disco(0)
-
         ''una vez cargado los datos de sistema inicia la busqueda de equipos disponibles
         RESPALDO = "DETENIDO"
         Me.SUBPping = New Threading.Thread(AddressOf Me.Funcion_ping)
         If Me.SUBPping.ThreadState <> Threading.ThreadState.Running Then
             Me.SUBPping.Start()
         End If
-
 
 
     End Sub
@@ -1089,31 +1145,6 @@ Public Class FRM_Principal
     End Function
 
 
-
-
-
-
-
-    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
-        Dim filespec As String = "C:\wamp"
-        Dim fso, f, s
-
-        fso = CreateObject("Scripting.FileSystemObject")
-        f = fso.Getfolder(filespec)
-        's = "Tamaño: " & (CInt(f.size) / 1024)
-        s = "Tamaño: " & ((((f.size) / 1024) / 1024) / 1024)
-
-        MessageBox.Show("tamaño del directori wamp " & s & " Gb")
-
-    End Sub
-
-
-
-
-
-
-
-
     Private Sub ToolStripMenu_Abrir_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles ToolStripMenu_Abrir.DoubleClick
 
         NotifyIcon1.Visible = False 'oculta el icono en la Tray Bar
@@ -1202,7 +1233,7 @@ Public Class FRM_Principal
 
             Next
 
-            calcula_espacio_de_tarea_en_disco(ID)
+            calcula_espacio_de_tarea_en_disco_by_id(ID)
 
             LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
         Else
@@ -1464,7 +1495,7 @@ Public Class FRM_Principal
                         row.Cells(COL_GRUPO).Value = dt_workgen.Rows(i).Item(5)
                         row.Cells(COL_IP_EQUIPO).Value = dt_workgen.Rows(i).Item(6)
                         row.Cells(COL_TIPO_EQUIPO).Value = dt_workgen.Rows(i).Item(7)
-                        row.Cells(COL_TAMANO).Value = calcula_espacio_de_tarea_en_disco(0)
+                        row.Cells(COL_TAMANO).Value = calcula_espacio_de_tarea_en_disco()
                         row.Cells(COL_ULT_RESPALDO).Value = dt_workgen.Rows(i).Item(10)
 
 
@@ -1669,81 +1700,89 @@ Public Class FRM_Principal
         End Try
     End Function
 
-
-    Private Function calcula_espacio_de_tarea_en_disco(ID As Integer)
+    Private Function calcula_espacio_de_tarea_en_disco_by_id(ID As Integer)
         Try
 
             Dim fun As New fworkgen
 
-            If ID = 0 Then
+            For Each row As DataGridViewRow In DBG_TAREAS.Rows
+                Dim campo = row.Cells(1).Value
+                If (campo = ID) Then
 
 
-                For Each row As DataGridViewRow In DBG_TAREAS.Rows
-                    Dim campo = row.Cells(1).Value
-                    Dim campo2 = row.Cells(COL_TAMANO).Value
-                    If (Not (String.IsNullOrEmpty(campo)) And campo2 = " ") Then
+                    Dim filespec As String = fun.ver_ruta_destino_workgen(campo)
+                    Dim fso, f, tamaño, tamaño_ok
+                    fso = CreateObject("Scripting.FileSystemObject")
+                    f = fso.Getfolder(filespec)
+                    tamaño = f.size '' (CInt(f.size) / 1024)
 
-
-                        Dim filespec As String = fun.ver_ruta_destino_workgen(campo)
-                        Dim fso, f, tamaño, tamaño_ok
-                        fso = CreateObject("Scripting.FileSystemObject")
-                        f = fso.Getfolder(filespec)
-                        tamaño = f.size '' (CInt(f.size) / 1024)
-
-                        If (tamaño / 1024) > 1 Then
-                            tamaño_ok = FormatNumber((tamaño / 1024), 2) & " KB "
-
-                        End If
-
-                        If ((tamaño / 1024) / 1024) > 1 Then
-                            tamaño_ok = FormatNumber(((tamaño / 1024) / 1024), 2) & " MB "
-
-                        End If
-
-                        If (((tamaño / 1024) / 1024) / 1024) > 1 Then
-                            tamaño_ok = FormatNumber((((tamaño / 1024) / 1024) / 1024), 2) & " GB "
-                        End If
-                        row.Cells(COL_TAMANO).Value = tamaño_ok
+                    If (tamaño / 1024) > 1 Then
+                        tamaño_ok = FormatNumber((tamaño / 1024), 2) & " KB "
 
                     End If
 
-                Next
-
-            Else
-
-                For Each row As DataGridViewRow In DBG_TAREAS.Rows
-                    Dim campo = row.Cells(1).Value
-                    If (campo = ID) Then
-
-
-                        Dim filespec As String = fun.ver_ruta_destino_workgen(campo)
-                        Dim fso, f, tamaño, tamaño_ok
-                        fso = CreateObject("Scripting.FileSystemObject")
-                        f = fso.Getfolder(filespec)
-                        tamaño = f.size '' (CInt(f.size) / 1024)
-
-                        If (tamaño / 1024) > 1 Then
-                            tamaño_ok = FormatNumber((tamaño / 1024), 2) & " KB "
-
-                        End If
-
-                        If ((tamaño / 1024) / 1024) > 1 Then
-                            tamaño_ok = FormatNumber(((tamaño / 1024) / 1024), 2) & " MB "
-
-                        End If
-
-                        If (((tamaño / 1024) / 1024) / 1024) > 1 Then
-                            tamaño_ok = FormatNumber((((tamaño / 1024) / 1024) / 1024), 2) & " GB "
-                        End If
-                        row.Cells(COL_TAMANO).Value = tamaño_ok
+                    If ((tamaño / 1024) / 1024) > 1 Then
+                        tamaño_ok = FormatNumber(((tamaño / 1024) / 1024), 2) & " MB "
 
                     End If
 
-                Next
+                    If (((tamaño / 1024) / 1024) / 1024) > 1 Then
+                        tamaño_ok = FormatNumber((((tamaño / 1024) / 1024) / 1024), 2) & " GB "
+                    End If
+                    row.Cells(COL_TAMANO).Value = tamaño_ok
+
+                End If
+
+            Next
 
 
 
-            End If
+
+        Catch ex As Exception
+
+        End Try
+
+
+    End Function
+
+
+
+    Private Function calcula_espacio_de_tarea_en_disco()
+        Try
+
+
+            For Each row As DataGridViewRow In DBG_TAREAS.Rows
+                Dim fun As New fworkgen
+                Dim campo = row.Cells(1).Value
+                Dim campo2 = row.Cells(COL_TAMANO).Value
+                If (Not (String.IsNullOrEmpty(campo)) And campo2 = " ") Then
+
+
+                    Dim filespec As String = fun.ver_ruta_destino_workgen(campo)
+                    Dim fso, f, tamaño, tamaño_ok
+                    fso = CreateObject("Scripting.FileSystemObject")
+                    f = fso.Getfolder(filespec)
+                    tamaño = f.size '' (CInt(f.size) / 1024)
+
+                    If (tamaño / 1024) > 1 Then
+                        tamaño_ok = FormatNumber((tamaño / 1024), 2) & " KB "
+
+                    End If
+
+                    If ((tamaño / 1024) / 1024) > 1 Then
+                        tamaño_ok = FormatNumber(((tamaño / 1024) / 1024), 2) & " MB "
+
+                    End If
+
+                    If (((tamaño / 1024) / 1024) / 1024) > 1 Then
+                        tamaño_ok = FormatNumber((((tamaño / 1024) / 1024) / 1024), 2) & " GB "
+                    End If
+                    row.Cells(COL_TAMANO).Value = tamaño_ok
+
+                End If
+
+            Next
+
         Catch ex As Exception
 
         End Try
@@ -2051,15 +2090,8 @@ Public Class FRM_Principal
 
     Private Sub Timer_WOL_Tick(sender As Object, e As EventArgs) Handles Timer_WOL.Tick
         Static Sec As Integer
-
         Sec = Sec + 1
-
-
-
-
-
         If Sec = 45 Then   ''' cada 60 segundo 
-
             Sec = 0
 
             ' Pongo el codigo a ejecutar aquí
@@ -2127,6 +2159,9 @@ Public Class FRM_Principal
     End Sub
 
     Private Sub CambiaInterfazDeRedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CambiaInterfazDeRedToolStripMenuItem.Click
+        Try
+
+       
         If Not (String.IsNullOrEmpty(DBG_TAREAS(1, DBG_TAREAS.CurrentRow.Index).Value)) Then
             Dim id = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value
             Dim cbinterface
@@ -2134,25 +2169,26 @@ Public Class FRM_Principal
             cbinterface = cambiainterface.ver_interfaces_equipo(id)
 
 
-            If (cbinterface = 2) Then
-                Dim cbinter As New fworkgen
-                Dim cambiaif
-                cambiaif = cbinter.cambia_la_interfaces_default_de_equipo(DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value)
+                If (cbinterface = 2) Then   ''scrip solo realizado para cuando tiene dos interfaces
+                    Dim cbinter As New fworkgen
+                    Dim cambiaif
+                    cambiaif = cbinter.cambia_la_interfaces_default_de_equipo(DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value)
 
-                If cambiaif = True Then
-                    Actualiza_Tarea_por_id(id)
+                    If cambiaif = True Then
+                        Actualiza_Tarea_por_id(id)
+                        ping_by_id(id)
+                    End If
+
+                End If
+
+                If (cbinterface = 3) Then  ''hacer para tres o mas interfaces
+                    '''
                 End If
 
             End If
+        Catch ex As Exception
 
-
-
-
-           
-
-
-
-        End If
+        End Try
 
     End Sub
 End Class

@@ -17,11 +17,11 @@ Public Class conexion
 
     Protected Function conectado()
         Try
-            cnn = New SQLiteConnection(cadena_de_conexion)
+            cnn = New SQLiteConnection(cadena_de_conexion & "New=false;")
             cnn.Open()
             Return True
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message.ToString & "--  ")
             Return False
         End Try
     End Function
