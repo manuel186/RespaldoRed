@@ -185,12 +185,20 @@ Public Class FRM_Tarea
         End If
 
         If (swok = 1) And (CB_type_interface.SelectedIndex = 0) Then
-            msg_box("Debe seleccionar el tipo de interface", estilo_msgbox_informacion, titulo_aplicacion)
+            msg_box("Debe seleccionar la version de IP a ocupar", estilo_msgbox_informacion, titulo_aplicacion)
             CB_Interface.Focus()
             swok = 0
         End If
 
+        If (Trim(txt_ip_workgen.Text) <> "") Then
 
+
+            If (swok = 1) And ValidaIPv4(Trim(txt_ip_workgen.Text)) = False Then
+                msg_box("La dirección Ip Ingresada no es valida", estilo_msgbox_informacion, titulo_aplicacion)
+                txt_ip_workgen.Focus()
+                swok = 0
+            End If
+        End If
 
         If (swok = 1) And (Trim(txt_mac_workgen.Text) = "") And (Len(txt_mac_workgen.Text) < 5) Then
             msg_box("Debe ingresar la MAC del equipo a respaldar", estilo_msgbox_informacion, titulo_aplicacion)
