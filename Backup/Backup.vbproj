@@ -105,6 +105,12 @@
     <Compile Include="FRM_EDITA.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FRM_interfaces.Designer.vb">
+      <DependentUpon>FRM_interfaces.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FRM_interfaces.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FRM_Principal.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +148,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FRM_EDITA.resx">
       <DependentUpon>FRM_EDITA.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRM_interfaces.resx">
+      <DependentUpon>FRM_interfaces.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FRM_Principal.resx">
       <DependentUpon>FRM_Principal.vb</DependentUpon>
@@ -191,6 +200,8 @@
     <None Include="Resources\cancelar.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\add.png" />
+    <None Include="Resources\change.png" />
     <Content Include="Resources\pause.png" />
     <Content Include="Resources\test.png" />
   </ItemGroup>

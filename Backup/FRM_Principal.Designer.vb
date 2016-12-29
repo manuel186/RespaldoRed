@@ -26,6 +26,7 @@ Partial Class FRM_Principal
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_Principal))
         Me.Menu_Estado = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.EjecutarTareaAhoraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CambiaInterfazDeRedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.WakeUpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaTareaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarTareaToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -45,13 +46,13 @@ Partial Class FRM_Principal
         Me.TB_hora_wol = New System.Windows.Forms.MaskedTextBox()
         Me.CB_usar_wol = New System.Windows.Forms.CheckBox()
         Me.CB_auto_ini_windows = New System.Windows.Forms.CheckBox()
-        Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.TXT_CLAVE_DOMINIO = New System.Windows.Forms.TextBox()
         Me.LBCLAVE = New System.Windows.Forms.Label()
         Me.TXT_USUARIO_DOMINIO = New System.Windows.Forms.TextBox()
         Me.LBUSER = New System.Windows.Forms.Label()
         Me.TXT_NOMBRE_DOMINIO = New System.Windows.Forms.TextBox()
         Me.LB_DOMINIO = New System.Windows.Forms.Label()
+        Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.BT_MINIMIZAR = New System.Windows.Forms.Button()
         Me.Menu_de_Aplicacion = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -63,15 +64,14 @@ Partial Class FRM_Principal
         Me.ToolStripMenu_Salir = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.LB_log = New System.Windows.Forms.ListBox()
-        Me.BT_STOP = New DevExpress.XtraEditors.SimpleButton()
-        Me.BT_PLAY = New DevExpress.XtraEditors.SimpleButton()
         Me.Timer_Actualiza_Tareas = New System.Windows.Forms.Timer(Me.components)
         Me.Button4 = New System.Windows.Forms.Button()
         Me.BT_CERRAR = New System.Windows.Forms.Button()
-        Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
         Me.Timer_WOL = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.CambiaInterfazDeRedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_STOP = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_PLAY = New DevExpress.XtraEditors.SimpleButton()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -86,13 +86,19 @@ Partial Class FRM_Principal
         '
         Me.Menu_Estado.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EjecutarTareaAhoraToolStripMenuItem, Me.CambiaInterfazDeRedToolStripMenuItem, Me.WakeUpToolStripMenuItem, Me.NuevaTareaToolStripMenuItem, Me.EditarTareaToolStripMenuItem1, Me.ClonarTareaToolStripMenuItem, Me.BorrarTareaToolStripMenuItem})
         Me.Menu_Estado.Name = "Menu_Estado"
-        Me.Menu_Estado.Size = New System.Drawing.Size(194, 180)
+        Me.Menu_Estado.Size = New System.Drawing.Size(194, 158)
         '
         'EjecutarTareaAhoraToolStripMenuItem
         '
         Me.EjecutarTareaAhoraToolStripMenuItem.Name = "EjecutarTareaAhoraToolStripMenuItem"
         Me.EjecutarTareaAhoraToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.EjecutarTareaAhoraToolStripMenuItem.Text = "Ejecutar Tarea Ahora"
+        '
+        'CambiaInterfazDeRedToolStripMenuItem
+        '
+        Me.CambiaInterfazDeRedToolStripMenuItem.Name = "CambiaInterfazDeRedToolStripMenuItem"
+        Me.CambiaInterfazDeRedToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
+        Me.CambiaInterfazDeRedToolStripMenuItem.Text = "Cambia interfaz de red"
         '
         'WakeUpToolStripMenuItem
         '
@@ -132,7 +138,7 @@ Partial Class FRM_Principal
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ProgressBar_archivo, Me.ProgressBar_total})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 681)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 660)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1350, 31)
         Me.StatusStrip1.TabIndex = 15
@@ -163,7 +169,7 @@ Partial Class FRM_Principal
         Me.TBcontrol1.Location = New System.Drawing.Point(-1, 53)
         Me.TBcontrol1.Name = "TBcontrol1"
         Me.TBcontrol1.SelectedIndex = 0
-        Me.TBcontrol1.Size = New System.Drawing.Size(1364, 410)
+        Me.TBcontrol1.Size = New System.Drawing.Size(1355, 410)
         Me.TBcontrol1.TabIndex = 16
         '
         'TB_principal
@@ -173,7 +179,7 @@ Partial Class FRM_Principal
         Me.TB_principal.Location = New System.Drawing.Point(4, 22)
         Me.TB_principal.Name = "TB_principal"
         Me.TB_principal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TB_principal.Size = New System.Drawing.Size(1356, 384)
+        Me.TB_principal.Size = New System.Drawing.Size(1347, 384)
         Me.TB_principal.TabIndex = 0
         Me.TB_principal.Text = "Principal"
         Me.TB_principal.UseVisualStyleBackColor = True
@@ -183,7 +189,7 @@ Partial Class FRM_Principal
         Me.DBG_Det.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DBG_Det.Location = New System.Drawing.Point(1008, 6)
         Me.DBG_Det.Name = "DBG_Det"
-        Me.DBG_Det.Size = New System.Drawing.Size(326, 372)
+        Me.DBG_Det.Size = New System.Drawing.Size(332, 372)
         Me.DBG_Det.TabIndex = 20
         '
         'DBG_TAREAS
@@ -203,17 +209,17 @@ Partial Class FRM_Principal
         Me.TB_Config.Controls.Add(Me.TB_hora_wol)
         Me.TB_Config.Controls.Add(Me.CB_usar_wol)
         Me.TB_Config.Controls.Add(Me.CB_auto_ini_windows)
-        Me.TB_Config.Controls.Add(Me.BT_ACEPTA)
         Me.TB_Config.Controls.Add(Me.TXT_CLAVE_DOMINIO)
         Me.TB_Config.Controls.Add(Me.LBCLAVE)
         Me.TB_Config.Controls.Add(Me.TXT_USUARIO_DOMINIO)
         Me.TB_Config.Controls.Add(Me.LBUSER)
         Me.TB_Config.Controls.Add(Me.TXT_NOMBRE_DOMINIO)
         Me.TB_Config.Controls.Add(Me.LB_DOMINIO)
+        Me.TB_Config.Controls.Add(Me.BT_ACEPTA)
         Me.TB_Config.Location = New System.Drawing.Point(4, 22)
         Me.TB_Config.Name = "TB_Config"
         Me.TB_Config.Padding = New System.Windows.Forms.Padding(3)
-        Me.TB_Config.Size = New System.Drawing.Size(1356, 384)
+        Me.TB_Config.Size = New System.Drawing.Size(1347, 384)
         Me.TB_Config.TabIndex = 1
         Me.TB_Config.Text = "Configuración"
         Me.TB_Config.UseVisualStyleBackColor = True
@@ -246,16 +252,6 @@ Partial Class FRM_Principal
         Me.CB_auto_ini_windows.TabIndex = 23
         Me.CB_auto_ini_windows.Text = "Iniciar al arrancar Windows"
         Me.CB_auto_ini_windows.UseVisualStyleBackColor = True
-        '
-        'BT_ACEPTA
-        '
-        Me.BT_ACEPTA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
-        Me.BT_ACEPTA.Image = Global.Backup.My.Resources.Resources.aceptar
-        Me.BT_ACEPTA.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BT_ACEPTA.Location = New System.Drawing.Point(126, 306)
-        Me.BT_ACEPTA.Name = "BT_ACEPTA"
-        Me.BT_ACEPTA.Size = New System.Drawing.Size(61, 58)
-        Me.BT_ACEPTA.TabIndex = 22
         '
         'TXT_CLAVE_DOMINIO
         '
@@ -304,6 +300,16 @@ Partial Class FRM_Principal
         Me.LB_DOMINIO.Size = New System.Drawing.Size(45, 13)
         Me.LB_DOMINIO.TabIndex = 2
         Me.LB_DOMINIO.Text = "Dominio"
+        '
+        'BT_ACEPTA
+        '
+        Me.BT_ACEPTA.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_ACEPTA.Image = Global.Backup.My.Resources.Resources.aceptar
+        Me.BT_ACEPTA.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_ACEPTA.Location = New System.Drawing.Point(126, 306)
+        Me.BT_ACEPTA.Name = "BT_ACEPTA"
+        Me.BT_ACEPTA.Size = New System.Drawing.Size(61, 58)
+        Me.BT_ACEPTA.TabIndex = 22
         '
         'Button8
         '
@@ -375,30 +381,10 @@ Partial Class FRM_Principal
         'LB_log
         '
         Me.LB_log.FormattingEnabled = True
-        Me.LB_log.Location = New System.Drawing.Point(1, 468)
+        Me.LB_log.Location = New System.Drawing.Point(1, 466)
         Me.LB_log.Name = "LB_log"
-        Me.LB_log.Size = New System.Drawing.Size(1349, 212)
+        Me.LB_log.Size = New System.Drawing.Size(1337, 186)
         Me.LB_log.TabIndex = 18
-        '
-        'BT_STOP
-        '
-        Me.BT_STOP.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
-        Me.BT_STOP.Image = Global.Backup.My.Resources.Resources._stop
-        Me.BT_STOP.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BT_STOP.Location = New System.Drawing.Point(125, 2)
-        Me.BT_STOP.Name = "BT_STOP"
-        Me.BT_STOP.Size = New System.Drawing.Size(45, 45)
-        Me.BT_STOP.TabIndex = 20
-        '
-        'BT_PLAY
-        '
-        Me.BT_PLAY.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
-        Me.BT_PLAY.Image = Global.Backup.My.Resources.Resources.Play
-        Me.BT_PLAY.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BT_PLAY.Location = New System.Drawing.Point(23, 2)
-        Me.BT_PLAY.Name = "BT_PLAY"
-        Me.BT_PLAY.Size = New System.Drawing.Size(45, 45)
-        Me.BT_PLAY.TabIndex = 19
         '
         'Timer_Actualiza_Tareas
         '
@@ -423,16 +409,6 @@ Partial Class FRM_Principal
         Me.BT_CERRAR.Text = "X"
         Me.BT_CERRAR.UseVisualStyleBackColor = True
         '
-        'BT_PAUSE
-        '
-        Me.BT_PAUSE.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
-        Me.BT_PAUSE.Image = Global.Backup.My.Resources.Resources.pause
-        Me.BT_PAUSE.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.BT_PAUSE.Location = New System.Drawing.Point(74, 2)
-        Me.BT_PAUSE.Name = "BT_PAUSE"
-        Me.BT_PAUSE.Size = New System.Drawing.Size(45, 45)
-        Me.BT_PAUSE.TabIndex = 33
-        '
         'Timer_WOL
         '
         Me.Timer_WOL.Enabled = True
@@ -447,17 +423,41 @@ Partial Class FRM_Principal
         Me.Button1.Text = "Linera Ram"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'CambiaInterfazDeRedToolStripMenuItem
+        'BT_PAUSE
         '
-        Me.CambiaInterfazDeRedToolStripMenuItem.Name = "CambiaInterfazDeRedToolStripMenuItem"
-        Me.CambiaInterfazDeRedToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
-        Me.CambiaInterfazDeRedToolStripMenuItem.Text = "Cambia interfaz de red"
+        Me.BT_PAUSE.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_PAUSE.Image = Global.Backup.My.Resources.Resources.pause
+        Me.BT_PAUSE.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_PAUSE.Location = New System.Drawing.Point(74, 2)
+        Me.BT_PAUSE.Name = "BT_PAUSE"
+        Me.BT_PAUSE.Size = New System.Drawing.Size(45, 45)
+        Me.BT_PAUSE.TabIndex = 33
+        '
+        'BT_STOP
+        '
+        Me.BT_STOP.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_STOP.Image = Global.Backup.My.Resources.Resources._stop
+        Me.BT_STOP.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_STOP.Location = New System.Drawing.Point(125, 2)
+        Me.BT_STOP.Name = "BT_STOP"
+        Me.BT_STOP.Size = New System.Drawing.Size(45, 45)
+        Me.BT_STOP.TabIndex = 20
+        '
+        'BT_PLAY
+        '
+        Me.BT_PLAY.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.BT_PLAY.Image = Global.Backup.My.Resources.Resources.Play
+        Me.BT_PLAY.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.BT_PLAY.Location = New System.Drawing.Point(23, 2)
+        Me.BT_PLAY.Name = "BT_PLAY"
+        Me.BT_PLAY.Size = New System.Drawing.Size(45, 45)
+        Me.BT_PLAY.TabIndex = 19
         '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1350, 712)
+        Me.ClientSize = New System.Drawing.Size(1350, 691)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.BT_PAUSE)
         Me.Controls.Add(Me.BT_CERRAR)

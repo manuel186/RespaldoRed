@@ -941,31 +941,36 @@ Public Class FRM_Principal
         NotifyIcon1.Text = titulo_aplicacion
         ToolStripMenu_Abrir.Text = "Minimizar"
 
-        ' carga icono
-        Dim testFile As System.IO.FileInfo
-        testFile = My.Computer.FileSystem.GetFileInfo("icono.ico")
-        Dim folderPath As String = testFile.DirectoryName
-        'MsgBox(folderPath)
-        Dim fileName As String = testFile.Name
-        'MsgBox(fileName)
+        Try
 
-        Dim fullPath As String
-        fullPath = My.Computer.FileSystem.CombinePath(folderPath, fileName)
-        ' MsgBox(fullPath)
+            ' carga icono
+            Dim testFile As System.IO.FileInfo
+            testFile = My.Computer.FileSystem.GetFileInfo("icono.ico")
+            Dim folderPath As String = testFile.DirectoryName
+            'MsgBox(folderPath)
+            Dim fileName As String = testFile.Name
+            'MsgBox(fileName)
 
-        If My.Computer.FileSystem.FileExists(fullPath) Then
-            NotifyIcon1.Icon = New System.Drawing.Icon(fullPath)
-        Else
-            '.msg_box("El icono de software no se encientr", estilo_msgbox_informacion, titulo_aplicacion)
+            Dim fullPath As String
+            fullPath = My.Computer.FileSystem.CombinePath(folderPath, fileName)
+            ' MsgBox(fullPath)
 
-        End If
-        ''''''
-        Me.WindowState = FormWindowState.Maximized
+            If My.Computer.FileSystem.FileExists(fullPath) Then
+                NotifyIcon1.Icon = New System.Drawing.Icon(fullPath)
+            Else
+                '.msg_box("El icono de software no se encientr", estilo_msgbox_informacion, titulo_aplicacion)
+
+            End If
+            ''''''
+        Catch ex As Exception
+
+        End Try
+
+        Me.WindowState = FormWindowState.Normal
+
 
         Dim classResize As New clsResizeForm
-        classResize.ResizeForm(Me, 1336, 768)  ''1366
-
-
+        classResize.ResizeForm(Me, 1366, 768)  ''1366
 
 
         Dim dts As New vworkgen
@@ -1233,6 +1238,7 @@ Public Class FRM_Principal
 
             Next
 
+            ''luego de insertar en el detalle busca el espacio ocupado en disco duro.
             calcula_espacio_de_tarea_en_disco_by_id(ID)
 
             LB_log.Items.Add("Se ha terminado de respaldar la tarea del usuario " & USUARIO_ACTUAL & " en el equipo  " & EQUIPO_ACTUAL & " con " & tamaño_ok & " de peso copiado ")
@@ -2191,5 +2197,7 @@ Public Class FRM_Principal
         End Try
 
     End Sub
+
+
 End Class
 

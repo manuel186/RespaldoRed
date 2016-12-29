@@ -8,6 +8,7 @@
     End Sub
 
     Private Sub FRM_EDITA_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Text = titulo_aplicacion & " Edita "
         PASA = False
         TB_EDITA.Focus()
     End Sub

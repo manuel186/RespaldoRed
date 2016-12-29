@@ -24,10 +24,15 @@ Partial Class FRM_Tarea
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage_General = New System.Windows.Forms.TabPage()
+        Me.CB_type_interface = New System.Windows.Forms.ComboBox()
+        Me.SB_add = New DevExpress.XtraEditors.SimpleButton()
+        Me.SB_change = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.CB_Interface = New System.Windows.Forms.ComboBox()
         Me.CB_wol_workgen = New System.Windows.Forms.CheckBox()
         Me.PANEL_userpasdomain = New System.Windows.Forms.Panel()
         Me.BT_TEST_CONEX = New System.Windows.Forms.Button()
-        Me.txt2_password_workgen = New System.Windows.Forms.TextBox()
+        Me.txt_password_workgen2 = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.txt_password_workgen = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -85,11 +90,9 @@ Partial Class FRM_Tarea
         Me.BT_AGREGA_EXTENSION = New System.Windows.Forms.Button()
         Me.FolderBrowser_Source = New System.Windows.Forms.FolderBrowserDialog()
         Me.FolderBrowser_Destinations = New System.Windows.Forms.FolderBrowserDialog()
+        Me.FolderBrowser_Dir = New System.Windows.Forms.FolderBrowserDialog()
         Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
-        Me.FolderBrowser_Dir = New System.Windows.Forms.FolderBrowserDialog()
-        Me.CB_Interface = New System.Windows.Forms.ComboBox()
-        Me.Label18 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
@@ -112,6 +115,9 @@ Partial Class FRM_Tarea
         '
         'TabPage_General
         '
+        Me.TabPage_General.Controls.Add(Me.CB_type_interface)
+        Me.TabPage_General.Controls.Add(Me.SB_add)
+        Me.TabPage_General.Controls.Add(Me.SB_change)
         Me.TabPage_General.Controls.Add(Me.Label18)
         Me.TabPage_General.Controls.Add(Me.CB_Interface)
         Me.TabPage_General.Controls.Add(Me.CB_wol_workgen)
@@ -146,10 +152,59 @@ Partial Class FRM_Tarea
         Me.TabPage_General.Text = "General"
         Me.TabPage_General.UseVisualStyleBackColor = True
         '
+        'CB_type_interface
+        '
+        Me.CB_type_interface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_type_interface.FormattingEnabled = True
+        Me.CB_type_interface.Items.AddRange(New Object() {"Versión IP ", "IPV4", "IPV6"})
+        Me.CB_type_interface.Location = New System.Drawing.Point(580, 130)
+        Me.CB_type_interface.Name = "CB_type_interface"
+        Me.CB_type_interface.Size = New System.Drawing.Size(66, 21)
+        Me.CB_type_interface.TabIndex = 39
+        '
+        'SB_add
+        '
+        Me.SB_add.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.SB_add.Image = Global.Backup.My.Resources.Resources.add
+        Me.SB_add.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.SB_add.Location = New System.Drawing.Point(684, 129)
+        Me.SB_add.Name = "SB_add"
+        Me.SB_add.Size = New System.Drawing.Size(23, 21)
+        Me.SB_add.TabIndex = 38
+        '
+        'SB_change
+        '
+        Me.SB_change.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.SB_change.Image = Global.Backup.My.Resources.Resources.change
+        Me.SB_change.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.SB_change.Location = New System.Drawing.Point(657, 129)
+        Me.SB_change.Name = "SB_change"
+        Me.SB_change.Size = New System.Drawing.Size(23, 21)
+        Me.SB_change.TabIndex = 37
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(9, 135)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(123, 13)
+        Me.Label18.TabIndex = 35
+        Me.Label18.Text = "Interfaz de Red Principal"
+        '
+        'CB_Interface
+        '
+        Me.CB_Interface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_Interface.FormattingEnabled = True
+        Me.CB_Interface.Items.AddRange(New Object() {"Tipo de Interface ", "CABLE", "WIFI", "VMWR"})
+        Me.CB_Interface.Location = New System.Drawing.Point(508, 130)
+        Me.CB_Interface.Name = "CB_Interface"
+        Me.CB_Interface.Size = New System.Drawing.Size(66, 21)
+        Me.CB_Interface.TabIndex = 34
+        '
         'CB_wol_workgen
         '
         Me.CB_wol_workgen.AutoSize = True
-        Me.CB_wol_workgen.Location = New System.Drawing.Point(12, 178)
+        Me.CB_wol_workgen.Location = New System.Drawing.Point(12, 217)
         Me.CB_wol_workgen.Name = "CB_wol_workgen"
         Me.CB_wol_workgen.Size = New System.Drawing.Size(226, 17)
         Me.CB_wol_workgen.TabIndex = 33
@@ -159,7 +214,7 @@ Partial Class FRM_Tarea
         'PANEL_userpasdomain
         '
         Me.PANEL_userpasdomain.Controls.Add(Me.BT_TEST_CONEX)
-        Me.PANEL_userpasdomain.Controls.Add(Me.txt2_password_workgen)
+        Me.PANEL_userpasdomain.Controls.Add(Me.txt_password_workgen2)
         Me.PANEL_userpasdomain.Controls.Add(Me.Label17)
         Me.PANEL_userpasdomain.Controls.Add(Me.txt_password_workgen)
         Me.PANEL_userpasdomain.Controls.Add(Me.Label16)
@@ -167,7 +222,7 @@ Partial Class FRM_Tarea
         Me.PANEL_userpasdomain.Controls.Add(Me.Label15)
         Me.PANEL_userpasdomain.Controls.Add(Me.txt_username_workgen)
         Me.PANEL_userpasdomain.Controls.Add(Me.Label14)
-        Me.PANEL_userpasdomain.Location = New System.Drawing.Point(11, 223)
+        Me.PANEL_userpasdomain.Location = New System.Drawing.Point(11, 262)
         Me.PANEL_userpasdomain.Name = "PANEL_userpasdomain"
         Me.PANEL_userpasdomain.Size = New System.Drawing.Size(700, 75)
         Me.PANEL_userpasdomain.TabIndex = 32
@@ -181,13 +236,13 @@ Partial Class FRM_Tarea
         Me.BT_TEST_CONEX.Text = "Probar Conexión"
         Me.BT_TEST_CONEX.UseVisualStyleBackColor = True
         '
-        'txt2_password_workgen
+        'txt_password_workgen2
         '
-        Me.txt2_password_workgen.Location = New System.Drawing.Point(412, 41)
-        Me.txt2_password_workgen.Name = "txt2_password_workgen"
-        Me.txt2_password_workgen.Size = New System.Drawing.Size(197, 20)
-        Me.txt2_password_workgen.TabIndex = 39
-        Me.txt2_password_workgen.UseSystemPasswordChar = True
+        Me.txt_password_workgen2.Location = New System.Drawing.Point(412, 41)
+        Me.txt_password_workgen2.Name = "txt_password_workgen2"
+        Me.txt_password_workgen2.Size = New System.Drawing.Size(197, 20)
+        Me.txt_password_workgen2.TabIndex = 39
+        Me.txt_password_workgen2.UseSystemPasswordChar = True
         '
         'Label17
         '
@@ -252,7 +307,7 @@ Partial Class FRM_Tarea
         Me.CB_userpasdomain.AutoSize = True
         Me.CB_userpasdomain.Checked = True
         Me.CB_userpasdomain.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CB_userpasdomain.Location = New System.Drawing.Point(12, 200)
+        Me.CB_userpasdomain.Location = New System.Drawing.Point(12, 239)
         Me.CB_userpasdomain.Name = "CB_userpasdomain"
         Me.CB_userpasdomain.Size = New System.Drawing.Size(175, 17)
         Me.CB_userpasdomain.TabIndex = 23
@@ -263,7 +318,7 @@ Partial Class FRM_Tarea
         '
         Me.CB_usevsc_workgen.AutoSize = True
         Me.CB_usevsc_workgen.Enabled = False
-        Me.CB_usevsc_workgen.Location = New System.Drawing.Point(12, 156)
+        Me.CB_usevsc_workgen.Location = New System.Drawing.Point(12, 195)
         Me.CB_usevsc_workgen.Name = "CB_usevsc_workgen"
         Me.CB_usevsc_workgen.Size = New System.Drawing.Size(361, 17)
         Me.CB_usevsc_workgen.TabIndex = 22
@@ -273,7 +328,7 @@ Partial Class FRM_Tarea
         'CB_splitbackup_workgen
         '
         Me.CB_splitbackup_workgen.AutoSize = True
-        Me.CB_splitbackup_workgen.Location = New System.Drawing.Point(12, 134)
+        Me.CB_splitbackup_workgen.Location = New System.Drawing.Point(12, 173)
         Me.CB_splitbackup_workgen.Name = "CB_splitbackup_workgen"
         Me.CB_splitbackup_workgen.Size = New System.Drawing.Size(219, 17)
         Me.CB_splitbackup_workgen.TabIndex = 21
@@ -304,7 +359,7 @@ Partial Class FRM_Tarea
         Me.GB_tipo_respaldo.Controls.Add(Me.RB_diferencial)
         Me.GB_tipo_respaldo.Controls.Add(Me.RB_incremental)
         Me.GB_tipo_respaldo.Controls.Add(Me.RB_completo)
-        Me.GB_tipo_respaldo.Location = New System.Drawing.Point(9, 304)
+        Me.GB_tipo_respaldo.Location = New System.Drawing.Point(9, 343)
         Me.GB_tipo_respaldo.Name = "GB_tipo_respaldo"
         Me.GB_tipo_respaldo.Size = New System.Drawing.Size(332, 57)
         Me.GB_tipo_respaldo.TabIndex = 18
@@ -391,7 +446,7 @@ Partial Class FRM_Tarea
         '
         'txt_mac_workgen
         '
-        Me.txt_mac_workgen.Location = New System.Drawing.Point(585, 96)
+        Me.txt_mac_workgen.Location = New System.Drawing.Point(380, 131)
         Me.txt_mac_workgen.MaxLength = 17
         Me.txt_mac_workgen.Name = "txt_mac_workgen"
         Me.txt_mac_workgen.Size = New System.Drawing.Size(117, 20)
@@ -400,7 +455,7 @@ Partial Class FRM_Tarea
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(504, 99)
+        Me.Label4.Location = New System.Drawing.Point(299, 134)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(78, 13)
         Me.Label4.TabIndex = 11
@@ -433,7 +488,7 @@ Partial Class FRM_Tarea
         '
         'txt_ip_workgen
         '
-        Me.txt_ip_workgen.Location = New System.Drawing.Point(411, 96)
+        Me.txt_ip_workgen.Location = New System.Drawing.Point(206, 131)
         Me.txt_ip_workgen.MaxLength = 15
         Me.txt_ip_workgen.Name = "txt_ip_workgen"
         Me.txt_ip_workgen.Size = New System.Drawing.Size(90, 20)
@@ -442,7 +497,7 @@ Partial Class FRM_Tarea
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(345, 99)
+        Me.Label3.Location = New System.Drawing.Point(140, 135)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(65, 13)
         Me.Label3.TabIndex = 4
@@ -739,25 +794,6 @@ Partial Class FRM_Tarea
         Me.BT_ACEPTA.Size = New System.Drawing.Size(61, 58)
         Me.BT_ACEPTA.TabIndex = 20
         '
-        'CB_Interface
-        '
-        Me.CB_Interface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CB_Interface.FormattingEnabled = True
-        Me.CB_Interface.Items.AddRange(New Object() {"CABLE", "WIFI", "VMWR"})
-        Me.CB_Interface.Location = New System.Drawing.Point(276, 95)
-        Me.CB_Interface.Name = "CB_Interface"
-        Me.CB_Interface.Size = New System.Drawing.Size(66, 21)
-        Me.CB_Interface.TabIndex = 34
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(193, 99)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(80, 13)
-        Me.Label18.TabIndex = 35
-        Me.Label18.Text = "Interfaz de Red"
-        '
         'FRM_Tarea
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -835,7 +871,7 @@ Partial Class FRM_Tarea
     Friend WithEvents BT_AGREGA_DIR As System.Windows.Forms.Button
     Friend WithEvents CB_userpasdomain As System.Windows.Forms.CheckBox
     Friend WithEvents PANEL_userpasdomain As System.Windows.Forms.Panel
-    Friend WithEvents txt2_password_workgen As System.Windows.Forms.TextBox
+    Friend WithEvents txt_password_workgen2 As System.Windows.Forms.TextBox
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents txt_password_workgen As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
@@ -850,4 +886,7 @@ Partial Class FRM_Tarea
     Friend WithEvents FolderBrowser_Dir As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents CB_Interface As System.Windows.Forms.ComboBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents SB_change As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents SB_add As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents CB_type_interface As System.Windows.Forms.ComboBox
 End Class

@@ -15,6 +15,17 @@ Public Class FRM_Tarea
         carga_grupos()
         carga_tipo()
 
+        Dim cbinterface
+        Dim cambiainterface As New fworkgen
+        cbinterface = cambiainterface.ver_interfaces_equipo(FRM_Principal.ID_SELECCIONADO)
+
+
+        If (cbinterface > 1) Then
+            SB_change.Enabled = True
+        Else
+            SB_change.Enabled = False
+        End If
+
         If FRM_Principal.ID_SELECCIONADO = 0 Then
             txt_id.Text = ""
             CB_status_workgen.Checked = True
@@ -35,8 +46,17 @@ Public Class FRM_Tarea
             LB_sources.Items.Clear()
             LB_destinations.Items.Clear()
 
+            If (cbinterface = 0) Then
+                SB_change.Enabled = False
+            Else
+                SB_change.Enabled = True
+            End If
 
+            CB_type_interface.SelectedIndex = 0
+            CB_Interface.SelectedIndex = 0
         Else
+         
+
             Dim dts As New vworkgen
             Dim func As New fworkgen
 
@@ -83,7 +103,7 @@ Public Class FRM_Tarea
                     Dim des As New EncriptarDesencriptar
 
                     txt_password_workgen.Text = des.desencriptar128BitRijndael(dts.gpassword_workgen, dts.gdomain_workgen + "\" + dts.guser_workgen)
-                    txt2_password_workgen.Text = des.desencriptar128BitRijndael(dts.gpassword_workgen, dts.gdomain_workgen + "\" + dts.guser_workgen)
+                    txt_password_workgen2.Text = des.desencriptar128BitRijndael(dts.gpassword_workgen, dts.gdomain_workgen + "\" + dts.guser_workgen)
                     PANEL_userpasdomain.Enabled = True
                 Else
                     CB_userpasdomain.Checked = False
@@ -158,7 +178,18 @@ Public Class FRM_Tarea
         End If
 
 
-      
+        If (swok = 1) And (CB_Interface.SelectedIndex = 0) Then
+            msg_box("Debe seleccionar el tipo de interface", estilo_msgbox_informacion, titulo_aplicacion)
+            CB_Interface.Focus()
+            swok = 0
+        End If
+
+        If (swok = 1) And (CB_type_interface.SelectedIndex = 0) Then
+            msg_box("Debe seleccionar el tipo de interface", estilo_msgbox_informacion, titulo_aplicacion)
+            CB_Interface.Focus()
+            swok = 0
+        End If
+
 
 
         If (swok = 1) And (Trim(txt_mac_workgen.Text) = "") And (Len(txt_mac_workgen.Text) < 5) Then
@@ -176,7 +207,7 @@ Public Class FRM_Tarea
 
 
         If (swok = 1) And (CB_TYPE.SelectedValue = 0) Then
-            msg_box("Debe seleccionar un tipo de tarea", estilo_msgbox_informacion, titulo_aplicacion)
+            msg_box("Debe seleccionar un tipo de equipo a respaldar", estilo_msgbox_informacion, titulo_aplicacion)
             CB_TYPE.Focus()
             swok = 0
         End If
@@ -203,13 +234,13 @@ Public Class FRM_Tarea
 
 
             If (swok = 1) And (Trim(txt_password_workgen.Text) = "") And (Len(txt_password_workgen.Text) < 5) Then
-                If Not (txt_password_workgen.Text = txt2_password_workgen.Text) Then
+                If Not (txt_password_workgen.Text = txt_password_workgen2.Text) Then
                     msg_box("Las contraseñas no son iguales", estilo_msgbox_informacion, titulo_aplicacion)
-                    txt2_password_workgen.Focus()
+                    txt_password_workgen2.Focus()
                     swok = 0
                 End If
 
-             
+
             End If
 
 
@@ -293,7 +324,7 @@ Public Class FRM_Tarea
     End Sub
 
 
-   
+
 
 
 
@@ -349,7 +380,7 @@ Public Class FRM_Tarea
 
 
 
-  
+
 
     Private Sub CB_incluir_predef_CheckedChanged(sender As Object, e As EventArgs) Handles CB_incluir_predef.CheckedChanged
 
@@ -387,7 +418,7 @@ Public Class FRM_Tarea
             txt_domain_workgen.Text = ""
             txt_username_workgen.Text = ""
             txt_password_workgen.Text = ""
-            txt2_password_workgen.Text = ""
+            txt_password_workgen2.Text = ""
         End If
     End Sub
 
@@ -427,9 +458,6 @@ Public Class FRM_Tarea
                 dts.gname_workgen = txt_name.Text
                 dts.ghostname_workgen = txt_hostname.Text
                 dts.guser_workgen = txt_user_workgen.Text
-                dts.gip_workgen = txt_ip_workgen.Text
-                dts.gmac_workgen = txt_mac_workgen.Text
-
                 If RB_incremental.Checked = True Then
                     dts.gtypework_workgen = "Incremental"
                 End If
@@ -475,11 +503,22 @@ Public Class FRM_Tarea
                 End If
 
 
+                Dim ip = txt_ip_workgen.Text
+                Dim mac = txt_mac_workgen.Text
+
                 If func.insertar_workgen(dts) Then
                     MessageBox.Show("Tarea  fue registrado correctamente", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                    Dim func2 As New fworkgen
+                    func2.inserta_interfaz(correl, 1, CB_Interface.SelectedItem, CB_type_interface.SelectedItem, ip, mac)
+
+
                     txt_id.Text = correl
+
                     agrega_tarea_a_grilla(correl)
+
+
+
 
                 Else
                     MessageBox.Show("Tarea  no fue registrado intente de nuevo", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -637,11 +676,12 @@ Public Class FRM_Tarea
             row(3) = dt_workgen2.Rows(0).Item(3)  ''user
             row(4) = dt_workgen2.Rows(0).Item(4) ''usuario
             row(5) = dt_workgen2.Rows(0).Item(5) ''grupo
-            row(6) = dt_workgen2.Rows(0).Item(6) '' ip
-            row(7) = dt_workgen2.Rows(0).Item(7) '' tipo
-            row(8) = "Detectando" ''estado en red
-            row(9) = "" ''tamaña
-            row(10) = dt_workgen2.Rows(0).Item(10) '' ultimo resp
+            row(6) = dt_workgen2.Rows(0).Item(6) '' tipo
+            row(7) = dt_workgen2.Rows(0).Item(7) '' ip
+            row(8) = dt_workgen2.Rows(0).Item(8) '' interface
+            row(9) = "Detectando" ''estado en red
+            row(10) = "0" ''tamaña
+            row(11) = dt_workgen2.Rows(0).Item(11) '' ultimo resp
 
             ' Añadimos la fila al objeto DataTable
             dt.Rows.Add(row)
@@ -904,4 +944,11 @@ Public Class FRM_Tarea
     Private Sub TabPage_General_Click(sender As Object, e As EventArgs) Handles TabPage_General.Click
 
     End Sub
+
+    Private Sub SB_change_Click(sender As Object, e As EventArgs) Handles SB_change.Click
+        '' ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
+        FRM_interfaces.ShowDialog()
+    End Sub
+
+
 End Class

@@ -25,8 +25,8 @@ Public Class fworkgen
             If (dt.Rows.Count > 0) Then
                 valor = dt.Rows(0).Item(0)
 
-                desconectado()
-                conectado()
+                ''   desconectado()
+                ''  conectado()
 
                 Dim consulta2 = "update  macaddress set default_macaddress=0  where workgen_macaddress =" & ID
                 Dim command2 As New SQLiteCommand(consulta2, cnn)
@@ -35,10 +35,10 @@ Public Class fworkgen
                 dt.Clear()
                 da2.Fill(dt)
 
-                desconectado()
-                conectado()
+                '' desconectado()
+                '' conectado()
 
-                Threading.Thread.Sleep(400)  ''espera 0,5 segudnos
+                Threading.Thread.Sleep(250)  ''espera 0,5 segudnos
 
                 Dim consulta3 = "update macaddress set default_macaddress=1 where workgen_macaddress = " & ID & " And correl_macaddress <> " & valor
                 Dim command3 As New SQLiteCommand(consulta3, cnn)
@@ -47,7 +47,7 @@ Public Class fworkgen
                 dt.Clear()
                 da3.Fill(dt)
 
-                desconectado()
+                'desconectado()
 
                 Return True
             Else
@@ -219,8 +219,8 @@ Public Class fworkgen
             consulta = consulta & " username_workgen,password_workgen,splitbackup_workgen,usevsc_workgen,wol_workgen)"
             consulta = consulta & " values(" & dts.gid_workgen & "," & dts.gstatus_workgen & ",'" & dts.gtypework_workgen & "','" & dts.gname_workgen & "',"
             consulta = consulta & "'" & dts.guser_workgen & "','" & dts.gtype_workgen & "'," & dts.ggroups_workgen & ",'" & dts.ghostname_workgen & "',"
-            consulta = consulta & "'" & dts.guseownaccount_workgen & ",'" & dts.gdomain_workgen & "',"
-            consulta = consulta & "'" & dts.gusername_workgen & "','" & dts.gpassword_workgen & "'," & dts.gsplitbackup_workgen & "," & dts.gusevsc_workgen & dts.gwol_workgen & ") "
+            consulta = consulta & dts.guseownaccount_workgen & ",'" & dts.gdomain_workgen & "',"
+            consulta = consulta & "'" & dts.gusername_workgen & "','" & dts.gpassword_workgen & "'," & dts.gsplitbackup_workgen & "," & dts.gusevsc_workgen & "," & dts.gwol_workgen & ") "
 
 
             Dim command As New SQLiteCommand(consulta, cnn)
@@ -399,6 +399,40 @@ Public Class fworkgen
 
             consulta = consulta & " where id_workgen= " & ID
 
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+
+
+            '  If command.ExecuteNonQuery Then
+            da.SelectCommand = command
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            Return dt
+
+            '   Else
+            ''    Return Nothing
+            '  End If
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+    End Function
+
+    Public Function mostrar_interfaces_by_id(ID As Integer) As DataTable
+        Try
+            conectado()
+            Dim consulta As String
+            consulta = "select correl_macaddress as 'N°',default_macaddress as 'Default',"
+            consulta = consulta & " interface_macaddress as 'Tipo Interface',type_macaddress as 'Tipo', "
+            consulta = consulta & " ip_macaddress as IP, mac_macaddress as MAC from macaddress"
+            consulta = consulta & " where workgen_macaddress=" & ID
 
             Dim command As New SQLiteCommand(consulta, cnn)
             Dim da As New SQLiteDataAdapter
@@ -707,6 +741,57 @@ Public Class fworkgen
 
 
     End Function
+
+
+    Public Function inserta_interfaz(ID, defaul, interfaz, typo, ip, mac) As Boolean
+
+        Try
+            conectado()
+            Dim correl As Integer
+            Dim consulta As String
+            Dim dt As New DataTable
+           
+            consulta = "select ifnull(max(correl_macaddress),0)+1 from macaddress where workgen_macaddress=" & ID
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+            da.SelectCommand = command
+            da.Fill(dt)
+
+            If (dt.Rows.Count > 0) Then
+                correl = dt.Rows(0).Item(0)
+
+                ''   desconectado()
+                ''  conectado()
+
+                Dim consulta2 As String
+                consulta2 = "insert into macaddress (workgen_macaddress,correl_macaddress,default_macaddress,interface_macaddress,type_macaddress,ip_macaddress,mac_macaddress)"
+                consulta2 = consulta2 & " values(" & ID & "," & correl & "," & defaul & ",'" & interfaz & "','" & typo & "','" & ip & "','" & mac & "')"
+
+                Dim command2 As New SQLiteCommand(consulta2, cnn)
+                Dim da2 As New SQLiteDataAdapter
+                da2.SelectCommand = command2
+                dt.Clear()
+                da2.Fill(dt)
+
+
+                'desconectado()
+
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+
+
+
+    End Function
+
 
     Public Function elimina_workdet(ID) As Boolean
 
