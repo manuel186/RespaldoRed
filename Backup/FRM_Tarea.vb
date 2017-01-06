@@ -1,13 +1,16 @@
 ﻿Imports System.Xml
+Imports System.Threading
 
 Public Class FRM_Tarea
     Public Const MAC_ADDR_BYTES As Integer = 6
     Private Const PORT_BROADCAST = 2304
 
-
+    Private X, Y
     Private Sub FRM_USUARIOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = titulo_aplicacion + "Tareas"
 
+
+        Me.Text = titulo_aplicacion + "Tareas"
+        LB_detectando.Text = ""
         ''elimina los eventos de los combobox para que carge la grilla sin errores
         RemoveHandler CB_wol_workgen.CheckedChanged, AddressOf CB_wol_workgen_CheckedChanged
 
@@ -52,10 +55,9 @@ Public Class FRM_Tarea
                 SB_change.Enabled = True
             End If
 
-            CB_type_interface.SelectedIndex = 0
             CB_Interface.SelectedIndex = 0
         Else
-         
+
 
             Dim dts As New vworkgen
             Dim func As New fworkgen
@@ -123,6 +125,19 @@ Public Class FRM_Tarea
 
             TabControl1.SelectTab(0)
 
+
+
+            If txt_ip_workgen.Text <> "" Then
+                If ValidaIPv4(txt_ip_workgen.Text) Then
+
+                    Me.SUBPping = New Threading.Thread(AddressOf Me.ping_ip_en_tarea)
+                    If Me.SUBPping.ThreadState <> Threading.ThreadState.Running Then
+                        Me.SUBPping.Start()
+                    End If
+
+                End If
+            End If
+
         End If
 
 
@@ -145,6 +160,9 @@ Public Class FRM_Tarea
             j = j + 1
         Next
     End Sub
+
+
+
 
 
     Private Function valida_tarea()
@@ -184,11 +202,7 @@ Public Class FRM_Tarea
             swok = 0
         End If
 
-        If (swok = 1) And (CB_type_interface.SelectedIndex = 0) Then
-            msg_box("Debe seleccionar la version de IP a ocupar", estilo_msgbox_informacion, titulo_aplicacion)
-            CB_Interface.Focus()
-            swok = 0
-        End If
+
 
         If (Trim(txt_ip_workgen.Text) <> "") Then
 
@@ -518,7 +532,7 @@ Public Class FRM_Tarea
                     MessageBox.Show("Tarea  fue registrado correctamente", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Dim func2 As New fworkgen
-                    func2.inserta_interfaz(correl, 1, CB_Interface.SelectedItem, CB_type_interface.SelectedItem, ip, mac)
+                    func2.inserta_interfaz(correl, 1, CB_Interface.SelectedItem, "IPV4", ip, mac)
 
 
                     txt_id.Text = correl
@@ -563,6 +577,47 @@ Public Class FRM_Tarea
 
         End If
 
+
+
+
+        If TabControl1.TabIndex = 1 Then
+            ''tarea nueva 
+            If (txt_id.Text) = "" And (Len(txt_id.Text) = 0) Then
+                If valida_tarea() Then
+                    inserta_workgen()
+                    Dim i
+
+
+
+
+
+                End If
+            Else
+
+                actualiza_workgen()
+                ''actualiza la tarea en pantalla
+                FRM_Principal.Actualiza_Tarea_por_id(txt_id.Text)
+
+            End If
+
+
+        End If
+
+
+    End Sub
+
+    Private Sub inserta_souces_y_destinatios(ID, lugarinsercion, tipo, valor)
+
+        Dim estado
+        Dim func As New fworkgen
+
+        If func.inserta_destinos(ID, lugarinsercion, tipo, valor) Then
+            ''   MessageBox.Show("Tarea  fue Actualizada correctamente", "Actualizando Registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ''    txt_id.Text = correl
+            ''   agrega_tarea_a_grilla(correl)
+        Else
+            MessageBox.Show("Tarea  no fue Actualizanda intente de nuevo", "Actualizando registros", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
 
     End Sub
 
@@ -702,12 +757,6 @@ Public Class FRM_Tarea
     End Sub
 
 
-    Private Sub BT_AGREGA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_SOURCE.Click
-        If FolderBrowser_Source.ShowDialog() = DialogResult.OK Then
-            LB_sources.Items.Add(FolderBrowser_Source.SelectedPath)
-        End If
-    End Sub
-
     Private Sub CB_splitbackup_workgen_CheckedChanged(sender As Object, e As EventArgs) Handles CB_splitbackup_workgen.CheckedChanged
         If CB_splitbackup_workgen.Checked = True Then
             If RB_completo.Checked = False Then
@@ -748,20 +797,44 @@ Public Class FRM_Tarea
 
 
     Private Sub BT_TEST_CONEX_Click(sender As Object, e As EventArgs) Handles BT_TEST_CONEX.Click
-        '    Dim ImpersonatorTEST As New clsAuthenticator
-        '   Dim pas
-        '   Dim des As New EncriptarDesencriptar
-        '   pas = des.encriptar128BitRijndael(txt_password_workgen.Text, txt_domain_workgen.Text + "\" + txt_username_workgen.Text)
-        '   Try
-        ' ImpersonatorTEST.Impersonator(txt_domain_workgen.Text, txt_username_workgen.Text, pas)
-        ' msg_box("Conexión establecida con equipo", estilo_msgbox_informacion, titulo_aplicacion)
-        ' Catch ex As Exception
-        ' msg_box(ex.ToString, estilo_msgbox_informacion, titulo_aplicacion)
-        ' End Try
+
+        If txt_ip_workgen.Text <> "" Then
+            If ValidaIPv4(txt_ip_workgen.Text) Then
+
+                Me.SUBPping = New Threading.Thread(AddressOf Me.ping_ip_en_tarea)
+                If Me.SUBPping.ThreadState <> Threading.ThreadState.Running Then
+                    Me.SUBPping.Start()
+                End If
+
+            End If
+        End If
 
 
-        '       ImpersonatorTEST.Undo()
-        '
+        If LB_detectando.Text = "Online" Then
+
+            '''
+            '    Dim ImpersonatorTEST As New clsAuthenticator
+            '   Dim pas
+            '   Dim des As New EncriptarDesencriptar
+            '   pas = des.encriptar128BitRijndael(txt_password_workgen.Text, txt_domain_workgen.Text + "\" + txt_username_workgen.Text)
+            '   Try
+            ' ImpersonatorTEST.Impersonator(txt_domain_workgen.Text, txt_username_workgen.Text, pas)
+            ' msg_box("Conexión establecida con equipo", estilo_msgbox_informacion, titulo_aplicacion)
+            ' Catch ex As Exception
+            ' msg_box(ex.ToString, estilo_msgbox_informacion, titulo_aplicacion)
+            ' End Try
+
+
+            '       ImpersonatorTEST.Undo()
+            '
+
+
+        Else
+            msg_box("No se puede probar esta conexión ya que el equipo no se encuentra Online", estilo_msgbox_informacion, titulo_aplicacion)
+        End If
+
+
+      
     End Sub
 
 
@@ -957,6 +1030,135 @@ Public Class FRM_Tarea
         '' ID_SELECCIONADO = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString()
         FRM_interfaces.ShowDialog()
     End Sub
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If LB_sources.Items.Count > 0 Then
+            For i = 0 To LB_sources.Items.Count - 1 Step 1
+                Dim larce As Integer = Len(LB_sources.Items(i).ToString)
+                Dim valor = LB_sources.Items(i).Substring(5, larce)
+                inserta_souces_y_destinatios(6, "sources", LB_sources.Items(i).Substring(0, 3), valor)
+                ''sources nombre de tabla
+            Next
+        End If
+
+        If LB_destinations.Items.Count > 0 Then
+            For i = 0 To LB_destinations.Items.Count - 1 Step 1
+
+                Dim largodestination = Len(LB_destinations.Items(i).ToString)
+                inserta_souces_y_destinatios(6, "destinations", LB_destinations.Items(i).Substring(0, 3), LB_destinations.Items(i).Substring(4, largodestination)) ''destinations nombre de tabla
+            Next
+        End If
+    End Sub
+
+
+    Private Sub Sources_ToolStripMenuItem_directorios_Click(sender As Object, e As EventArgs) Handles Sources_ToolStripMenuItem_directorios.Click
+        If FolderBrowser_Source.ShowDialog() = DialogResult.OK Then
+            LB_sources.Items.Add("DIR " & FolderBrowser_Source.SelectedPath)
+        End If
+    End Sub
+
+    Private Sub BT_AGREGA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_SOURCE.Click
+
+        '       If LB_AGREGA_SOURCE.Visible = True Then
+        'LB_AGREGA_SOURCE.Visible = False
+        ' End If
+
+        ' If LB_AGREGA_SOURCE.Visible = False Then
+        ' LB_AGREGA_SOURCE.Visible = True
+        ' End If
+        ''Return
+      
+
+        If Windows.Forms.MouseButtons.Right Then
+            ''  Dim P As Point
+            ''    P = FRM_Tarea.ClientToScreen(New Point)
+            X = X + FRM_Principal.Location.X
+            Y = Y + FRM_Principal.Location.Y
+
+            Menu_Agrega_sources.Show(X, Y)
+
+        End If
+        '' Menu_Agrega_sources.Show()
+
+     
+    End Sub
+
+    'Estructura de coordenadas para el api GetCursorPos  
+    Private Structure POINTAPI
+        Dim X As Long
+        Dim Y As Long
+    End Structure
+
+    Private Declare Function GetCursorPos Lib "user32" (lpPoint As POINTAPI) As Long
+
+    Private Sub Menu_Agrega_sources_MouseDown(sender As Object, e As MouseEventArgs) Handles Menu_Agrega_sources.MouseDown
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+
+            'ContextMenuFavorites.Show(e.Location)
+
+            Menu_Agrega_sources.Show(DirectCast(sender, ToolStripMenuItem).GetCurrentParent.PointToScreen(e.Location))
+
+        End If
+    End Sub
+    Private SUBPping As Thread = Nothing
+
+    Private Sub txt_ip_workgen_Validated(sender As Object, e As EventArgs) Handles txt_ip_workgen.Validated
+        If txt_ip_workgen.Text <> "" Then
+            If ValidaIPv4(txt_ip_workgen.Text) Then
+
+                Me.SUBPping = New Threading.Thread(AddressOf Me.ping_ip_en_tarea)
+                If Me.SUBPping.ThreadState <> Threading.ThreadState.Running Then
+                    Me.SUBPping.Start()
+                End If
+
+            End If
+        End If
+    End Sub
+
+
+
+    Function ping_ip_en_tarea()  ''determina el estado de red de la ip existente en la tarea
+        Try
+            Dim IP As String
+            IP = txt_ip_workgen.Text
+            Dim timeout = 3000
+            Dim sw = New Stopwatch()
+            Try
+                Dim ping As Long = -1
+                sw.Start()
+                If My.Computer.Network.Ping(IP, timeout) Then
+                    sw.Stop()
+                    ping = sw.ElapsedMilliseconds
+                End If
+                If ping < 0 Then
+                    LB_detectando.ForeColor = Color.Red
+                    LB_detectando.Text = "OFFLINE"
+                ElseIf ping < 200 Then
+                    LB_detectando.ForeColor = Color.Green '
+                    LB_detectando.Text = "Online"
+                ElseIf ping < 400 Then
+                    LB_detectando.ForeColor = Color.Green
+                    LB_detectando.Text = "Online"
+                Else
+                    LB_detectando.ForeColor = Color.Red
+                    LB_detectando.Text = "OFFLINE"
+                End If
+            Catch ex As Exception
+                ''  Label2.Text = ""
+            End Try
+
+
+        Catch ex As Exception
+
+        End Try
+    End Function
+
+    Private Sub LB_AGREGA_SOURCE_Click(sender As Object, e As EventArgs) Handles LB_AGREGA_SOURCE.Click
+        LB_AGREGA_SOURCE.Visible = False
+
+    End Sub
+
 
 
 End Class

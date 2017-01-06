@@ -22,9 +22,12 @@ Partial Class FRM_Tarea
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage_General = New System.Windows.Forms.TabPage()
-        Me.CB_type_interface = New System.Windows.Forms.ComboBox()
+        Me.LB_detectando = New System.Windows.Forms.Label()
+        Me.Txt_Estado_de_Red = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.SB_add = New DevExpress.XtraEditors.SimpleButton()
         Me.SB_change = New DevExpress.XtraEditors.SimpleButton()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -66,6 +69,12 @@ Partial Class FRM_Tarea
         Me.txt_name = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage_Archivos = New System.Windows.Forms.TabPage()
+        Me.LB_AGREGA_SOURCE = New System.Windows.Forms.ListBox()
+        Me.BT_AGREGA_SOURCE = New DevExpress.XtraEditors.SimpleButton()
+        Me.Menu_Agrega_sources = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Sources_ToolStripMenuItem_directorios = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Sources_ToolStripMenuItem_archivos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.BT_ELIMINA_DESTINATIONS = New System.Windows.Forms.Button()
         Me.BT_EDITA_DESTINATIONS = New System.Windows.Forms.Button()
         Me.BT_AGREGA_DESTINATIONS = New System.Windows.Forms.Button()
@@ -75,7 +84,7 @@ Partial Class FRM_Tarea
         Me.Label10 = New System.Windows.Forms.Label()
         Me.BT_ELIMINA_SOURCE = New System.Windows.Forms.Button()
         Me.BT_EDITA_SOURCE = New System.Windows.Forms.Button()
-        Me.BT_AGREGA_SOURCE = New System.Windows.Forms.Button()
+        Me.BT_AGREGA_SOURCE0 = New System.Windows.Forms.Button()
         Me.TabPage_Filtros = New System.Windows.Forms.TabPage()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.BT_ELIMINA_DIR = New System.Windows.Forms.Button()
@@ -93,11 +102,15 @@ Partial Class FRM_Tarea
         Me.FolderBrowser_Dir = New System.Windows.Forms.FolderBrowserDialog()
         Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
+        Me.Menu_Agrega_destinatios = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.TBX = New System.Windows.Forms.TextBox()
+        Me.TBY = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
         Me.GB_tipo_respaldo.SuspendLayout()
         Me.TabPage_Archivos.SuspendLayout()
+        Me.Menu_Agrega_sources.SuspendLayout()
         Me.TabPage_Filtros.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -115,7 +128,9 @@ Partial Class FRM_Tarea
         '
         'TabPage_General
         '
-        Me.TabPage_General.Controls.Add(Me.CB_type_interface)
+        Me.TabPage_General.Controls.Add(Me.LB_detectando)
+        Me.TabPage_General.Controls.Add(Me.Txt_Estado_de_Red)
+        Me.TabPage_General.Controls.Add(Me.Label19)
         Me.TabPage_General.Controls.Add(Me.SB_add)
         Me.TabPage_General.Controls.Add(Me.SB_change)
         Me.TabPage_General.Controls.Add(Me.Label18)
@@ -152,22 +167,38 @@ Partial Class FRM_Tarea
         Me.TabPage_General.Text = "General"
         Me.TabPage_General.UseVisualStyleBackColor = True
         '
-        'CB_type_interface
+        'LB_detectando
         '
-        Me.CB_type_interface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CB_type_interface.FormattingEnabled = True
-        Me.CB_type_interface.Items.AddRange(New Object() {"Versión IP ", "IPV4", "IPV6"})
-        Me.CB_type_interface.Location = New System.Drawing.Point(580, 130)
-        Me.CB_type_interface.Name = "CB_type_interface"
-        Me.CB_type_interface.Size = New System.Drawing.Size(66, 21)
-        Me.CB_type_interface.TabIndex = 39
+        Me.LB_detectando.AutoSize = True
+        Me.LB_detectando.Location = New System.Drawing.Point(597, 6)
+        Me.LB_detectando.Name = "LB_detectando"
+        Me.LB_detectando.Size = New System.Drawing.Size(87, 13)
+        Me.LB_detectando.TabIndex = 41
+        Me.LB_detectando.Text = "DETECTANDO.."
+        '
+        'Txt_Estado_de_Red
+        '
+        Me.Txt_Estado_de_Red.Enabled = False
+        Me.Txt_Estado_de_Red.Location = New System.Drawing.Point(594, 3)
+        Me.Txt_Estado_de_Red.Name = "Txt_Estado_de_Red"
+        Me.Txt_Estado_de_Red.Size = New System.Drawing.Size(117, 20)
+        Me.Txt_Estado_de_Red.TabIndex = 40
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(514, 6)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(78, 13)
+        Me.Label19.TabIndex = 39
+        Me.Label19.Text = "Estado en Red"
         '
         'SB_add
         '
         Me.SB_add.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
         Me.SB_add.Image = Global.Backup.My.Resources.Resources.add
         Me.SB_add.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.SB_add.Location = New System.Drawing.Point(684, 129)
+        Me.SB_add.Location = New System.Drawing.Point(636, 130)
         Me.SB_add.Name = "SB_add"
         Me.SB_add.Size = New System.Drawing.Size(23, 21)
         Me.SB_add.TabIndex = 38
@@ -177,7 +208,7 @@ Partial Class FRM_Tarea
         Me.SB_change.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
         Me.SB_change.Image = Global.Backup.My.Resources.Resources.change
         Me.SB_change.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.SB_change.Location = New System.Drawing.Point(657, 129)
+        Me.SB_change.Location = New System.Drawing.Point(609, 130)
         Me.SB_change.Name = "SB_change"
         Me.SB_change.Size = New System.Drawing.Size(23, 21)
         Me.SB_change.TabIndex = 37
@@ -196,9 +227,9 @@ Partial Class FRM_Tarea
         Me.CB_Interface.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CB_Interface.FormattingEnabled = True
         Me.CB_Interface.Items.AddRange(New Object() {"Tipo de Interface ", "CABLE", "WIFI", "VMWR"})
-        Me.CB_Interface.Location = New System.Drawing.Point(508, 130)
+        Me.CB_Interface.Location = New System.Drawing.Point(504, 130)
         Me.CB_Interface.Name = "CB_Interface"
-        Me.CB_Interface.Size = New System.Drawing.Size(66, 21)
+        Me.CB_Interface.Size = New System.Drawing.Size(97, 21)
         Me.CB_Interface.TabIndex = 34
         '
         'CB_wol_workgen
@@ -537,6 +568,11 @@ Partial Class FRM_Tarea
         '
         'TabPage_Archivos
         '
+        Me.TabPage_Archivos.Controls.Add(Me.TBY)
+        Me.TabPage_Archivos.Controls.Add(Me.TBX)
+        Me.TabPage_Archivos.Controls.Add(Me.LB_AGREGA_SOURCE)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_SOURCE)
+        Me.TabPage_Archivos.Controls.Add(Me.Button1)
         Me.TabPage_Archivos.Controls.Add(Me.BT_ELIMINA_DESTINATIONS)
         Me.TabPage_Archivos.Controls.Add(Me.BT_EDITA_DESTINATIONS)
         Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_DESTINATIONS)
@@ -546,7 +582,7 @@ Partial Class FRM_Tarea
         Me.TabPage_Archivos.Controls.Add(Me.Label10)
         Me.TabPage_Archivos.Controls.Add(Me.BT_ELIMINA_SOURCE)
         Me.TabPage_Archivos.Controls.Add(Me.BT_EDITA_SOURCE)
-        Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_SOURCE)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_SOURCE0)
         Me.TabPage_Archivos.Location = New System.Drawing.Point(4, 25)
         Me.TabPage_Archivos.Name = "TabPage_Archivos"
         Me.TabPage_Archivos.Padding = New System.Windows.Forms.Padding(3)
@@ -554,6 +590,61 @@ Partial Class FRM_Tarea
         Me.TabPage_Archivos.TabIndex = 1
         Me.TabPage_Archivos.Text = "Archivos"
         Me.TabPage_Archivos.UseVisualStyleBackColor = True
+        '
+        'LB_AGREGA_SOURCE
+        '
+        Me.LB_AGREGA_SOURCE.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LB_AGREGA_SOURCE.BackColor = System.Drawing.SystemColors.Control
+        Me.LB_AGREGA_SOURCE.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.LB_AGREGA_SOURCE.ColumnWidth = 1
+        Me.LB_AGREGA_SOURCE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LB_AGREGA_SOURCE.FormattingEnabled = True
+        Me.LB_AGREGA_SOURCE.ItemHeight = 16
+        Me.LB_AGREGA_SOURCE.Items.AddRange(New Object() {"Directorios", "Archivos"})
+        Me.LB_AGREGA_SOURCE.Location = New System.Drawing.Point(20, 198)
+        Me.LB_AGREGA_SOURCE.Name = "LB_AGREGA_SOURCE"
+        Me.LB_AGREGA_SOURCE.Size = New System.Drawing.Size(81, 48)
+        Me.LB_AGREGA_SOURCE.TabIndex = 26
+        Me.LB_AGREGA_SOURCE.Visible = False
+        '
+        'BT_AGREGA_SOURCE
+        '
+        Me.BT_AGREGA_SOURCE.ContextMenuStrip = Me.Menu_Agrega_sources
+        Me.BT_AGREGA_SOURCE.Location = New System.Drawing.Point(20, 173)
+        Me.BT_AGREGA_SOURCE.Name = "BT_AGREGA_SOURCE"
+        Me.BT_AGREGA_SOURCE.Size = New System.Drawing.Size(83, 27)
+        Me.BT_AGREGA_SOURCE.TabIndex = 25
+        Me.BT_AGREGA_SOURCE.Text = "Agregar"
+        '
+        'Menu_Agrega_sources
+        '
+        Me.Menu_Agrega_sources.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Sources_ToolStripMenuItem_directorios, Me.Sources_ToolStripMenuItem_archivos})
+        Me.Menu_Agrega_sources.Name = "Menu_Agrega_sources"
+        Me.Menu_Agrega_sources.Size = New System.Drawing.Size(132, 48)
+        Me.Menu_Agrega_sources.UseWaitCursor = True
+        '
+        'Sources_ToolStripMenuItem_directorios
+        '
+        Me.Sources_ToolStripMenuItem_directorios.Name = "Sources_ToolStripMenuItem_directorios"
+        Me.Sources_ToolStripMenuItem_directorios.Size = New System.Drawing.Size(131, 22)
+        Me.Sources_ToolStripMenuItem_directorios.Text = "Directorios"
+        '
+        'Sources_ToolStripMenuItem_archivos
+        '
+        Me.Sources_ToolStripMenuItem_archivos.Name = "Sources_ToolStripMenuItem_archivos"
+        Me.Sources_ToolStripMenuItem_archivos.Size = New System.Drawing.Size(131, 22)
+        Me.Sources_ToolStripMenuItem_archivos.Text = "Archivos"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(496, 191)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 24
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'BT_ELIMINA_DESTINATIONS
         '
@@ -640,14 +731,14 @@ Partial Class FRM_Tarea
         Me.BT_EDITA_SOURCE.Text = "Editar"
         Me.BT_EDITA_SOURCE.UseVisualStyleBackColor = True
         '
-        'BT_AGREGA_SOURCE
+        'BT_AGREGA_SOURCE0
         '
-        Me.BT_AGREGA_SOURCE.Location = New System.Drawing.Point(17, 173)
-        Me.BT_AGREGA_SOURCE.Name = "BT_AGREGA_SOURCE"
-        Me.BT_AGREGA_SOURCE.Size = New System.Drawing.Size(75, 23)
-        Me.BT_AGREGA_SOURCE.TabIndex = 0
-        Me.BT_AGREGA_SOURCE.Text = "Agregar"
-        Me.BT_AGREGA_SOURCE.UseVisualStyleBackColor = True
+        Me.BT_AGREGA_SOURCE0.Location = New System.Drawing.Point(557, 162)
+        Me.BT_AGREGA_SOURCE0.Name = "BT_AGREGA_SOURCE0"
+        Me.BT_AGREGA_SOURCE0.Size = New System.Drawing.Size(75, 23)
+        Me.BT_AGREGA_SOURCE0.TabIndex = 0
+        Me.BT_AGREGA_SOURCE0.Text = "Agregar"
+        Me.BT_AGREGA_SOURCE0.UseVisualStyleBackColor = True
         '
         'TabPage_Filtros
         '
@@ -794,6 +885,25 @@ Partial Class FRM_Tarea
         Me.BT_ACEPTA.Size = New System.Drawing.Size(61, 58)
         Me.BT_ACEPTA.TabIndex = 20
         '
+        'Menu_Agrega_destinatios
+        '
+        Me.Menu_Agrega_destinatios.Name = "Menu_Agrega_sources"
+        Me.Menu_Agrega_destinatios.Size = New System.Drawing.Size(61, 4)
+        '
+        'TBX
+        '
+        Me.TBX.Location = New System.Drawing.Point(286, 49)
+        Me.TBX.Name = "TBX"
+        Me.TBX.Size = New System.Drawing.Size(100, 20)
+        Me.TBX.TabIndex = 27
+        '
+        'TBY
+        '
+        Me.TBY.Location = New System.Drawing.Point(286, 88)
+        Me.TBY.Name = "TBY"
+        Me.TBY.Size = New System.Drawing.Size(100, 20)
+        Me.TBY.TabIndex = 28
+        '
         'FRM_Tarea
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -813,6 +923,7 @@ Partial Class FRM_Tarea
         Me.GB_tipo_respaldo.PerformLayout()
         Me.TabPage_Archivos.ResumeLayout(False)
         Me.TabPage_Archivos.PerformLayout()
+        Me.Menu_Agrega_sources.ResumeLayout(False)
         Me.TabPage_Filtros.ResumeLayout(False)
         Me.TabPage_Filtros.PerformLayout()
         Me.ResumeLayout(False)
@@ -847,7 +958,7 @@ Partial Class FRM_Tarea
     Friend WithEvents RB_diferencial As System.Windows.Forms.RadioButton
     Friend WithEvents CB_usevsc_workgen As System.Windows.Forms.CheckBox
     Friend WithEvents CB_splitbackup_workgen As System.Windows.Forms.CheckBox
-    Friend WithEvents BT_AGREGA_SOURCE As System.Windows.Forms.Button
+    Friend WithEvents BT_AGREGA_SOURCE0 As System.Windows.Forms.Button
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents BT_ELIMINA_SOURCE As System.Windows.Forms.Button
@@ -888,5 +999,16 @@ Partial Class FRM_Tarea
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents SB_change As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents SB_add As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents CB_type_interface As System.Windows.Forms.ComboBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Menu_Agrega_sources As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents Menu_Agrega_destinatios As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents BT_AGREGA_SOURCE As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Sources_ToolStripMenuItem_directorios As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Sources_ToolStripMenuItem_archivos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Txt_Estado_de_Red As System.Windows.Forms.TextBox
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents LB_detectando As System.Windows.Forms.Label
+    Friend WithEvents LB_AGREGA_SOURCE As System.Windows.Forms.ListBox
+    Friend WithEvents TBY As System.Windows.Forms.TextBox
+    Friend WithEvents TBX As System.Windows.Forms.TextBox
 End Class

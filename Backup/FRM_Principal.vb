@@ -920,6 +920,11 @@ Public Class FRM_Principal
 
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        '' anbre el formulario en el espacio de trabajo sin la barra de tareas
+        Me.Location = Screen.PrimaryScreen.WorkingArea.Location
+        Me.Size = Screen.PrimaryScreen.WorkingArea.Size
+
+
 
         Dim aplicacioncorriendo As Process() = Process.GetProcessesByName("Backup")
 
@@ -966,7 +971,7 @@ Public Class FRM_Principal
 
         End Try
 
-        Me.WindowState = FormWindowState.Normal
+        '  Me.WindowState = FormWindowState.Normal
 
 
         Dim classResize As New clsResizeForm
@@ -1499,10 +1504,12 @@ Public Class FRM_Principal
                         row.Cells(COL_USER).Value = dt_workgen.Rows(i).Item(3)
                         row.Cells(COL_USUARIO).Value = dt_workgen.Rows(i).Item(4)
                         row.Cells(COL_GRUPO).Value = dt_workgen.Rows(i).Item(5)
-                        row.Cells(COL_IP_EQUIPO).Value = dt_workgen.Rows(i).Item(6)
-                        row.Cells(COL_TIPO_EQUIPO).Value = dt_workgen.Rows(i).Item(7)
-                        row.Cells(COL_TAMANO).Value = calcula_espacio_de_tarea_en_disco()
-                        row.Cells(COL_ULT_RESPALDO).Value = dt_workgen.Rows(i).Item(10)
+                        row.Cells(COL_TIPO_EQUIPO).Value = dt_workgen.Rows(i).Item(6)
+                        row.Cells(COL_IP_EQUIPO).Value = dt_workgen.Rows(i).Item(7)
+                        row.Cells(COL_INTERFACE).Value = dt_workgen.Rows(i).Item(8)
+                        ''row.Cells(COL_ESTADO_RED).Value = 
+                        row.Cells(COL_TAMANO).Value = calcula_espacio_de_tarea_en_disco_by_id(dt_workgen.Rows(i).Item(1))
+                        row.Cells(COL_ULT_RESPALDO).Value = dt_workgen.Rows(i).Item(11)
 
 
                         'End If

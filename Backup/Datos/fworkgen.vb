@@ -212,7 +212,7 @@ Public Class fworkgen
         Try
             conectado()
             Dim consulta As String
-            Dim ID
+
 
             consulta = "insert into Workgen (id_workgen,status_workgen,typework_workgen,name_workgen,user_workgen,type_workgen, "
             consulta = consulta & " groups_workgen,hostname_workgen,useownaccount_workgen,domain_workgen, "
@@ -742,6 +742,61 @@ Public Class fworkgen
 
     End Function
 
+
+    Public Function inserta_destinos(ID, lugarinsercion, typo, valor) As Boolean
+
+        Try
+            conectado()
+            Dim correl As Integer
+            Dim consulta As String
+            Dim dt As New DataTable
+
+            consulta = "select ifnull(max(correl_" & lugarinsercion & "),0)+1 from " & lugarinsercion & " where workgen_" & lugarinsercion & "=" & ID
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+            da.SelectCommand = command
+            da.Fill(dt)
+
+            If (dt.Rows.Count > 0) Then
+                correl = dt.Rows(0).Item(0)
+
+                ''   desconectado()
+                ''  conectado()
+                Dim consulta2 As String
+
+                If lugarinsercion = "sources" Then
+                    consulta2 = "insert into sources (workgen_sources,correl_sources,type_sources,descri_sources)"
+                    consulta2 = consulta2 & " values(" & ID & "," & correl & "," & lugarinsercion & ",'" & typo & "','" & valor & "')"
+                End If
+                If lugarinsercion = "destinations" Then
+                    consulta2 = "insert into destinations (workgen_destinations,correl_destinations,type_destinations,descri_destinations)"
+                    consulta2 = consulta2 & " values(" & ID & "," & correl & "," & lugarinsercion & ",'" & typo & "','" & valor & "')"
+                End If
+
+                Dim command2 As New SQLiteCommand(consulta2, cnn)
+                Dim da2 As New SQLiteDataAdapter
+                da2.SelectCommand = command2
+                dt.Clear()
+                da2.Fill(dt)
+
+
+                'desconectado()
+
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+
+
+
+    End Function
 
     Public Function inserta_interfaz(ID, defaul, interfaz, typo, ip, mac) As Boolean
 

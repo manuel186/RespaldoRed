@@ -66,7 +66,7 @@ Module FDM1
         'check for values of ip address components 
         Dim num() = Split(ipAddress, ".")
 
-        If num.Count() < 4 Then '' si tiene menos de 4 parte la ip esta incompleta
+        If num.Count() < 4 Then '' si tiene menos de 4 partes la ip esta incompleta
             Return False
 
         Else
