@@ -63,7 +63,36 @@ Public Class fworkgen
             desconectado()
         End Try
     End Function
+    Public Function fecha_ultimo_respaldo(ID As Integer) As String
+        Try
+            conectado()
+            Dim consulta, valor As String
 
+            consulta = "select date_workdet from  workdet "
+            consulta = consulta & " where id_workdet = " & ID & " order by correl_workdet desc limit 1"
+
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+            da.SelectCommand = command
+
+            Dim dt As New DataTable
+            dt.Clear()
+            da.Fill(dt)
+
+            If (dt.Rows.Count > 0) Then
+                valor = dt.Rows(0).Item(0)
+                Return valor
+            Else
+                Return Nothing
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        Finally
+            desconectado()
+        End Try
+    End Function
 
     Public Function ver_wol_equipo(ID As Integer) As Boolean
         Try

@@ -117,6 +117,7 @@ Public Class FRM_Principal
     Public peso_total_archivos_copiado
     Public peso_total_directorios
 
+    Public fecha_ultimo_respaldo As String
 
 
     Private SUBPping As Thread = Nothing
@@ -499,8 +500,6 @@ Public Class FRM_Principal
                                             '  t1.IsBackground = True
                                             '  t1.Start()
 
-
-
                                             Impersonator.Impersonator(DOMINIO, USER_DOMINIO, PASSWORD_DOMINIO)
 
 
@@ -518,6 +517,8 @@ Public Class FRM_Principal
                                             Filtro_mascaras2 = lee_xml_filter_mascara(ID_ACTUAL)
                                             Filtro_carpeta2 = lee_xml_filter_carpeta(ID_ACTUAL)
 
+                                            Dim funcio As New fworkgen
+                                            fecha_ultimo_respaldo = funcio.fecha_ultimo_respaldo(ID_ACTUAL)
 
                                             Dim funcDET As New fworkgen
                                             Dim TablaDeT As New DataTable
@@ -778,8 +779,11 @@ Public Class FRM_Principal
                     End If
 
                     If var_copia_arc = True Then
-                        fecha_info_destino = info_destino.LastWriteTime.Date.ToShortDateString()
-                        fecha_info_origen = info_origen.LastWriteTime.Date.ToShortDateString()
+                        '' fecha_info_destino = info_destino.LastWriteTime.Date.ToShortDateString()
+                        '' fecha_info_origen = info_origen.LastWriteTime.Date.ToShortDateString()
+                        fecha_info_origen = info_origen.LastWriteTime
+
+
 
                         Select Case tipo_respaldo_tarea
                             Case "Completo"
@@ -796,7 +800,11 @@ Public Class FRM_Principal
 
 
                                     ' MsgBox("Fecha no es igual listo para copiar archivo")
-                                    If Not (CDate(fecha_info_origen) = CDate(fecha_info_destino)) Then
+                                    ''If Not (CDate(fecha_info_origen) = CDate(fecha_info_destino)) Then
+
+                                    ''copia los ficheras que tengan una fecha mayor a la del ultimo repaldo realizado.
+                                    If (CDate(fecha_info_origen) > Convert.ToDateTime(fecha_ultimo_respaldo)) Then
+                                        ''   If (CDate(fecha_info_origen) > Format(fecha_ultimo_respaldo, "dd/MM/yyyy")) Then
                                         calcula_peso_copiado(info_origen, 1)
 
                                         copiar(info_origen, info_destino)
