@@ -542,6 +542,10 @@ Public Class FRM_Tarea
 
 
 
+
+
+
+
                 Else
                     MessageBox.Show("Tarea  no fue registrado intente de nuevo", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     '  mostrar()
@@ -859,7 +863,7 @@ Public Class FRM_Tarea
         End If
     End Sub
 
-    Private Sub BT_EDITA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_EDITA_SOURCE.Click
+    Private Sub BT_EDITA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_EDITA_SOURCE.Click, BT_EDITA_SOURCE.Click
 
         Dim i As Integer = LB_sources.SelectedIndex
         If i = -1 Then
@@ -900,7 +904,7 @@ Public Class FRM_Tarea
         End If
     End Sub
 
-    Private Sub BT_ELIMINA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_ELIMINA_SOURCE.Click
+    Private Sub BT_ELIMINA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_ELIMINA_SOURCE.Click, BT_ELIMINA_SOURCE.Click
         Dim i As Integer = LB_sources.SelectedIndex
         If i = -1 Then
             msg_box("Debe seleccionar un item a eliminar ", estilo_msgbox_informacion, titulo_aplicacion)
@@ -1032,24 +1036,6 @@ Public Class FRM_Tarea
     End Sub
 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If LB_sources.Items.Count > 0 Then
-            For i = 0 To LB_sources.Items.Count - 1 Step 1
-                Dim larce As Integer = Len(LB_sources.Items(i).ToString)
-                Dim valor = LB_sources.Items(i).Substring(5, larce)
-                inserta_souces_y_destinatios(6, "sources", LB_sources.Items(i).Substring(0, 3), valor)
-                ''sources nombre de tabla
-            Next
-        End If
-
-        If LB_destinations.Items.Count > 0 Then
-            For i = 0 To LB_destinations.Items.Count - 1 Step 1
-
-                Dim largodestination = Len(LB_destinations.Items(i).ToString)
-                inserta_souces_y_destinatios(6, "destinations", LB_destinations.Items(i).Substring(0, 3), LB_destinations.Items(i).Substring(4, largodestination)) ''destinations nombre de tabla
-            Next
-        End If
-    End Sub
 
 
     Private Sub Sources_ToolStripMenuItem_directorios_Click(sender As Object, e As EventArgs) Handles Sources_ToolStripMenuItem_directorios.Click
@@ -1060,28 +1046,27 @@ Public Class FRM_Tarea
 
     Private Sub BT_AGREGA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_SOURCE.Click
 
-        '       If LB_AGREGA_SOURCE.Visible = True Then
-        'LB_AGREGA_SOURCE.Visible = False
-        ' End If
 
-        ' If LB_AGREGA_SOURCE.Visible = False Then
-        ' LB_AGREGA_SOURCE.Visible = True
-        ' End If
-        ''Return
-      
+        FRM_fuentes.fuente = "Fuente de datos "
+        FRM_fuentes.ShowDialog()
+        If FRM_fuentes.op = True Then
+            If FRM_fuentes.valor = "DIR" Then
+                If FolderBrowser_Source.ShowDialog() = DialogResult.OK Then
+                    LB_sources.Items.Add("DIR " + " " + FolderBrowser_Source.SelectedPath)
+                End If
+            End If
 
-        If Windows.Forms.MouseButtons.Right Then
-            ''  Dim P As Point
-            ''    P = FRM_Tarea.ClientToScreen(New Point)
-            X = X + FRM_Principal.Location.X
-            Y = Y + FRM_Principal.Location.Y
-
-            Menu_Agrega_sources.Show(X, Y)
+            If FRM_fuentes.valor = "FILE" Then
+                If FileBrowser_Source.ShowDialog() = DialogResult.OK Then
+                    LB_sources.Items.Add("FILE" + " " + FileBrowser_Source.FileName)
+                End If
+            End If
 
         End If
-        '' Menu_Agrega_sources.Show()
 
-     
+        FRM_fuentes.Dispose()
+        FRM_fuentes.Close()
+
     End Sub
 
     'Estructura de coordenadas para el api GetCursorPos  
@@ -1092,15 +1077,6 @@ Public Class FRM_Tarea
 
     Private Declare Function GetCursorPos Lib "user32" (lpPoint As POINTAPI) As Long
 
-    Private Sub Menu_Agrega_sources_MouseDown(sender As Object, e As MouseEventArgs) Handles Menu_Agrega_sources.MouseDown
-        If e.Button = Windows.Forms.MouseButtons.Right Then
-
-            'ContextMenuFavorites.Show(e.Location)
-
-            Menu_Agrega_sources.Show(DirectCast(sender, ToolStripMenuItem).GetCurrentParent.PointToScreen(e.Location))
-
-        End If
-    End Sub
     Private SUBPping As Thread = Nothing
 
     Private Sub txt_ip_workgen_Validated(sender As Object, e As EventArgs) Handles txt_ip_workgen.Validated
@@ -1116,7 +1092,24 @@ Public Class FRM_Tarea
         End If
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If LB_sources.Items.Count > 0 Then
+            For i = 0 To LB_sources.Items.Count - 1 Step 1
+                Dim largo As Integer = Len(LB_sources.Items(i).ToString)
+                Dim valor = LB_sources.Items(i).Substring(5, largo)
+                ''      inserta_souces_y_destinatios(6, "sources", LB_sources.Items(i).Substring(0, 5), valor)
+                ''sources nombre de tabla
+            Next
+        End If
 
+        If LB_destinations.Items.Count > 0 Then
+            For i = 0 To LB_destinations.Items.Count - 1 Step 1
+
+                Dim largodestination = Len(LB_destinations.Items(i).ToString)
+                ''  inserta_souces_y_destinatios(6, "destinations", LB_destinations.Items(i).Substring(0, 5), LB_destinations.Items(i).Substring(4, largodestination)) ''destinations nombre de tabla
+            Next
+        End If
+    End Sub
 
     Function ping_ip_en_tarea()  ''determina el estado de red de la ip existente en la tarea
         Try
@@ -1153,11 +1146,6 @@ Public Class FRM_Tarea
 
         End Try
     End Function
-
-    Private Sub LB_AGREGA_SOURCE_Click(sender As Object, e As EventArgs) Handles LB_AGREGA_SOURCE.Click
-        LB_AGREGA_SOURCE.Visible = False
-
-    End Sub
 
 
 

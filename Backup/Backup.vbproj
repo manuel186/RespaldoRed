@@ -105,6 +105,12 @@
     <Compile Include="FRM_EDITA.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FRM_fuentes.Designer.vb">
+      <DependentUpon>FRM_fuentes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FRM_fuentes.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FRM_interfaces.Designer.vb">
       <DependentUpon>FRM_interfaces.vb</DependentUpon>
     </Compile>
@@ -149,6 +155,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FRM_EDITA.resx">
       <DependentUpon>FRM_EDITA.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRM_fuentes.resx">
+      <DependentUpon>FRM_fuentes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FRM_interfaces.resx">
       <DependentUpon>FRM_interfaces.vb</DependentUpon>

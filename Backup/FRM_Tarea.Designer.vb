@@ -69,22 +69,20 @@ Partial Class FRM_Tarea
         Me.txt_name = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage_Archivos = New System.Windows.Forms.TabPage()
-        Me.LB_AGREGA_SOURCE = New System.Windows.Forms.ListBox()
-        Me.BT_AGREGA_SOURCE = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_ELIMINA_DESTINATIONS = New DevExpress.XtraEditors.SimpleButton()
         Me.Menu_Agrega_sources = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Sources_ToolStripMenuItem_directorios = New System.Windows.Forms.ToolStripMenuItem()
         Me.Sources_ToolStripMenuItem_archivos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BT_EDITA_DESTINATIONS = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_AGREGA_DESTINATIONS = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_ELIMINA_SOURCE = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_EDITA_SOURCE = New DevExpress.XtraEditors.SimpleButton()
+        Me.BT_AGREGA_SOURCE = New DevExpress.XtraEditors.SimpleButton()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.BT_ELIMINA_DESTINATIONS = New System.Windows.Forms.Button()
-        Me.BT_EDITA_DESTINATIONS = New System.Windows.Forms.Button()
-        Me.BT_AGREGA_DESTINATIONS = New System.Windows.Forms.Button()
         Me.LB_destinations = New System.Windows.Forms.ListBox()
         Me.LB_sources = New System.Windows.Forms.ListBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.BT_ELIMINA_SOURCE = New System.Windows.Forms.Button()
-        Me.BT_EDITA_SOURCE = New System.Windows.Forms.Button()
-        Me.BT_AGREGA_SOURCE0 = New System.Windows.Forms.Button()
         Me.TabPage_Filtros = New System.Windows.Forms.TabPage()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.BT_ELIMINA_DIR = New System.Windows.Forms.Button()
@@ -103,8 +101,7 @@ Partial Class FRM_Tarea
         Me.BT_CANCELA = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_ACEPTA = New DevExpress.XtraEditors.SimpleButton()
         Me.Menu_Agrega_destinatios = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.TBX = New System.Windows.Forms.TextBox()
-        Me.TBY = New System.Windows.Forms.TextBox()
+        Me.FileBrowser_Source = New System.Windows.Forms.OpenFileDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage_General.SuspendLayout()
         Me.PANEL_userpasdomain.SuspendLayout()
@@ -568,21 +565,17 @@ Partial Class FRM_Tarea
         '
         'TabPage_Archivos
         '
-        Me.TabPage_Archivos.Controls.Add(Me.TBY)
-        Me.TabPage_Archivos.Controls.Add(Me.TBX)
-        Me.TabPage_Archivos.Controls.Add(Me.LB_AGREGA_SOURCE)
-        Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_SOURCE)
-        Me.TabPage_Archivos.Controls.Add(Me.Button1)
         Me.TabPage_Archivos.Controls.Add(Me.BT_ELIMINA_DESTINATIONS)
         Me.TabPage_Archivos.Controls.Add(Me.BT_EDITA_DESTINATIONS)
         Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_DESTINATIONS)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_ELIMINA_SOURCE)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_EDITA_SOURCE)
+        Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_SOURCE)
+        Me.TabPage_Archivos.Controls.Add(Me.Button1)
         Me.TabPage_Archivos.Controls.Add(Me.LB_destinations)
         Me.TabPage_Archivos.Controls.Add(Me.LB_sources)
         Me.TabPage_Archivos.Controls.Add(Me.Label11)
         Me.TabPage_Archivos.Controls.Add(Me.Label10)
-        Me.TabPage_Archivos.Controls.Add(Me.BT_ELIMINA_SOURCE)
-        Me.TabPage_Archivos.Controls.Add(Me.BT_EDITA_SOURCE)
-        Me.TabPage_Archivos.Controls.Add(Me.BT_AGREGA_SOURCE0)
         Me.TabPage_Archivos.Location = New System.Drawing.Point(4, 25)
         Me.TabPage_Archivos.Name = "TabPage_Archivos"
         Me.TabPage_Archivos.Padding = New System.Windows.Forms.Padding(3)
@@ -591,32 +584,14 @@ Partial Class FRM_Tarea
         Me.TabPage_Archivos.Text = "Archivos"
         Me.TabPage_Archivos.UseVisualStyleBackColor = True
         '
-        'LB_AGREGA_SOURCE
+        'BT_ELIMINA_DESTINATIONS
         '
-        Me.LB_AGREGA_SOURCE.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LB_AGREGA_SOURCE.BackColor = System.Drawing.SystemColors.Control
-        Me.LB_AGREGA_SOURCE.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.LB_AGREGA_SOURCE.ColumnWidth = 1
-        Me.LB_AGREGA_SOURCE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LB_AGREGA_SOURCE.FormattingEnabled = True
-        Me.LB_AGREGA_SOURCE.ItemHeight = 16
-        Me.LB_AGREGA_SOURCE.Items.AddRange(New Object() {"Directorios", "Archivos"})
-        Me.LB_AGREGA_SOURCE.Location = New System.Drawing.Point(20, 198)
-        Me.LB_AGREGA_SOURCE.Name = "LB_AGREGA_SOURCE"
-        Me.LB_AGREGA_SOURCE.Size = New System.Drawing.Size(81, 48)
-        Me.LB_AGREGA_SOURCE.TabIndex = 26
-        Me.LB_AGREGA_SOURCE.Visible = False
-        '
-        'BT_AGREGA_SOURCE
-        '
-        Me.BT_AGREGA_SOURCE.ContextMenuStrip = Me.Menu_Agrega_sources
-        Me.BT_AGREGA_SOURCE.Location = New System.Drawing.Point(20, 173)
-        Me.BT_AGREGA_SOURCE.Name = "BT_AGREGA_SOURCE"
-        Me.BT_AGREGA_SOURCE.Size = New System.Drawing.Size(83, 27)
-        Me.BT_AGREGA_SOURCE.TabIndex = 25
-        Me.BT_AGREGA_SOURCE.Text = "Agregar"
+        Me.BT_ELIMINA_DESTINATIONS.ContextMenuStrip = Me.Menu_Agrega_sources
+        Me.BT_ELIMINA_DESTINATIONS.Location = New System.Drawing.Point(234, 361)
+        Me.BT_ELIMINA_DESTINATIONS.Name = "BT_ELIMINA_DESTINATIONS"
+        Me.BT_ELIMINA_DESTINATIONS.Size = New System.Drawing.Size(83, 27)
+        Me.BT_ELIMINA_DESTINATIONS.TabIndex = 33
+        Me.BT_ELIMINA_DESTINATIONS.Text = "Borrar"
         '
         'Menu_Agrega_sources
         '
@@ -637,6 +612,51 @@ Partial Class FRM_Tarea
         Me.Sources_ToolStripMenuItem_archivos.Size = New System.Drawing.Size(131, 22)
         Me.Sources_ToolStripMenuItem_archivos.Text = "Archivos"
         '
+        'BT_EDITA_DESTINATIONS
+        '
+        Me.BT_EDITA_DESTINATIONS.ContextMenuStrip = Me.Menu_Agrega_sources
+        Me.BT_EDITA_DESTINATIONS.Location = New System.Drawing.Point(128, 361)
+        Me.BT_EDITA_DESTINATIONS.Name = "BT_EDITA_DESTINATIONS"
+        Me.BT_EDITA_DESTINATIONS.Size = New System.Drawing.Size(83, 27)
+        Me.BT_EDITA_DESTINATIONS.TabIndex = 32
+        Me.BT_EDITA_DESTINATIONS.Text = "Editar"
+        '
+        'BT_AGREGA_DESTINATIONS
+        '
+        Me.BT_AGREGA_DESTINATIONS.ContextMenuStrip = Me.Menu_Agrega_sources
+        Me.BT_AGREGA_DESTINATIONS.Location = New System.Drawing.Point(20, 361)
+        Me.BT_AGREGA_DESTINATIONS.Name = "BT_AGREGA_DESTINATIONS"
+        Me.BT_AGREGA_DESTINATIONS.Size = New System.Drawing.Size(83, 27)
+        Me.BT_AGREGA_DESTINATIONS.TabIndex = 31
+        Me.BT_AGREGA_DESTINATIONS.Text = "Agregar"
+        '
+        'BT_ELIMINA_SOURCE
+        '
+        Me.BT_ELIMINA_SOURCE.ContextMenuStrip = Me.Menu_Agrega_sources
+        Me.BT_ELIMINA_SOURCE.Location = New System.Drawing.Point(234, 173)
+        Me.BT_ELIMINA_SOURCE.Name = "BT_ELIMINA_SOURCE"
+        Me.BT_ELIMINA_SOURCE.Size = New System.Drawing.Size(83, 27)
+        Me.BT_ELIMINA_SOURCE.TabIndex = 30
+        Me.BT_ELIMINA_SOURCE.Text = "Borrar"
+        '
+        'BT_EDITA_SOURCE
+        '
+        Me.BT_EDITA_SOURCE.ContextMenuStrip = Me.Menu_Agrega_sources
+        Me.BT_EDITA_SOURCE.Location = New System.Drawing.Point(128, 173)
+        Me.BT_EDITA_SOURCE.Name = "BT_EDITA_SOURCE"
+        Me.BT_EDITA_SOURCE.Size = New System.Drawing.Size(83, 27)
+        Me.BT_EDITA_SOURCE.TabIndex = 29
+        Me.BT_EDITA_SOURCE.Text = "Editar"
+        '
+        'BT_AGREGA_SOURCE
+        '
+        Me.BT_AGREGA_SOURCE.ContextMenuStrip = Me.Menu_Agrega_sources
+        Me.BT_AGREGA_SOURCE.Location = New System.Drawing.Point(20, 173)
+        Me.BT_AGREGA_SOURCE.Name = "BT_AGREGA_SOURCE"
+        Me.BT_AGREGA_SOURCE.Size = New System.Drawing.Size(83, 27)
+        Me.BT_AGREGA_SOURCE.TabIndex = 25
+        Me.BT_AGREGA_SOURCE.Text = "Agregar"
+        '
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(496, 191)
@@ -645,33 +665,6 @@ Partial Class FRM_Tarea
         Me.Button1.TabIndex = 24
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'BT_ELIMINA_DESTINATIONS
-        '
-        Me.BT_ELIMINA_DESTINATIONS.Location = New System.Drawing.Point(261, 361)
-        Me.BT_ELIMINA_DESTINATIONS.Name = "BT_ELIMINA_DESTINATIONS"
-        Me.BT_ELIMINA_DESTINATIONS.Size = New System.Drawing.Size(75, 23)
-        Me.BT_ELIMINA_DESTINATIONS.TabIndex = 23
-        Me.BT_ELIMINA_DESTINATIONS.Text = "Borrar"
-        Me.BT_ELIMINA_DESTINATIONS.UseVisualStyleBackColor = True
-        '
-        'BT_EDITA_DESTINATIONS
-        '
-        Me.BT_EDITA_DESTINATIONS.Location = New System.Drawing.Point(136, 361)
-        Me.BT_EDITA_DESTINATIONS.Name = "BT_EDITA_DESTINATIONS"
-        Me.BT_EDITA_DESTINATIONS.Size = New System.Drawing.Size(75, 23)
-        Me.BT_EDITA_DESTINATIONS.TabIndex = 22
-        Me.BT_EDITA_DESTINATIONS.Text = "Editar"
-        Me.BT_EDITA_DESTINATIONS.UseVisualStyleBackColor = True
-        '
-        'BT_AGREGA_DESTINATIONS
-        '
-        Me.BT_AGREGA_DESTINATIONS.Location = New System.Drawing.Point(17, 361)
-        Me.BT_AGREGA_DESTINATIONS.Name = "BT_AGREGA_DESTINATIONS"
-        Me.BT_AGREGA_DESTINATIONS.Size = New System.Drawing.Size(75, 23)
-        Me.BT_AGREGA_DESTINATIONS.TabIndex = 21
-        Me.BT_AGREGA_DESTINATIONS.Text = "Agregar"
-        Me.BT_AGREGA_DESTINATIONS.UseVisualStyleBackColor = True
         '
         'LB_destinations
         '
@@ -712,33 +705,6 @@ Partial Class FRM_Tarea
         Me.Label10.Size = New System.Drawing.Size(52, 17)
         Me.Label10.TabIndex = 3
         Me.Label10.Text = "Fuente"
-        '
-        'BT_ELIMINA_SOURCE
-        '
-        Me.BT_ELIMINA_SOURCE.Location = New System.Drawing.Point(261, 173)
-        Me.BT_ELIMINA_SOURCE.Name = "BT_ELIMINA_SOURCE"
-        Me.BT_ELIMINA_SOURCE.Size = New System.Drawing.Size(75, 23)
-        Me.BT_ELIMINA_SOURCE.TabIndex = 2
-        Me.BT_ELIMINA_SOURCE.Text = "Borrar"
-        Me.BT_ELIMINA_SOURCE.UseVisualStyleBackColor = True
-        '
-        'BT_EDITA_SOURCE
-        '
-        Me.BT_EDITA_SOURCE.Location = New System.Drawing.Point(136, 173)
-        Me.BT_EDITA_SOURCE.Name = "BT_EDITA_SOURCE"
-        Me.BT_EDITA_SOURCE.Size = New System.Drawing.Size(75, 23)
-        Me.BT_EDITA_SOURCE.TabIndex = 1
-        Me.BT_EDITA_SOURCE.Text = "Editar"
-        Me.BT_EDITA_SOURCE.UseVisualStyleBackColor = True
-        '
-        'BT_AGREGA_SOURCE0
-        '
-        Me.BT_AGREGA_SOURCE0.Location = New System.Drawing.Point(557, 162)
-        Me.BT_AGREGA_SOURCE0.Name = "BT_AGREGA_SOURCE0"
-        Me.BT_AGREGA_SOURCE0.Size = New System.Drawing.Size(75, 23)
-        Me.BT_AGREGA_SOURCE0.TabIndex = 0
-        Me.BT_AGREGA_SOURCE0.Text = "Agregar"
-        Me.BT_AGREGA_SOURCE0.UseVisualStyleBackColor = True
         '
         'TabPage_Filtros
         '
@@ -890,20 +856,6 @@ Partial Class FRM_Tarea
         Me.Menu_Agrega_destinatios.Name = "Menu_Agrega_sources"
         Me.Menu_Agrega_destinatios.Size = New System.Drawing.Size(61, 4)
         '
-        'TBX
-        '
-        Me.TBX.Location = New System.Drawing.Point(286, 49)
-        Me.TBX.Name = "TBX"
-        Me.TBX.Size = New System.Drawing.Size(100, 20)
-        Me.TBX.TabIndex = 27
-        '
-        'TBY
-        '
-        Me.TBY.Location = New System.Drawing.Point(286, 88)
-        Me.TBY.Name = "TBY"
-        Me.TBY.Size = New System.Drawing.Size(100, 20)
-        Me.TBY.TabIndex = 28
-        '
         'FRM_Tarea
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -958,14 +910,8 @@ Partial Class FRM_Tarea
     Friend WithEvents RB_diferencial As System.Windows.Forms.RadioButton
     Friend WithEvents CB_usevsc_workgen As System.Windows.Forms.CheckBox
     Friend WithEvents CB_splitbackup_workgen As System.Windows.Forms.CheckBox
-    Friend WithEvents BT_AGREGA_SOURCE0 As System.Windows.Forms.Button
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents BT_ELIMINA_SOURCE As System.Windows.Forms.Button
-    Friend WithEvents BT_EDITA_SOURCE As System.Windows.Forms.Button
-    Friend WithEvents BT_ELIMINA_DESTINATIONS As System.Windows.Forms.Button
-    Friend WithEvents BT_EDITA_DESTINATIONS As System.Windows.Forms.Button
-    Friend WithEvents BT_AGREGA_DESTINATIONS As System.Windows.Forms.Button
     Friend WithEvents LB_destinations As System.Windows.Forms.ListBox
     Friend WithEvents LB_sources As System.Windows.Forms.ListBox
     Friend WithEvents TabPage_Filtros As System.Windows.Forms.TabPage
@@ -1008,7 +954,10 @@ Partial Class FRM_Tarea
     Friend WithEvents Txt_Estado_de_Red As System.Windows.Forms.TextBox
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents LB_detectando As System.Windows.Forms.Label
-    Friend WithEvents LB_AGREGA_SOURCE As System.Windows.Forms.ListBox
-    Friend WithEvents TBY As System.Windows.Forms.TextBox
-    Friend WithEvents TBX As System.Windows.Forms.TextBox
+    Friend WithEvents FileBrowser_Source As OpenFileDialog
+    Friend WithEvents BT_EDITA_SOURCE As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BT_ELIMINA_SOURCE As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BT_AGREGA_DESTINATIONS As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BT_EDITA_DESTINATIONS As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents BT_ELIMINA_DESTINATIONS As DevExpress.XtraEditors.SimpleButton
 End Class

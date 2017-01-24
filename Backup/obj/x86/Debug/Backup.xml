@@ -6,76 +6,89 @@ Backup
 </name>
 </assembly>
 <members>
-<member name="M:Backup.Impersonate.ImpersonateValidUser(System.String,System.String,System.String)">
-	<summary>
- Impersonate a user without allowing threads to run under the impersonated user
- </summary>
-	<param name="userName"></param>
-	<param name="domain"></param>
-	<param name="password"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Backup.Impersonate.ImpersonateValidUserAndSetThreadPrincipal(System.String,System.String,System.String)">
-	<summary>
- Impersonate a user and set the thread current principal to that impersonated user.  Afterwards, you can 
- launch threads that will run under the impersonated user.
- </summary>
-	<param name="userName"></param>
-	<param name="domain"></param>
-	<param name="password"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Backup.Impersonate.RestoreThreadPrincipal">
-	<summary>
- After calling undo on impersonation, call this method to restore the thread current principal 
- to the logged on user.
- </summary>
-	<remarks></remarks>
-</member><member name="P:Backup.My.Resources.Resources.ResourceManager">
-	<summary>
+<member name="T:Backup.My.Resources.Resources">
+<summary>
+  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+</summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.ResourceManager">
+<summary>
   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources.Culture">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.Culture">
+<summary>
   Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources._stop">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources._stop">
+<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources.aceptar">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.aceptar">
+<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources.add">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.add">
+<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources.cancelar">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.cancelar">
+<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources.change">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.change">
+<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources.pause">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.pause">
+<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources.Play">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.Play">
+<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
-</member><member name="P:Backup.My.Resources.Resources.test">
-	<summary>
+</member>
+<member name="P:Backup.My.Resources.Resources.test">
+<summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
-</member><member name="T:Backup.My.Resources.Resources">
-	<summary>
-  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
-</summary>
+</member>
+<member name="M:Backup.Impersonate.ImpersonateValidUser(System.String,System.String,System.String)">
+ <summary>
+ Impersonate a user without allowing threads to run under the impersonated user
+ </summary>
+ <param name="userName"></param>
+ <param name="domain"></param>
+ <param name="password"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Backup.Impersonate.ImpersonateValidUserAndSetThreadPrincipal(System.String,System.String,System.String)">
+ <summary>
+ Impersonate a user and set the thread current principal to that impersonated user.  Afterwards, you can 
+ launch threads that will run under the impersonated user.
+ </summary>
+ <param name="userName"></param>
+ <param name="domain"></param>
+ <param name="password"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Backup.Impersonate.RestoreThreadPrincipal">
+ <summary>
+ After calling undo on impersonation, call this method to restore the thread current principal 
+ to the logged on user.
+ </summary>
+ <remarks></remarks>
 </member>
 </members>
 </doc>
