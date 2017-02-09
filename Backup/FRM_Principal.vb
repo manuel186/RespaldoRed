@@ -1676,35 +1676,39 @@ Public Class FRM_Principal
     End Sub
 
     Private Sub BorrarTareaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BorrarTareaToolStripMenuItem.Click
+        Try
 
-        If DBG_TAREAS(COL_ESTADO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() = "Respaldando" Then
-            msg_box("No se puede Eliminar una Tarea en uso ", estilo_msgbox_informacion, titulo_aplicacion)
 
-        Else
+            If DBG_TAREAS(COL_ESTADO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() = "Respaldando" Then
+                msg_box("No se puede Eliminar una Tarea en uso ", estilo_msgbox_informacion, titulo_aplicacion)
 
-            If MessageBox.Show("Estas seguro que desea Eliminar la Tarea N°:" & DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() & "-" & DBG_TAREAS(COL_USUARIO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() & " una vez eliminada no se podrá recuperar..", "◄ AVISO |  ►", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = DialogResult.Yes Then
-                Dim ID = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value
+            Else
 
-                Dim del As New fworkgen
-                Dim val, val2 As Boolean
+                If MessageBox.Show("Estas seguro que desea Eliminar la Tarea N°:" & DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() & "-" & DBG_TAREAS(COL_USUARIO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() & " una vez eliminada no se podrá recuperar..", "◄ AVISO |  ►", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = DialogResult.Yes Then
+                    Dim ID = DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value
 
-                ''elimina tarea de la DB
-                val = del.elimina_workdet(ID)
-                If val Then
+                    Dim del As New fworkgen
+                    Dim val, val2 As Boolean
 
-                    If val = del.elimina_workgen(ID) Then
-                        msg_box("Se ha eliminado la Tarea N°:" & DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() & "-" & DBG_TAREAS(COL_USUARIO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString(), estilo_msgbox_informacion, titulo_aplicacion)
+                    ''elimina tarea de la DB
+                    val = del.elimina_workdet(ID)
+                    If val Then
 
-                        elimina_tarea_de_grilla(ID)
+                        If val = del.elimina_workgen(ID) Then
+                            msg_box("Se ha eliminado la Tarea N°:" & DBG_TAREAS(COL_ID, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString() & "-" & DBG_TAREAS(COL_USUARIO, DBG_TAREAS.CurrentCell.RowIndex).Value.ToString(), estilo_msgbox_informacion, titulo_aplicacion)
+
+                            elimina_tarea_de_grilla(ID)
+
+                        End If
+
 
                     End If
-
-
                 End If
+
             End If
+        Catch ex As Exception
 
-        End If
-
+        End Try
     End Sub
 
     Private Function elimina_tarea_de_grilla(ID As Integer)

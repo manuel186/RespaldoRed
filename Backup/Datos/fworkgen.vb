@@ -795,11 +795,11 @@ Public Class fworkgen
 
                 If lugarinsercion = "sources" Then
                     consulta2 = "insert into sources (workgen_sources,correl_sources,type_sources,descri_sources)"
-                    consulta2 = consulta2 & " values(" & ID & "," & correl & "," & lugarinsercion & ",'" & typo & "','" & valor & "')"
+                    consulta2 = consulta2 & " values(" & ID & "," & correl & ",'" & typo & "','" & valor & "')"
                 End If
                 If lugarinsercion = "destinations" Then
                     consulta2 = "insert into destinations (workgen_destinations,correl_destinations,type_destinations,descri_destinations)"
-                    consulta2 = consulta2 & " values(" & ID & "," & correl & "," & lugarinsercion & ",'" & typo & "','" & valor & "')"
+                    consulta2 = consulta2 & " values(" & ID & "," & correl & ",'" & typo & "','" & valor & "')"
                 End If
 
                 Dim command2 As New SQLiteCommand(consulta2, cnn)
@@ -895,6 +895,39 @@ Public Class fworkgen
             Dim dt As New DataTable
             dt.Clear()
             da.Fill(dt)
+
+
+            Threading.Thread.Sleep(250)  ''espera 0,5 segudnos
+
+            Dim consulta2 = "delete  from destinations where  workgen_destinations=" & ID
+            Dim command2 As New SQLiteCommand(consulta2, cnn)
+            Dim da2 As New SQLiteDataAdapter
+            da2.SelectCommand = command2
+            dt.Clear()
+            da2.Fill(dt)
+
+
+            Threading.Thread.Sleep(250)  ''espera 0,5 segudnos
+
+            Dim consulta3 = "delete  from sources where  workgen_sources=" & ID
+            Dim command3 As New SQLiteCommand(consulta3, cnn)
+            Dim da3 As New SQLiteDataAdapter
+            da3.SelectCommand = command3
+            dt.Clear()
+            da3.Fill(dt)
+
+            Threading.Thread.Sleep(250)  ''espera 0,5 segudnos
+
+            Dim consulta4 = "delete  from filters where  workgen_filters=" & ID
+            Dim command4 As New SQLiteCommand(consulta3, cnn)
+            Dim da4 As New SQLiteDataAdapter
+            da4.SelectCommand = command4
+            dt.Clear()
+            da4.Fill(dt)
+            '' desconectado()
+            '' conectado()
+
+
             Return True
             '' Else
             ''  Return False
@@ -956,7 +989,7 @@ Public Class fworkgen
 
             conectado()
             Dim consulta As String
-            consulta = "select descri_destination from destinations where workgen_destination = " & ID
+            consulta = "select descri_destinations from destinations where workgen_destinations = " & ID
 
             Dim command As New SQLiteCommand(consulta, cnn)
             Dim da As New SQLiteDataAdapter
@@ -1094,7 +1127,7 @@ Public Class fworkgen
             Dim consulta As String
             ''consulta = "select type_workdet as 'Tipo de Respaldo',strftime('%d-%m-%Y %H:%M:%S', date_workdet) as Fecha,"
             consulta = "select * from destinations"
-            consulta = consulta & " where workgen_destination = " & id
+            consulta = consulta & " where workgen_destinations = " & id
 
             Dim command As New SQLiteCommand(consulta, cnn)
             Dim da As New SQLiteDataAdapter

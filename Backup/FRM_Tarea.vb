@@ -537,6 +537,35 @@ Public Class FRM_Tarea
 
                     txt_id.Text = correl
 
+
+                    If LB_sources.Items.Count > 0 Then
+                        For i = 0 To LB_sources.Items.Count - 1 Step 1
+                            Dim ins
+                            Dim funcSource As New fworkgen
+                            ins = funcSource.inserta_destinos(correl, "sources", "DIR", LB_sources.Items(i).ToString)
+                            If ins = True Then
+                                ''msg_box()
+
+                            End If
+                            ''sources nombre de tabla
+                        Next
+                    End If
+                    Threading.Thread.Sleep(250)  ''espera 0,5 segudnos
+                    If LB_destinations.Items.Count > 0 Then
+                        For i = 0 To LB_destinations.Items.Count - 1 Step 1
+                            Dim ins2
+                            Dim funcSource As New fworkgen
+                            ins2 = funcSource.inserta_destinos(correl, "destinations", "DIR", LB_destinations.Items(i).ToString)
+                            If ins2 = True Then
+                                ''msg_box()
+
+                            End If
+                        Next
+                    End If
+
+
+
+
                     agrega_tarea_a_grilla(correl)
 
 
@@ -610,20 +639,7 @@ Public Class FRM_Tarea
 
     End Sub
 
-    Private Sub inserta_souces_y_destinatios(ID, lugarinsercion, tipo, valor)
 
-        Dim estado
-        Dim func As New fworkgen
-
-        If func.inserta_destinos(ID, lugarinsercion, tipo, valor) Then
-            ''   MessageBox.Show("Tarea  fue Actualizada correctamente", "Actualizando Registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            ''    txt_id.Text = correl
-            ''   agrega_tarea_a_grilla(correl)
-        Else
-            MessageBox.Show("Tarea  no fue Actualizanda intente de nuevo", "Actualizando registros", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
-
-    End Sub
 
     Private Sub actualiza_workgen()
         Try
@@ -1046,26 +1062,28 @@ Public Class FRM_Tarea
 
     Private Sub BT_AGREGA_SOURCE_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_SOURCE.Click
 
-
-        FRM_fuentes.fuente = "Fuente de datos "
-        FRM_fuentes.ShowDialog()
-        If FRM_fuentes.op = True Then
-            If FRM_fuentes.valor = "DIR" Then
-                If FolderBrowser_Source.ShowDialog() = DialogResult.OK Then
-                    LB_sources.Items.Add("DIR " + " " + FolderBrowser_Source.SelectedPath)
-                End If
-            End If
-
-            If FRM_fuentes.valor = "FILE" Then
-                If FileBrowser_Source.ShowDialog() = DialogResult.OK Then
-                    LB_sources.Items.Add("FILE" + " " + FileBrowser_Source.FileName)
-                End If
-            End If
-
+        If FolderBrowser_Source.ShowDialog() = DialogResult.OK Then
+            LB_sources.Items.Add(FolderBrowser_Source.SelectedPath)
         End If
+        ' FRM_fuentes.fuente = "Fuente de datos "
+        ' FRM_fuentes.ShowDialog()
+        ' If FRM_fuentes.op = True Then
+        ' If FRM_fuentes.valor = "DIR" Then
+        ' If FolderBrowser_Source.ShowDialog() = DialogResult.OK Then
+        ' LB_sources.Items.Add("DIR " + " " + FolderBrowser_Source.SelectedPath)
+        ' End If
+        ' End If
 
-        FRM_fuentes.Dispose()
-        FRM_fuentes.Close()
+        ' If FRM_fuentes.valor = "FILE" Then
+        ' If FileBrowser_Source.ShowDialog() = DialogResult.OK Then
+        'LB_sources.Items.Add("FILE" + " " + FileBrowser_Source.FileName)
+        ' End If
+        ' End If
+
+        '        End If
+
+        '        FRM_fuentes.Dispose()
+        '        FRM_fuentes.Close()
 
     End Sub
 
@@ -1092,24 +1110,6 @@ Public Class FRM_Tarea
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If LB_sources.Items.Count > 0 Then
-            For i = 0 To LB_sources.Items.Count - 1 Step 1
-                Dim largo As Integer = Len(LB_sources.Items(i).ToString)
-                Dim valor = LB_sources.Items(i).Substring(5, largo)
-                ''      inserta_souces_y_destinatios(6, "sources", LB_sources.Items(i).Substring(0, 5), valor)
-                ''sources nombre de tabla
-            Next
-        End If
-
-        If LB_destinations.Items.Count > 0 Then
-            For i = 0 To LB_destinations.Items.Count - 1 Step 1
-
-                Dim largodestination = Len(LB_destinations.Items(i).ToString)
-                ''  inserta_souces_y_destinatios(6, "destinations", LB_destinations.Items(i).Substring(0, 5), LB_destinations.Items(i).Substring(4, largodestination)) ''destinations nombre de tabla
-            Next
-        End If
-    End Sub
 
     Function ping_ip_en_tarea()  ''determina el estado de red de la ip existente en la tarea
         Try
