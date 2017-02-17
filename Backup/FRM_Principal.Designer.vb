@@ -323,7 +323,7 @@ Partial Class FRM_Principal
         'BT_MINIMIZAR
         '
         Me.BT_MINIMIZAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!)
-        Me.BT_MINIMIZAR.Location = New System.Drawing.Point(1247, -1)
+        Me.BT_MINIMIZAR.Location = New System.Drawing.Point(1277, -1)
         Me.BT_MINIMIZAR.Name = "BT_MINIMIZAR"
         Me.BT_MINIMIZAR.Size = New System.Drawing.Size(32, 26)
         Me.BT_MINIMIZAR.TabIndex = 21
@@ -402,7 +402,7 @@ Partial Class FRM_Principal
         'BT_CERRAR
         '
         Me.BT_CERRAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.BT_CERRAR.Location = New System.Drawing.Point(1285, -1)
+        Me.BT_CERRAR.Location = New System.Drawing.Point(1313, -1)
         Me.BT_CERRAR.Name = "BT_CERRAR"
         Me.BT_CERRAR.Size = New System.Drawing.Size(32, 26)
         Me.BT_CERRAR.TabIndex = 32
@@ -458,6 +458,7 @@ Partial Class FRM_Principal
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1350, 691)
+        Me.ControlBox = False
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.BT_PAUSE)
         Me.Controls.Add(Me.BT_CERRAR)

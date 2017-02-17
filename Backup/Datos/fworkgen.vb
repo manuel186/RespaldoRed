@@ -827,6 +827,56 @@ Public Class fworkgen
 
     End Function
 
+    Public Function inserta_filtros(ID, type, valor) As Boolean
+
+        Try
+            conectado()
+            Dim correl As Integer
+            Dim consulta As String
+            Dim dt As New DataTable
+
+            consulta = "select ifnull(max(correl_filters),0)+1 from filters where workgen_filters=" & ID
+            Dim command As New SQLiteCommand(consulta, cnn)
+            Dim da As New SQLiteDataAdapter
+            da.SelectCommand = command
+            da.Fill(dt)
+
+            If (dt.Rows.Count > 0) Then
+                correl = dt.Rows(0).Item(0)
+
+                ''   desconectado()
+                ''  conectado()
+                Dim consulta2 As String
+
+
+                consulta2 = "insert into filters (workgen_filters,correl_filters,type_filters,descri_filters)"
+                consulta2 = consulta2 & " values(" & ID & "," & correl & ",'" & type & "','" & valor & "')"
+
+                Dim command2 As New SQLiteCommand(consulta2, cnn)
+                Dim da2 As New SQLiteDataAdapter
+                da2.SelectCommand = command2
+                dt.Clear()
+                da2.Fill(dt)
+
+
+                'desconectado()
+
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        Finally
+            desconectado()
+        End Try
+
+
+
+    End Function
+
     Public Function inserta_interfaz(ID, defaul, interfaz, typo, ip, mac) As Boolean
 
         Try

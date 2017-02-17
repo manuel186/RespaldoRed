@@ -529,7 +529,6 @@ Public Class FRM_Tarea
                 Dim mac = txt_mac_workgen.Text
 
                 If func.insertar_workgen(dts) Then
-                    MessageBox.Show("Tarea  fue registrado correctamente", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     Dim func2 As New fworkgen
                     func2.inserta_interfaz(correl, 1, CB_Interface.SelectedItem, "IPV4", ip, mac)
@@ -537,7 +536,7 @@ Public Class FRM_Tarea
 
                     txt_id.Text = correl
 
-
+                    ''agrega fuentes
                     If LB_sources.Items.Count > 0 Then
                         For i = 0 To LB_sources.Items.Count - 1 Step 1
                             Dim ins
@@ -550,7 +549,9 @@ Public Class FRM_Tarea
                             ''sources nombre de tabla
                         Next
                     End If
-                    Threading.Thread.Sleep(250)  ''espera 0,5 segudnos
+
+                    Threading.Thread.Sleep(250)  ''espera 0,5 mili segudnos
+
                     If LB_destinations.Items.Count > 0 Then
                         For i = 0 To LB_destinations.Items.Count - 1 Step 1
                             Dim ins2
@@ -563,7 +564,38 @@ Public Class FRM_Tarea
                         Next
                     End If
 
+                    ''agrega fuentes'''
 
+
+                    Threading.Thread.Sleep(250)  ''espera 0,5 mili segudnos
+
+
+
+
+                    If LB_filters_masc.Items.Count > 0 Then
+                        For i = 0 To LB_filters_masc.Items.Count - 1 Step 1
+                            Dim ins2
+                            Dim funcSource As New fworkgen
+                            ins2 = funcSource.inserta_filtros(correl, "Mascara", LB_filters_masc.Items(i).ToString)
+                            If ins2 = True Then
+                                ''msg_box()
+
+                            End If
+                        Next
+                    End If
+                    Threading.Thread.Sleep(250)  ''espera 0,5 mili segudnos
+
+                    If LB_filters_dir.Items.Count > 0 Then
+                        For i = 0 To LB_filters_dir.Items.Count - 1 Step 1
+                            Dim ins2
+                            Dim funcSource As New fworkgen
+                            ins2 = funcSource.inserta_filtros(correl, "Carpeta", LB_filters_dir.Items(i).ToString)
+                            If ins2 = True Then
+                                ''msg_box()
+
+                            End If
+                        Next
+                    End If
 
 
                     agrega_tarea_a_grilla(correl)
@@ -572,6 +604,7 @@ Public Class FRM_Tarea
 
 
 
+                    MessageBox.Show("Tarea  fue registrado correctamente", "Guardando registros", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
 
@@ -1008,7 +1041,7 @@ Public Class FRM_Tarea
 
     Private Sub BT_AGREGA_DIR_Click(sender As Object, e As EventArgs) Handles BT_AGREGA_DIR.Click
         If FolderBrowser_Dir.ShowDialog() = DialogResult.OK Then
-            LB_filters_dir.Items.Add(FolderBrowser_Source.SelectedPath)
+            LB_filters_dir.Items.Add(FolderBrowser_Dir.SelectedPath)
         End If
     End Sub
 
