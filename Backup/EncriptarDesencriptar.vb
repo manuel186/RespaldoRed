@@ -58,8 +58,8 @@ Public Class EncriptarDesencriptar
             objMemoryStream.Close()
             objCryptoStream.Close()
         Catch ex As Exception
-            MsgBox("Error al encriptar cadena de texto: " & _
-                   ex.Message, MsgBoxStyle.OkOnly + MsgBoxStyle.Exclamation)
+            '' MsgBox("Error al encriptar cadena de texto: " & _
+            ''ex.Message, MsgBoxStyle.OkOnly + MsgBoxStyle.Exclamation)
         End Try
 
         'Devolver el valor del texto encriptado
@@ -121,7 +121,7 @@ Public Class EncriptarDesencriptar
             objMemoryStream.Close()
             objCryptoStream.Close()
         Catch ex As Exception
-            MsgBox("Error al desencriptar cadena de texto: " & ex.Message, MsgBoxStyle.OkOnly + MsgBoxStyle.Exclamation)
+            ''  MsgBox("Error al desencriptar cadena de texto: " & ex.Message, MsgBoxStyle.OkOnly + MsgBoxStyle.Exclamation)
         End Try
 
         'Devolver la cadena de texto desencriptada

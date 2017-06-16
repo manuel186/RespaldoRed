@@ -984,6 +984,8 @@ Public Class FRM_Principal
 
         Dim classResize As New clsResizeForm
         classResize.ResizeForm(Me, 1366, 768)  ''1366
+        ''classResize.ResizeForm(Me, 1280, 1024)  ''1366
+
 
 
         Dim dts As New vworkgen

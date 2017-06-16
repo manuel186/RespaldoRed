@@ -140,7 +140,7 @@ Partial Class FRM_Principal
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ProgressBar_archivo, Me.ProgressBar_total})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 660)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1350, 31)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1276, 31)
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -457,7 +457,7 @@ Partial Class FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1350, 691)
+        Me.ClientSize = New System.Drawing.Size(1276, 691)
         Me.ControlBox = False
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.BT_PAUSE)
