@@ -72,6 +72,7 @@ Partial Class FRM_Principal
         Me.BT_PAUSE = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_STOP = New DevExpress.XtraEditors.SimpleButton()
         Me.BT_PLAY = New DevExpress.XtraEditors.SimpleButton()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Menu_Estado.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TBcontrol1.SuspendLayout()
@@ -453,12 +454,22 @@ Partial Class FRM_Principal
         Me.BT_PLAY.Size = New System.Drawing.Size(45, 45)
         Me.BT_PLAY.TabIndex = 19
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(580, 26)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(110, 13)
+        Me.Label1.TabIndex = 35
+        Me.Label1.Text = "Buscar maximo listbox"
+        '
         'FRM_Principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1276, 691)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.BT_PAUSE)
         Me.Controls.Add(Me.BT_CERRAR)
@@ -538,7 +549,7 @@ Partial Class FRM_Principal
     Friend WithEvents Timer_WOL As System.Windows.Forms.Timer
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents CambiaInterfazDeRedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-
+    Friend WithEvents Label1 As Label
 
 
 End Class

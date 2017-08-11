@@ -607,14 +607,17 @@ Public Class FRM_Principal
                             '' MsgBox("ax: " & ax.ToString)
                             LB_log.Items.Add("AX " & ax.Message)
                             LB_log.SelectedIndex = LB_log.Items.Count - 1
+                            busca_y_cambia_estado_a_activo(ID_ACTUAL) ''cambia el estado a activo
                         Catch ix As IO.IOException
                             ''MsgBox("ix: " & ix.ToString)
                             LB_log.Items.Add("IX " & ix.Message)
                             LB_log.SelectedIndex = LB_log.Items.Count - 1
+                            busca_y_cambia_estado_a_activo(ID_ACTUAL) ''cambia el estado a activo
                         Catch ex As Exception
                             ''  MsgBox("ex2: " & ex.ToString)
                             LB_log.Items.Add("EX " & ex.Message)
                             LB_log.SelectedIndex = LB_log.Items.Count - 1
+                            busca_y_cambia_estado_a_activo(ID_ACTUAL) ''cambia el estado a activo
                         End Try
 
 
@@ -783,20 +786,25 @@ Public Class FRM_Principal
                         '' fecha_info_origen = info_origen.LastWriteTime.Date.ToShortDateString()
                         fecha_info_origen = info_origen.LastWriteTime
 
-
+                        Label1.Text = CStr(LB_log.Items.Count)  ''' lista la cantidad de ites existentes
 
                         Select Case tipo_respaldo_tarea
                             Case "Completo"
                                 'MsgBox("Fichero no existe se copiará fichero nuevo")
-                                ToolStripStatusLabel1.Text = "Copiando " + (New String(destDir.FullName & "\" & fiSourceFile.Name))
+                                ToolStripStatusLabel1.Text = "Copiando " + (New String(sourceDir.FullName & "\" & fiSourceFile.Name))
                                 LB_log.Focus()
-                                LB_log.Items.Add("Copiando  " + (New String(destDir.FullName & "\" & fiSourceFile.Name)))
+
+
+
+
+                                LB_log.Items.Add("Copiando  " + (New String(sourceDir.FullName & "\" & fiSourceFile.Name)))
                                 calcula_peso_copiado(info_origen, 1)
                                 copiar(info_origen, info_destino)
 
                             Case "Incremental"
+
                                 ' si existe el archivo compara con el origen y si es diferente lo copia
-                                If (My.Computer.FileSystem.FileExists(New String(destDir.FullName & "\" & fiSourceFile.Name))) Then
+                                If (My.Computer.FileSystem.FileExists(New String(sourceDir.FullName & "\" & fiSourceFile.Name))) Then
 
 
                                     ' MsgBox("Fecha no es igual listo para copiar archivo")
@@ -808,21 +816,21 @@ Public Class FRM_Principal
                                         calcula_peso_copiado(info_origen, 1)
 
                                         copiar(info_origen, info_destino)
-                                        ToolStripStatusLabel1.Text = "Copiando " + (New String(destDir.FullName & "\" & fiSourceFile.Name))
+                                        ToolStripStatusLabel1.Text = "Copiando " + (New String(sourceDir.FullName & "\" & fiSourceFile.Name))
 
-                                        LB_log.Items.Add("Copiando  " + (New String(destDir.FullName & "\" & fiSourceFile.Name)))
+                                        LB_log.Items.Add("Copiando  " + (New String(sourceDir.FullName & "\" & fiSourceFile.Name)))
                                     Else
                                         calcula_peso_copiado(info_origen, 0)
-                                        ToolStripStatusLabel1.Text = "Copiando " + (New String(destDir.FullName & "\" & fiSourceFile.Name))
+                                        ToolStripStatusLabel1.Text = "Copiando " + (New String(sourceDir.FullName & "\" & fiSourceFile.Name))
                                         LB_log.Focus()
-                                        LB_log.Items.Add("Copiando  " + (New String(destDir.FullName & "\" & fiSourceFile.Name)))
+                                        LB_log.Items.Add("Copiando  " + (New String(sourceDir.FullName & "\" & fiSourceFile.Name)))
                                     End If
                                 Else
 
                                     'MsgBox("Fichero no existe se copiará fichero nuevo")
-                                    ToolStripStatusLabel1.Text = "Copiando " + (New String(destDir.FullName & "\" & fiSourceFile.Name))
+                                    ToolStripStatusLabel1.Text = "Copiando " + (New String(sourceDir.FullName & "\" & fiSourceFile.Name))
                                     LB_log.Focus()
-                                    LB_log.Items.Add("Copiando  " + (New String(destDir.FullName & "\" & fiSourceFile.Name)))
+                                    LB_log.Items.Add("Copiando  " + (New String(sourceDir.FullName & "\" & fiSourceFile.Name)))
                                     calcula_peso_copiado(info_origen, 1)
                                     copiar(info_origen, info_destino)
 
