@@ -13,11 +13,6 @@ C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.Resources.resources
 C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.vbproj.GenerateResource.Cache
 C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.FRM_EDITA.resources
 C:\Dropbox\DESARROLLO\Backup\Backup\obj\x86\Debug\Backup.FRM_interfaces.resources
-C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\DevExpress.Data.v13.2.dll
-C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\DevExpress.Printing.v13.2.Core.dll
-C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\DevExpress.Sparkline.v13.2.Core.dll
-C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\DevExpress.Utils.v13.2.dll
-C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\DevExpress.XtraEditors.v13.2.dll
 C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\DevExpress.Data.v13.2.xml
 C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\DevExpress.Printing.v13.2.Core.xml
 C:\Dropbox\DESARROLLO\Backup\Backup\bin\Debug\DevExpress.Sparkline.v13.2.Core.xml
